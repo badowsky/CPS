@@ -1,11 +1,11 @@
 package Model.Szum;
 
-import java.util.ArrayList;
 import java.util.Random;
 
-import Model.SygnalBase;
+import Model.Signal;
+import Model.SignalGenerator;
 
-public class Gaussowski extends SygnalBase {
+public class Gaussowski extends SignalGenerator {
 
 	public Gaussowski(){
 		name = "Szum Gaussowski";
@@ -13,32 +13,29 @@ public class Gaussowski extends SygnalBase {
 				"Starting Time",
 				"Time",
 				"Frequency",
-				"Amplitude"};
+				"Odchylenie std",
+				"Œrednia"};
 	}
 
 	@Override
-	public void generate() {
+	public Signal generate() {
 		double startingTime = params[0];
 		double time = params[1];
 		double frequency = params[2];
 		double revFreq = 1/frequency;
-		double amplitude = params[3];
+		double variance = params[3];
+		double mean = params[4];
 		
-		y = new ArrayList<Double>();
-		x = new ArrayList<Double>();
-		
-		Random gauss = new Random();
+		Signal result = new Signal();
 
-		for (double i = startingTime; i < time + startingTime - 1 / (2 * frequency); i = i + revFreq) {
-			double nextGaussianDouble = 0.0;
-			
-			do {
-				nextGaussianDouble = gauss.nextGaussian();
-			} while (nextGaussianDouble < -1 || nextGaussianDouble > 1);
-			
-			x.add(i);
-			y.add(nextGaussianDouble * amplitude);
+		Random rnd = new Random();
+		
+		for (double i = startingTime; i < time + startingTime - 1 / (2 * frequency); i = i + revFreq) {			
+			result.x.add(i);
+			result.y.add(rnd.nextGaussian() * Math.sqrt(variance) + mean);
 		}
+		
+		return result;
 	}
 
 }

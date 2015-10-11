@@ -1,10 +1,9 @@
 package Model.Sygnal;
 
-import java.util.ArrayList;
+import Model.Signal;
+import Model.SignalGenerator;
 
-import Model.SygnalBase;
-
-public class SinusWyprostDwupol extends SygnalBase {
+public class SinusWyprostDwupol extends SignalGenerator {
 
 	public SinusWyprostDwupol(){
 		name = "Sygna³ sinusoidalny wyprostowany dwupo³ówkowo";
@@ -17,7 +16,7 @@ public class SinusWyprostDwupol extends SygnalBase {
 	}
 
 	@Override
-	public void generate() {
+	public Signal generate() {
 		double startingTime = params[0];
 		double time = params[1];
 		double frequency = params[2];
@@ -25,13 +24,14 @@ public class SinusWyprostDwupol extends SygnalBase {
 		double amplitude = params[3];
 		double interval = params[4];
 		
-		y = new ArrayList<Double>();
-		x = new ArrayList<Double>();
+		Signal result = new Signal();
 		
 		for(double i = startingTime; i < time + startingTime - 1 / (2 * frequency); i = i + revFreq) {
-			x.add(i);
-			y.add(amplitude * Math.abs(Math.sin((2 * Math.PI / interval) * (i - startingTime))));
+			result.x.add(i);
+			result.y.add(amplitude * Math.abs(Math.sin((2 * Math.PI / interval) * (i - startingTime))));
 		}
+		
+		return result;
 	}
 
 }

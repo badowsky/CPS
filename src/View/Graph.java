@@ -2,6 +2,8 @@ package View;
 
 import java.util.ArrayList;
 
+import javax.swing.JComponent;
+
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartFrame;
 import org.jfree.chart.JFreeChart;
@@ -12,7 +14,7 @@ import org.jfree.data.xy.XYSeriesCollection;
 
 public class Graph {
 	
-	public static void drawGraph(String title, ArrayList<Double> x, ArrayList<Double> y) {
+	public static JFreeChart drawGraph(String title, ArrayList<Double> x, ArrayList<Double> y) {
 		
 		XYSeries series = new XYSeries("Signal");
 		
@@ -36,11 +38,13 @@ public class Graph {
 			false // Configure chart to generate URLs?
 		);
 		
-		//return chart;
 		
-    	ChartFrame graph = new ChartFrame(title, chart);
-    	graph.setSize(700,350);
-    	graph.setVisible(true);
+		
+//    	ChartFrame graph = new ChartFrame(title, chart);
+//    	graph.setSize(700,350);
+//    	graph.setVisible(true);
+    	
+    	return chart;
 		
 //		try {
 //			ChartUtilities.saveChartAsJPEG(new File("/home/patryk/Pulpit/graph"), chart, 500, 300);
@@ -49,11 +53,15 @@ public class Graph {
 //		}
 	}
 	
-	public static void drawHistogram(String title, double[] x, double[] y, int interval) {
+	public static JFreeChart drawHistogram(String title, ArrayList<Double> x, ArrayList<Double> y, int interval) {
 		HistogramDataset dataset = new HistogramDataset();
+	    double[] wartosci = new double[x.size()];
 	    
+    	for(int i = 0; i < y.size(); i++) {
+    		wartosci[i] = y.get(i);
+    	}
     	
-    	dataset.addSeries(title, y, interval);
+    	dataset.addSeries("",wartosci, interval);
 
     	JFreeChart chart = ChartFactory.createHistogram(
     		title,
@@ -66,8 +74,6 @@ public class Graph {
     		false
     	); 
     	
-    	ChartFrame histogram = new ChartFrame(title, chart);
-    	histogram.setSize(700,350);
-    	histogram.setVisible(true);
+    	return chart;
 	}
 }

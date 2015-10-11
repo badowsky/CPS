@@ -1,10 +1,9 @@
 package Model.Szum;
 
-import java.util.ArrayList;
+import Model.Signal;
+import Model.SignalGenerator;
 
-import Model.SygnalBase;
-
-public class Impulsowy extends SygnalBase {
+public class Impulsowy extends SignalGenerator {
 
 	public Impulsowy(){
 		name = "Szum impulsowy";
@@ -17,32 +16,33 @@ public class Impulsowy extends SygnalBase {
 	}
 
 	@Override
-	public void generate() {
+	public Signal generate() {
 		double startingTime = params[0];
 		double frequency = params[1];
 		double amplitude = params[2];
 		double sampling = params[3];
 		double p = params[4];
 		
-		y = new ArrayList<Double>();
-		x = new ArrayList<Double>();
+		Signal result = new Signal();
 		
 		int sampleNumber = 0;
 		
 		for (double i = startingTime; sampleNumber < sampling; i = i + 1 / frequency) {
 			double z = Math.random();
 			
-			x.add(i);
+			result.x.add(i);
 			
 			if (z <= p){
-				y.add(amplitude);
+				result.y.add(amplitude);
 			}
 			else {
-				y.add(0.0);
+				result.y.add(0.0);
 			}
 			
 			sampleNumber++;
 		}
+		
+		return result;
 	}
 
 }

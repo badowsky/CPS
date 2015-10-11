@@ -1,10 +1,9 @@
 package Model.Sygnal;
 
-import java.util.ArrayList;
+import Model.Signal;
+import Model.SignalGenerator;
 
-import Model.SygnalBase;
-
-public class Prostokatny extends SygnalBase {
+public class Prostokatny extends SignalGenerator {
 
 	public Prostokatny(){
 		name = "Sygna³ prostok¹tny";
@@ -18,7 +17,7 @@ public class Prostokatny extends SygnalBase {
 	}
 	
 	@Override
-	public void generate() {
+	public Signal generate() {
 		double startingTime = params[0];
 		double time = params[1];
 		double frequency = params[2];
@@ -28,26 +27,27 @@ public class Prostokatny extends SygnalBase {
 		double quantization = params[5];
 		double k = 0;
 		
-		y = new ArrayList<Double>();
-		x = new ArrayList<Double>();
+		Signal result = new Signal();
 		
 		for (double i = startingTime; i < time + startingTime - 1 / (2 * frequency); i = i + revFreq) {
 			if(i >= interval * (k + 1) + startingTime) {
 				k++;
 			}
 			
-			x.add(i);
+			result.x.add(i);
 			
 			if( i >= (k * interval + startingTime) && i < (quantization * interval + k * interval + startingTime)) {
-				y.add(amplitude);
+				result.y.add(amplitude);
 			} 
 			else if( i >= (quantization * interval - k * interval + startingTime) && i < (interval + k * interval + startingTime)) {
-				y.add(0.0);
+				result.y.add(0.0);
 			}
 			else {
-				y.add(0.0);
+				result.y.add(0.0);
 			}
 		}	
+		
+		return result;
 	}
 
 }
