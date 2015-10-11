@@ -1,8 +1,8 @@
-package Operation;
+package Model.Operation;
 
 import Model.Signal;
 
-public class Multiplication implements SignalOperation {
+public class Substraction implements SignalOperation {
 
 	@Override
 	public Signal DoOperation(Signal a, Signal b) {
@@ -10,7 +10,7 @@ public class Multiplication implements SignalOperation {
 
 		for (int i = 0; i < a.x.size(); i++) {
 			result.x.add(a.x.get(i));
-			result.y.add(a.y.get(i) * b.y.get(i));
+			result.y.add(a.y.get(i) - b.y.get(i));
 		}
 
 		return result;
@@ -18,7 +18,7 @@ public class Multiplication implements SignalOperation {
 	
 	@Override
 	public String toString() {
-		return "Mno¿enie";
+		return "Odejmowanie";
 	}
 
 }

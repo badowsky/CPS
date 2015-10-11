@@ -1,4 +1,4 @@
-package Operation;
+package Model.Operation;
 
 import Model.Signal;
 
