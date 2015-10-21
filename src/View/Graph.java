@@ -14,7 +14,7 @@ import org.jfree.data.xy.XYSeriesCollection;
 
 public class Graph {
 	
-	public static JFreeChart drawGraph(String title, ArrayList<Double> x, ArrayList<Double> y) {
+	public static JFreeChart drawGraph(String title, ArrayList<Double> x, ArrayList<Double> y, Boolean connectedPoint) {
 		
 		XYSeries series = new XYSeries("Signal");
 		
@@ -26,18 +26,32 @@ public class Graph {
 		XYSeriesCollection dataset = new XYSeriesCollection();
 		dataset.addSeries(series);
 		
-		// Generate the graph
-		JFreeChart chart = ChartFactory.createXYLineChart(
-			title, // Title
-			"t[s]", // x-axis Label
-			"A", // y-axis Label
-			dataset, // Dataset
-			PlotOrientation.VERTICAL, // Plot Orientation
-			false, // Show Legend
-			true, // Use tooltips
-			false // Configure chart to generate URLs?
-		);
+		JFreeChart chart = null;
 		
+		if (connectedPoint) {
+			chart = ChartFactory.createXYLineChart(
+				title, // Title
+				"t[s]", // x-axis Label
+				"A", // y-axis Label
+				dataset, // Dataset
+				PlotOrientation.VERTICAL, // Plot Orientation
+				false, // Show Legend
+				true, // Use tooltips
+				false // Configure chart to generate URLs?
+			);
+		}
+		else {
+			chart = ChartFactory.createScatterPlot(
+					title, // Title
+					"t[s]", // x-axis Label
+					"A", // y-axis Label
+					dataset, // Dataset
+					PlotOrientation.VERTICAL, // Plot Orientation
+					false, // Show Legend
+					true, // Use tooltips
+					false // Configure chart to generate URLs?
+				);
+		}
 		
 		
 //    	ChartFrame graph = new ChartFrame(title, chart);
