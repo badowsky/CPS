@@ -23,7 +23,7 @@ public class Impulsowy extends SignalGenerator {
 		double sampling = params[3];
 		double p = params[4];
 		
-		Signal result = new Signal();
+		Signal result = new Signal(false);
 		
 		int sampleNumber = 0;
 		

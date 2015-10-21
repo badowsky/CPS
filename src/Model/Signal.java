@@ -9,16 +9,21 @@ import View.Graph;
 public class Signal {
 	
 	public ArrayList<Double> x;
-	
 	public ArrayList<Double> y;
 	
+	private boolean continuousSignal;
+	
 	public Signal(){
+		this(true);
+	}
+	public Signal(boolean isContinous){
+		this.continuousSignal = isContinous;
 		y = new ArrayList<Double>();
 		x = new ArrayList<Double>();
 	}
 	
 	public JFreeChart getChart(String title){
-		return Graph.drawGraph(title, x, y);
+		return Graph.drawGraph(title, x, y, continuousSignal);
 	}
 	
 	public JFreeChart getHistogram(String title){

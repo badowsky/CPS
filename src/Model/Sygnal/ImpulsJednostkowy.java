@@ -22,7 +22,7 @@ public class ImpulsJednostkowy extends SignalGenerator {
 		double sampling = params[2];
 		double amplitude = params[3];
 		
-		Signal result = new Signal();
+		Signal result = new Signal(false);
 		
 		int sampleNumber = 0;
 		
