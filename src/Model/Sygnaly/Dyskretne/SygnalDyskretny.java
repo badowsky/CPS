@@ -1,36 +1,42 @@
-package Model;
+package Model.Sygnaly.Dyskretne;
 
 import java.util.ArrayList;
 
 import org.jfree.chart.JFreeChart;
 
+import Model.FunkcjeCiagle.FunkcjaCiagla;
 import View.Graph;
 
-public class Signal {
+public class SygnalDyskretny {
 	
 	public ArrayList<Double> x;
 	public ArrayList<Double> y;
 	
-	private boolean continuousSignal;
+	public FunkcjaCiagla funkcjaCiagla;
 	
-	public Signal(){
+	public static int HISTOGRAM_INTERVAL = 10;
+	private boolean REPRESENT_AS_CONTINUOUS;
+	
+	public SygnalDyskretny(){
 		this(true);
 	}
-	public Signal(boolean isContinous){
-		this.continuousSignal = isContinous;
+	
+	public SygnalDyskretny(boolean continuous){
+		this.REPRESENT_AS_CONTINUOUS = continuous;
 		y = new ArrayList<Double>();
 		x = new ArrayList<Double>();
 	}
 	
 	public JFreeChart getChart(String title){
-		return Graph.drawGraph(title, x, y, continuousSignal);
+		return Graph.drawGraph(title, x, y, REPRESENT_AS_CONTINUOUS);
 	}
 	
 	public JFreeChart getHistogram(String title){
-		return Graph.drawHistogram(title, x, y, 10);
+		return Graph.drawHistogram(title, x, y, HISTOGRAM_INTERVAL);
 	}
 	
 	public double wartoscSrednia() {
+		if(funkcjaCiagla != null) return funkcjaCiagla.srednia(); 
 		int n1 = 0;
 		int n2 = x.size();
 		double wartoscSrednia = 0.0;
@@ -43,6 +49,7 @@ public class Signal {
 	}
 	
 	public double wartoscSredniaBezwzgledna() {
+		if(funkcjaCiagla != null) return funkcjaCiagla.sredniaBezwzgledna(); 
 		int n1 = 0;
 		int n2 = x.size();
 		double wartoscSredniaBezwzgledna = 0.0;
@@ -55,10 +62,12 @@ public class Signal {
 	}
 	
 	public double wartoscSkuteczna() {
+		if(funkcjaCiagla != null) return funkcjaCiagla.wartoscSkuteczna(); 
 		return Math.sqrt(mocSrednia());	
 	}
 	
 	public double wariancja(){
+		if(funkcjaCiagla != null) return funkcjaCiagla.wariancja();
 		int n1 = 0;
 		int n2 = x.size();
 		double wariancja = 0.0;
@@ -71,6 +80,7 @@ public class Signal {
 	}
 	
 	public double mocSrednia(){
+		if(funkcjaCiagla != null) return funkcjaCiagla.mocSrednia();
 		int n1 = 0;
 		int n2 = x.size();
 		double mocSrednia = 0.0;

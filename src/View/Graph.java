@@ -2,10 +2,7 @@ package View;
 
 import java.util.ArrayList;
 
-import javax.swing.JComponent;
-
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartFrame;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.statistics.HistogramDataset;

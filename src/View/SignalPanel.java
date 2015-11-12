@@ -17,17 +17,20 @@ import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 
 import Helpers.MyCallable;
-import Model.SignalGenerator;
+import Model.FunkcjeCiagle.FunkcjaCiagla;
 
 public class SignalPanel extends JPanel {
 
 	private JPanel generationPartPanel;
-	private JComboBox<SignalGenerator> signalChooser;
+	private JComboBox<FunkcjaCiagla> signalChooser;
 	private JButton btnGenerate;
 	private JButton btnLoad;
 
-	private ArrayList<JTextField> Params;
 	private ArrayList<JLabel> ParamsNames;
+	private ArrayList<JTextField> Params;
+	
+	private JLabel chartFromName, chartStepName, chartToName;
+	private JTextField chartFrom, chartStep, chartTo;
 	private ChartPanel chartPanel;
 	private ChartPanel histogramPanel;
 
@@ -36,7 +39,7 @@ public class SignalPanel extends JPanel {
 	private MyCallable<JFreeChart> onChartChange;
 
 	private static int NumberOfParams = 6;
-	private static String[] DefaultParamsValues = { "0", "10", "100", "10", "5", "0.3" };
+	private static String[] DefaultParamsValues = { "10", "0", "3", "10", "5", "0.3" };
 
 	public SignalPanel() {
 		super();
@@ -55,7 +58,7 @@ public class SignalPanel extends JPanel {
 		generationPartPanel.setLayout(null);
 		this.add(generationPartPanel);
 		
-		signalChooser = new JComboBox<SignalGenerator>();
+		signalChooser = new JComboBox<FunkcjaCiagla>();
 		signalChooser.setBounds(70, 30, 200, 20);
 		generationPartPanel.add(signalChooser);
 
@@ -82,9 +85,29 @@ public class SignalPanel extends JPanel {
 			generationPartPanel.add(tmpParamTF);
 			Params.add(tmpParamTF);
 		}
+		
+		chartFromName = new JLabel("Podgl¹d od");
+		chartFromName.setBounds(407, 5, 70, 20);
+		this.add(chartFromName);
+		chartStepName = new JLabel("Czêstotliwoœæ próbkowania");
+		chartStepName.setBounds(670, 5, 200, 20);
+		this.add(chartStepName);
+		chartToName = new JLabel("Podgl¹d do");
+		chartToName.setBounds(1013, 5, 70, 20);
+		this.add(chartToName);
+		
+		chartFrom = new JTextField("-5");
+		chartFrom.setBounds(407, 25, 50, 20);
+		this.add(chartFrom);
+		chartStep = new JTextField("1000");
+		chartStep.setBounds(707, 25, 50, 20);
+		this.add(chartStep);
+		chartTo = new JTextField("5");
+		chartTo.setBounds(1019, 25, 50, 20);
+		this.add(chartTo);
 
 		btnLoad = new JButton("Wczytaj");
-		btnLoad.setBounds(980, 10, 89, 23);
+		btnLoad.setBounds(30, 5, 89, 23);
 		this.add(btnLoad);
 
 		chartPanel = new ChartPanel(null);
@@ -138,7 +161,7 @@ public class SignalPanel extends JPanel {
 		histogramPanelParent.repaint();
 	}
 
-	public JComboBox<SignalGenerator> getSignalChooser() {
+	public JComboBox<FunkcjaCiagla> getSignalChooser() {
 		return signalChooser;
 	}
 
@@ -152,6 +175,30 @@ public class SignalPanel extends JPanel {
 	
 	public void subscribeOnChartChange(MyCallable<JFreeChart> c){
 		this.onChartChange = c;
+	}
+
+	public JLabel getChartFromName() {
+		return chartFromName;
+	}
+
+	public JLabel getChartStepName() {
+		return chartStepName;
+	}
+
+	public JLabel getChartToName() {
+		return chartToName;
+	}
+
+	public JTextField getChartFrom() {
+		return chartFrom;
+	}
+
+	public JTextField getChartStep() {
+		return chartStep;
+	}
+
+	public JTextField getChartTo() {
+		return chartTo;
 	}
 
 }

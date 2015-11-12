@@ -4,6 +4,8 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 import javax.swing.JFileChooser;
@@ -15,24 +17,25 @@ import org.jfree.chart.JFreeChart;
 
 import Helpers.IOUtils;
 import Helpers.MyCallable;
-import Model.Signal;
-import Model.SignalGenerator;
-import Model.Operation.Addition;
-import Model.Operation.Divide;
-import Model.Operation.Multiplication;
-import Model.Operation.SignalOperation;
-import Model.Operation.Substraction;
-import Model.Sygnal.ImpulsJednostkowy;
-import Model.Sygnal.Prostokatny;
-import Model.Sygnal.ProstokatnySymetryczny;
-import Model.Sygnal.Sinus;
-import Model.Sygnal.SinusWyprostDwupol;
-import Model.Sygnal.SinusWyprostJednopol;
-import Model.Sygnal.SkokJednostkowy;
-import Model.Sygnal.Trojkatny;
-import Model.Szum.Gaussowski;
-import Model.Szum.Impulsowy;
-import Model.Szum.RozkladJednostajny;
+import Model.FunkcjeCiagle.FunkcjaCiagla;
+import Model.FunkcjeCiagle.Sygnaly.ImpulsJednostkowy;
+import Model.FunkcjeCiagle.Sygnaly.ProstokatnySymetryczny;
+import Model.FunkcjeCiagle.Sygnaly.Prostok¹tny;
+import Model.FunkcjeCiagle.Sygnaly.Sinus;
+import Model.FunkcjeCiagle.Sygnaly.SinusWyprostDwupol;
+import Model.FunkcjeCiagle.Sygnaly.SinusWyprostJednopol;
+import Model.FunkcjeCiagle.Sygnaly.SkokJednostkowy;
+import Model.FunkcjeCiagle.Sygnaly.Trojkatny;
+import Model.FunkcjeCiagle.Szumy.Gaussowski;
+import Model.FunkcjeCiagle.Szumy.Impulsowy;
+import Model.FunkcjeCiagle.Szumy.RozkladJednostajny;
+import Model.Konwersja.Próbkowanie;
+import Model.Operacje.Dodawanie;
+import Model.Operacje.Dzielenie;
+import Model.Operacje.Mnozenie;
+import Model.Operacje.Odejmowanie;
+import Model.Operacje.OperacjaNaSygnalach;
+import Model.Sygnaly.Dyskretne.SygnalDyskretny;
 import View.MainWindow;
 
 public class MainController {
@@ -40,9 +43,9 @@ public class MainController {
 	private MainWindow window;
 	private final JFileChooser fc = new JFileChooser();
 
-	private Signal firstSignal;
-	private Signal secondSignal;
-	private Signal resultSignal;
+	private SygnalDyskretny firstSignal;
+	private SygnalDyskretny secondSignal;
+	private SygnalDyskretny resultSignal;
 
 	/**
 	 * Launch the application.
@@ -82,7 +85,7 @@ public class MainController {
 		window.firstSignalPanel.getSignalChooser().addItem(new Sinus());
 		window.firstSignalPanel.getSignalChooser().addItem(new SinusWyprostJednopol());
 		window.firstSignalPanel.getSignalChooser().addItem(new SinusWyprostDwupol());
-		window.firstSignalPanel.getSignalChooser().addItem(new Prostokatny());
+		window.firstSignalPanel.getSignalChooser().addItem(new Prostok¹tny());
 		window.firstSignalPanel.getSignalChooser().addItem(new ProstokatnySymetryczny());
 		window.firstSignalPanel.getSignalChooser().addItem(new Trojkatny());
 		window.firstSignalPanel.getSignalChooser().addItem(new SkokJednostkowy());
@@ -95,7 +98,7 @@ public class MainController {
 		window.secondSignalPanel.getSignalChooser().addItem(new Sinus());
 		window.secondSignalPanel.getSignalChooser().addItem(new SinusWyprostJednopol());
 		window.secondSignalPanel.getSignalChooser().addItem(new SinusWyprostDwupol());
-		window.secondSignalPanel.getSignalChooser().addItem(new Prostokatny());
+		window.secondSignalPanel.getSignalChooser().addItem(new Prostok¹tny());
 		window.secondSignalPanel.getSignalChooser().addItem(new ProstokatnySymetryczny());
 		window.secondSignalPanel.getSignalChooser().addItem(new Trojkatny());
 		window.secondSignalPanel.getSignalChooser().addItem(new SkokJednostkowy());
@@ -105,10 +108,10 @@ public class MainController {
 		window.secondSignalPanel.getSignalChooser().addItem(new Gaussowski());
 		window.secondSignalPanel.getSignalChooser().addItem(new Impulsowy());
 
-		window.resultSignalPanel.getOperations().addItem(new Addition());
-		window.resultSignalPanel.getOperations().addItem(new Substraction());
-		window.resultSignalPanel.getOperations().addItem(new Multiplication());
-		window.resultSignalPanel.getOperations().addItem(new Divide());
+		window.resultSignalPanel.getOperations().addItem(new Dodawanie());
+		window.resultSignalPanel.getOperations().addItem(new Odejmowanie());
+		window.resultSignalPanel.getOperations().addItem(new Mnozenie());
+		window.resultSignalPanel.getOperations().addItem(new Dzielenie());
 	}
 
 	private void reloadSignal1Charts() {
@@ -146,24 +149,26 @@ public class MainController {
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			SignalGenerator generator = (SignalGenerator) window.firstSignalPanel.getSignalChooser().getSelectedItem();
-			ArrayList<Double> params = new ArrayList<Double>();
-			try {
-				for (JTextField field : window.firstSignalPanel.getParamsFields()) {
-					if (field.isVisible())
-						params.add(Double.parseDouble(field.getText()));
+				ArrayList<Double> params = new ArrayList<Double>();
+				try {
+					for (JTextField field : window.firstSignalPanel.getParamsFields()) {
+						if (field.isVisible())
+							params.add(Double.parseDouble(field.getText()));
+					}
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(window.frame,
+							"Parametry które zosta³y wprowadzone nie s¹ poprawne. WprowadŸ poprawne liczby.",
+							"B³¹d podczas przetwarzania parametrów...", JOptionPane.ERROR_MESSAGE);
+					return;
 				}
-			} catch (Exception e) {
-				JOptionPane.showMessageDialog(window.frame,
-						"Parametry które zosta³y wprowadzone nie s¹ poprawne. WprowadŸ poprawne liczby.",
-						"B³¹d podczas przetwarzania parametrów...", JOptionPane.ERROR_MESSAGE);
-				return;
-			}
+				Double[] parameters = params.toArray(new Double[params.size()]);
+				FunkcjaCiagla funkcja = (FunkcjaCiagla) window.firstSignalPanel.getSignalChooser().getSelectedItem();
+				funkcja.setParams(parameters);
+				firstSignal = Próbkowanie.próbkuj(funkcja, Double.parseDouble(window.firstSignalPanel.getChartFrom().getText()), Double.parseDouble(window.firstSignalPanel.getChartStep().getText()), Double.parseDouble(window.firstSignalPanel.getChartTo().getText()));
+				firstSignal.funkcjaCiagla = funkcja;
+				reloadSignal1Charts();
+				updateSignal1Params();
 
-			generator.setParams(params);
-			firstSignal = generator.generate();
-			reloadSignal1Charts();
-			updateSignal1Params();
 		}
 	};
 
@@ -171,23 +176,25 @@ public class MainController {
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			SignalGenerator generator = (SignalGenerator) window.secondSignalPanel.getSignalChooser().getSelectedItem();
-			ArrayList<Double> params = new ArrayList<Double>();
-			try {
-				for (JTextField field : window.secondSignalPanel.getParamsFields()) {
-					if (field.isVisible())
-						params.add(Double.parseDouble(field.getText()));
+				ArrayList<Double> params = new ArrayList<Double>();
+				try {
+					for (JTextField field : window.secondSignalPanel.getParamsFields()) {
+						if (field.isVisible())
+							params.add(Double.parseDouble(field.getText()));
+					}
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(window.frame,
+							"Parametry które zosta³y wprowadzone nie s¹ poprawne. WprowadŸ poprawne liczby.",
+							"B³¹d podczas przetwarzania parametrów...", JOptionPane.ERROR_MESSAGE);
+					return;
 				}
-			} catch (Exception e) {
-				JOptionPane.showMessageDialog(window.frame,
-						"Parametry które zosta³y wprowadzone nie s¹ poprawne. WprowadŸ poprawne liczby.",
-						"B³¹d podczas przetwarzania parametrów...", JOptionPane.ERROR_MESSAGE);
-				return;
-			}
-			generator.setParams(params);
-			secondSignal = generator.generate();
-			reloadSignal2Charts();
-			updateSignal2Params();
+				Double[] parameters = params.toArray(new Double[params.size()]);
+				FunkcjaCiagla funkcja = (FunkcjaCiagla) window.secondSignalPanel.getSignalChooser().getSelectedItem();
+				funkcja.setParams(parameters);
+				secondSignal = Próbkowanie.próbkuj(funkcja, Double.parseDouble(window.secondSignalPanel.getChartFrom().getText()), Double.parseDouble(window.secondSignalPanel.getChartStep().getText()), Double.parseDouble(window.secondSignalPanel.getChartTo().getText()));
+				secondSignal.funkcjaCiagla = funkcja;
+				reloadSignal2Charts();
+				updateSignal2Params();
 		}
 	};
 
@@ -195,8 +202,8 @@ public class MainController {
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			SignalGenerator sig = (SignalGenerator) window.firstSignalPanel.getSignalChooser().getSelectedItem();
-			window.firstSignalPanel.setParamsNames(sig.paramsNames);
+			FunkcjaCiagla sig = (FunkcjaCiagla) window.firstSignalPanel.getSignalChooser().getSelectedItem();
+			window.firstSignalPanel.setParamsNames(sig.getParametersNames());
 		}
 
 	};
@@ -205,8 +212,8 @@ public class MainController {
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			SignalGenerator sig = (SignalGenerator) window.secondSignalPanel.getSignalChooser().getSelectedItem();
-			window.secondSignalPanel.setParamsNames(sig.paramsNames);
+			FunkcjaCiagla sig = (FunkcjaCiagla) window.secondSignalPanel.getSignalChooser().getSelectedItem();
+			window.secondSignalPanel.setParamsNames(sig.getParametersNames());
 		}
 
 	};
@@ -272,7 +279,8 @@ public class MainController {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			SignalOperation operation = (SignalOperation) window.resultSignalPanel.getOperations().getSelectedItem();
+			OperacjaNaSygnalach operation = (OperacjaNaSygnalach) window.resultSignalPanel.getOperations()
+					.getSelectedItem();
 			resultSignal = operation.DoOperation(firstSignal, secondSignal);
 			reloadSignal3Charts();
 		}

@@ -9,12 +9,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import Model.Signal;
+import Model.Sygnaly.Dyskretne.SygnalDyskretny;
 
 public class IOUtils {
 
-	public static Signal LoadSignal(File file) {
-		Signal signal = new Signal();
+	public static SygnalDyskretny LoadSignal(File file) {
+		SygnalDyskretny signal = new SygnalDyskretny();
 		BufferedReader in = null;
 		ArrayList<Double> x = new ArrayList<Double>();
 		ArrayList<Double> y = new ArrayList<Double>();
@@ -51,7 +51,7 @@ public class IOUtils {
 		return signal;
 	}
 
-	public static void SaveSignal(File file, Signal signal){
+	public static void SaveSignal(File file, SygnalDyskretny signal){
 		BufferedWriter out = null;
 		try {
 			out = new BufferedWriter(new FileWriter(file));

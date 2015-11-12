@@ -10,7 +10,7 @@ import javax.swing.border.LineBorder;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 
-import Model.Operation.SignalOperation;
+import Model.Operacje.OperacjaNaSygnalach;
 
 public class ResultSignalPanel extends JPanel {
 
@@ -20,7 +20,7 @@ public class ResultSignalPanel extends JPanel {
 	private ChartPanel panelSecondSignalPrev;
 	private ChartPanel panelFirstSignalPrev;
 	private JButton btnSaveResult;
-	private JComboBox<SignalOperation> operations;
+	private JComboBox<OperacjaNaSygnalach> operations;
 	
 	public ResultSignalPanel(){
 		this.initialize();
@@ -41,7 +41,7 @@ public class ResultSignalPanel extends JPanel {
 		btnDoOperation.setBounds(262, 292, 130, 40);
 		this.add(btnDoOperation);
 
-		operations = new JComboBox<SignalOperation>();
+		operations = new JComboBox<OperacjaNaSygnalach>();
 		operations.setBounds(262, 268, 130, 20);
 		this.add(operations);
 
@@ -70,7 +70,7 @@ public class ResultSignalPanel extends JPanel {
 		histogramPanel.getParent().repaint();
 	}
 
-	public JComboBox<SignalOperation> getOperations() {
+	public JComboBox<OperacjaNaSygnalach> getOperations() {
 		return operations;
 	}
 
