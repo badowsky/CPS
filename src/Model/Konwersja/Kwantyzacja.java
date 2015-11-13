@@ -11,6 +11,8 @@ abstract public class Kwantyzacja {
 		this.ileStopni = ileStopni;
 	}
 
-	public abstract SygnalDyskretny kwantyzuj(FunkcjaCiagla sygnal, double poczatek, int czestotliwosc, double koniec);
+	public abstract SygnalDyskretny kwantyzuj(FunkcjaCiagla sygnal, double poczatek, int czestotliwosc, double koniec, int ileStopni);
+	
+	public abstract String toString();
 
 }

@@ -1,6 +1,5 @@
 package Model.Konwersja;
 
-import java.util.ArrayList;
 import java.util.TreeSet;
 
 import Model.FunkcjeCiagle.FunkcjaCiagla;
@@ -13,7 +12,7 @@ public class KwantyzacjaZObcieciem extends Kwantyzacja {
 		super(ileStopni);
 	}
 
-	public SygnalDyskretny kwantyzuj(FunkcjaCiagla sygnal, double poczatek, int czestotliwosc, double koniec) {
+	public SygnalDyskretny kwantyzuj(FunkcjaCiagla sygnal, double poczatek, int czestotliwosc, double koniec, int ileStopni) {
 		
 		SygnalDyskretny discreteSignal = Próbkowanie.próbkuj(sygnal, poczatek, czestotliwosc, koniec);
 		
@@ -50,6 +49,11 @@ public class KwantyzacjaZObcieciem extends Kwantyzacja {
 		}
 		
 		return discreteSignalReturn;
+	}
+	
+	@Override
+	public String toString() {
+		return "Kwantyzacja z obciêciem";
 	}
 	
 }

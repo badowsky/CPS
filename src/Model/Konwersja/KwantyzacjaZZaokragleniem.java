@@ -9,9 +9,14 @@ public class KwantyzacjaZZaokragleniem extends Kwantyzacja {
 		super(ileStopni);
 	}
 
-	public SygnalDyskretny kwantyzuj(FunkcjaCiagla sygnal, double poczatek, int czestotliwosc, double koniec) {
+	public SygnalDyskretny kwantyzuj(FunkcjaCiagla sygnal, double poczatek, int czestotliwosc, double koniec, int ileStopni) {
 
 		return null;
+	}
+	
+	@Override
+	public String toString() {
+		return "Kwantyzacja z zaok¹gleniem";
 	}
 
 }
