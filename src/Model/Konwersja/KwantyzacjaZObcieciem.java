@@ -15,9 +15,6 @@ public class KwantyzacjaZObcieciem extends Kwantyzacja {
 
 	public SygnalDyskretny kwantyzuj(FunkcjaCiagla sygnal, double poczatek, int czestotliwosc, double koniec) {
 		
-		ArrayList <Double> quantizedSignalX = new ArrayList<Double>();
-		ArrayList <Double> quantizedSignalY = new ArrayList<Double>();
-		
 		SygnalDyskretny discreteSignal = Próbkowanie.próbkuj(sygnal, poczatek, czestotliwosc, koniec);
 		
 		double max = discreteSignal.x.get(0);
@@ -42,15 +39,17 @@ public class KwantyzacjaZObcieciem extends Kwantyzacja {
 			treeSet.add(min + ((sub / (ileStopni)) * i));
 		}
 	
+		SygnalDyskretny discreteSignalReturn = new SygnalDyskretny();
+		
 		for (int i=0; i<discreteSignal.y.size(); i++) {
 			Double tempX, tempY;
 			tempX = discreteSignal.x.get(i);
 			tempY = treeSet.floor(discreteSignal.y.get(i));
-			quantizedSignalX.add(tempX);
-			quantizedSignalY.add(tempY);
+			discreteSignalReturn.x.add(tempX);
+			discreteSignalReturn.y.add(tempY);
 		}
 		
-		return null;
+		return discreteSignalReturn;
 	}
 	
 }
