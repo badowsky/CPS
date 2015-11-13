@@ -9,9 +9,8 @@ public class KwantyzacjaZZaokragleniem extends Kwantyzacja {
 		super(ileStopni);
 	}
 
-	
-	public SygnalDyskretny kwantyzuj(FunkcjaCiagla sygnalCiagly) {
-		
+	public SygnalDyskretny kwantyzuj(FunkcjaCiagla sygnal, double poczatek, int czestotliwosc, double koniec) {
+
 		return null;
 	}
 
