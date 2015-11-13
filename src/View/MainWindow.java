@@ -20,7 +20,7 @@ public class MainWindow {
 	public PanelSygnalu panelDrugiegoSygnalu;
 	public PanelOperacji panelWynikuOperacji;
 	public PanelKonwersji panelKonwersji;
-
+	public PanelKwantyzacji panelKwantyzacji;
 
 
 	/**
@@ -66,9 +66,14 @@ public class MainWindow {
 		panelWynikuOperacji.setLayout(null);
 		tabbedPane.addTab("Operacje", null, panelWynikuOperacji, null);
 		
+		panelKwantyzacji = new PanelKwantyzacji();
+		panelKwantyzacji.setLayout(null);
+		tabbedPane.add("Kwantyzacja", panelKwantyzacji);
+		
 		panelKonwersji = new PanelKonwersji();
 		panelKonwersji.setLayout(null);
 		tabbedPane.add("Konwersja", panelKonwersji);
+		
 
 		panelWynikuOperacji.setLayout(null);
 

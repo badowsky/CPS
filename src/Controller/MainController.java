@@ -30,6 +30,9 @@ import Model.FunkcjeCiagle.Szumy.Impulsowy;
 import Model.FunkcjeCiagle.Szumy.RozkladJednostajny;
 import Model.Konwersja.FirstOrderHold;
 import Model.Konwersja.KonwersjaCA;
+import Model.Konwersja.Kwantyzacja;
+import Model.Konwersja.KwantyzacjaZObcieciem;
+import Model.Konwersja.KwantyzacjaZZaokragleniem;
 import Model.Konwersja.Próbkowanie;
 import Model.Konwersja.ZeroOrderHold;
 import Model.Operacje.Dodawanie;
@@ -82,6 +85,7 @@ public class MainController {
 		window.panelDrugiegoSygnalu.getBtnLoad().addActionListener(loadSecondSigListener);
 		window.panelWynikuOperacji.getBtnDoOperation().addActionListener(doOperationListener);
 		window.panelWynikuOperacji.getBtnSaveResult().addActionListener(saveResultSigListener);
+		window.panelKwantyzacji.getBtnKwantyzuj().addActionListener(btnKwantyzujListener);
 
 		window.panelPierwszegoSygnalu.subscribeOnChartChange(updateFirstSignalPreview);
 		window.panelDrugiegoSygnalu.subscribeOnChartChange(updateSecondSignalPreview);
@@ -91,6 +95,9 @@ public class MainController {
 		window.panelKonwersji.getKonwersja().addActionListener(zmianaMetodyOdtworzeniaListener);
 		window.panelKonwersji.getBtnProbkuj().addActionListener(btnProbkujSygnalListener);
 		window.panelKonwersji.getBtnOdtworz().addActionListener(btnOdtworzSygnalListener);
+		
+		window.panelKwantyzacji.getWyborSygnaluPierwszego().addActionListener(zmianaSygnaluDoKwantyzacji);
+		window.panelKwantyzacji.getWyborSygnaluDrugiego().addActionListener(zmianaSygnaluDoKwantyzacji);
 
 		window.panelPierwszegoSygnalu.getSignalChooser().addItem(new Sinus());
 		window.panelPierwszegoSygnalu.getSignalChooser().addItem(new SinusWyprostJednopol());
@@ -125,6 +132,9 @@ public class MainController {
 		
 		window.panelKonwersji.getKonwersja().addItem(new ZeroOrderHold());
 		window.panelKonwersji.getKonwersja().addItem(new FirstOrderHold());
+		
+		window.panelKwantyzacji.getKwantyzacja().addItem(new KwantyzacjaZObcieciem(10));
+		window.panelKwantyzacji.getKwantyzacja().addItem(new KwantyzacjaZZaokragleniem(10));
 		
 		
 	}
@@ -321,6 +331,23 @@ public class MainController {
 		}
 	};
 	
+	private ActionListener zmianaSygnaluDoKwantyzacji = new ActionListener() {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			
+			if(window.panelKwantyzacji.getWyborSygnaluPierwszego().isSelected()){
+				window.panelKwantyzacji.setChart(window.panelPierwszegoSygnalu.getChartPanel().getChart());
+				window.panelKwantyzacji.setSygnalDoKwantyzacji((FunkcjaCiagla)window.panelPierwszegoSygnalu.getSignalChooser().getSelectedItem());
+				window.panelKwantyzacji.repaint();
+			}else if(window.panelKwantyzacji.getWyborSygnaluDrugiego().isSelected()){
+				window.panelKwantyzacji.setChart(window.panelDrugiegoSygnalu.getChartPanel().getChart());
+				window.panelKwantyzacji.setSygnalDoKwantyzacji((FunkcjaCiagla)window.panelDrugiegoSygnalu.getSignalChooser().getSelectedItem());
+				window.panelKwantyzacji.repaint();
+			}
+		}
+	};
+	
 	private ActionListener zmianaMetodyOdtworzeniaListener = new ActionListener() {
 		
 		@Override
@@ -350,7 +377,7 @@ public class MainController {
 			boolean showAsContinuous = true;
 			SygnalDyskretny odwzorowanieCiaglegoSygOdtworzonego = Próbkowanie.próbkuj(konwersja, Double.parseDouble(window.panelKonwersji.getChartFrom().getText()), CZEST_PROB_F_CIAG, Double.parseDouble(window.panelKonwersji.getChartTo().getText()), showAsContinuous);
 			window.panelKonwersji.setHistogram(odwzorowanieCiaglegoSygOdtworzonego.getChart(""));
-			oblicMiaryPodobienstwa();
+			oblicMiaryPodobienstwaKonwersji();
 		}
 	};
 
@@ -360,9 +387,15 @@ public class MainController {
 		public void call(JFreeChart chart) {
 			window.panelWynikuOperacji.getPanelFirstSignalPrev().setChart(chart);
 			window.panelWynikuOperacji.repaint();
+			
 			if(window.panelKonwersji.getWyborSygnaluPierwszego().isSelected()){
 				window.panelKonwersji.getPodgladSygnalu().setChart(chart);
 				window.panelKonwersji.setSygnalDoProbkowania((FunkcjaCiagla)window.panelPierwszegoSygnalu.getSignalChooser().getSelectedItem());
+			}
+			
+			if(window.panelKwantyzacji.getWyborSygnaluPierwszego().isSelected()){
+				window.panelKwantyzacji.setChart(window.panelPierwszegoSygnalu.getChartPanel().getChart());
+				window.panelKwantyzacji.setSygnalDoKwantyzacji((FunkcjaCiagla)window.panelPierwszegoSygnalu.getSignalChooser().getSelectedItem());
 			}
 
 		}
@@ -378,10 +411,26 @@ public class MainController {
 				window.panelKonwersji.getPodgladSygnalu().setChart(chart);
 				window.panelKonwersji.setSygnalDoProbkowania((FunkcjaCiagla)window.panelDrugiegoSygnalu.getSignalChooser().getSelectedItem());
 			}
+			
+			if(window.panelKwantyzacji.getWyborSygnaluDrugiego().isSelected()){
+				window.panelKwantyzacji.setChart(window.panelDrugiegoSygnalu.getChartPanel().getChart());
+				window.panelKwantyzacji.setSygnalDoKwantyzacji((FunkcjaCiagla)window.panelDrugiegoSygnalu.getSignalChooser().getSelectedItem());
+			}
 		}
 	};
 	
-	private void oblicMiaryPodobienstwa(){
+	private ActionListener btnKwantyzujListener = new ActionListener() {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			Kwantyzacja kwantyzacja = (Kwantyzacja)window.panelKwantyzacji.getKwantyzacja().getSelectedItem();
+			SygnalDyskretny skwantyzowany = kwantyzacja.kwantyzuj(window.panelKwantyzacji.getSygnalDoKwantyzacji(), Double.parseDouble(window.panelKonwersji.getChartFrom().getText()), CZEST_PROB_F_CIAG, Double.parseDouble(window.panelKonwersji.getChartTo().getText()), 10);
+			window.panelKwantyzacji.setSecondChart(skwantyzowany.getChart(""));
+			oblicMiaryPodobienstwaKonwersji();
+		}
+	};
+	
+	private void oblicMiaryPodobienstwaKonwersji(){
 		double poczatek = Double.parseDouble(window.panelKonwersji.getChartFrom().getText());
 		double koniec = Double.parseDouble(window.panelKonwersji.getChartTo().getText());
 		int czestotliwosc = CZEST_PROB_F_CIAG;
