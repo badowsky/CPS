@@ -426,7 +426,6 @@ public class MainController {
 			Kwantyzacja kwantyzacja = (Kwantyzacja)window.panelKwantyzacji.getKwantyzacja().getSelectedItem();
 			SygnalDyskretny skwantyzowany = kwantyzacja.kwantyzuj(window.panelKwantyzacji.getSygnalDoKwantyzacji(), Double.parseDouble(window.panelKonwersji.getChartFrom().getText()), CZEST_PROB_F_CIAG, Double.parseDouble(window.panelKonwersji.getChartTo().getText()), Integer.parseInt(window.panelKwantyzacji.getIloscStopniVal().getText()));
 			window.panelKwantyzacji.setSecondChart(skwantyzowany.getChart(""));
-			oblicMiaryPodobienstwaKonwersji();
 		}
 	};
 	
