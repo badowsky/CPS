@@ -30,17 +30,17 @@ public class ProstokatnySymetryczny extends FunkcjaCiagla {
 	}
 
 	@Override
-	public double srednia() {
+	public Double srednia() {
 		return amplituda * (2 * wspWypelnienia - 1);
 	}
 
 	@Override
-	public double sredniaBezwzgledna() {
+	public Double sredniaBezwzgledna() {
 		return amplituda;
 	}
 
 	@Override
-	public double mocSrednia() {
+	public Double mocSrednia() {
 		return amplituda * amplituda;
 	}
 

@@ -35,17 +35,17 @@ public class Trojkatny extends FunkcjaCiagla {
 	}
 	
 	@Override
-	public double srednia(){
+	public Double srednia(){
 		return amplituda/2;
 	}
 	
 	@Override
-	public double sredniaBezwzgledna(){
+	public Double sredniaBezwzgledna(){
 		return amplituda/2;
 	}
 	
 	@Override
-	public double mocSrednia(){
+	public Double mocSrednia(){
 		return amplituda * (wspWypelnienia - (wspWypelnienia * wspWypelnienia + 1) / 2) / (wspWypelnienia - 1) + amplituda * wspWypelnienia * okres / 2;
 	}
 

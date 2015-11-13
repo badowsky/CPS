@@ -12,7 +12,7 @@ import org.jfree.chart.JFreeChart;
 
 import Model.Operacje.OperacjaNaSygnalach;
 
-public class ResultSignalPanel extends JPanel {
+public class PanelOperacji extends JPanel {
 
 	private ChartPanel chartPanel;
 	private ChartPanel histogramPanel;
@@ -22,18 +22,18 @@ public class ResultSignalPanel extends JPanel {
 	private JButton btnSaveResult;
 	private JComboBox<OperacjaNaSygnalach> operations;
 	
-	public ResultSignalPanel(){
+	public PanelOperacji(){
 		this.initialize();
 	}
 	
 	private void initialize(){
 		chartPanel = new ChartPanel(null);
-		chartPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
+		chartPanel.setBorder(new LineBorder(new Color(105, 105, 105)));
 		chartPanel.setBounds(402, 30, 667, 258);
 		this.add(chartPanel);
 
 		histogramPanel = new ChartPanel(null);
-		histogramPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
+		histogramPanel.setBorder(new LineBorder(new Color(105, 105, 105)));
 		histogramPanel.setBounds(402, 292, 667, 258);
 		this.add(histogramPanel);
 

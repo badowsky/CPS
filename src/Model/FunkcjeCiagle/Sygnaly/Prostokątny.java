@@ -35,17 +35,17 @@ public class Prostok¹tny extends FunkcjaCiagla {
 	}
 	
 	@Override
-	public double srednia(){
+	public Double srednia(){
 		return amplituda * wspWypelnienia;
 	}
 	
 	@Override
-	public double sredniaBezwzgledna(){
+	public Double sredniaBezwzgledna(){
 		return amplituda * wspWypelnienia;
 	}
 	
 	@Override
-	public double mocSrednia(){
+	public Double mocSrednia(){
 		return amplituda * amplituda * wspWypelnienia;
 	}
 

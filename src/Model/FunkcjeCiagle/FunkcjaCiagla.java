@@ -18,23 +18,24 @@ public abstract class FunkcjaCiagla {
 		return name;
 	}
 	
-	public double srednia(){
-		return -1.777;
+	public Double srednia(){
+		return null;
 	}
 	
-	public double sredniaBezwzgledna(){
-		return -1.777;
+	public Double sredniaBezwzgledna(){
+		return null;
 	}
 	
-	public double mocSrednia(){
-		return -1.777;
+	public Double mocSrednia(){
+		return null;
 	}
 	
-	public double wariancja(){
-		return -1.777;
+	public Double wariancja(){
+		return null;
 	}
 	
-	public double wartoscSkuteczna(){
+	public Double wartoscSkuteczna(){
+		if(mocSrednia() == null) return null;
 		return Math.sqrt(mocSrednia());
 	}
 

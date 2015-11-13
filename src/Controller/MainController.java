@@ -4,8 +4,6 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 import javax.swing.JFileChooser;
@@ -17,6 +15,7 @@ import org.jfree.chart.JFreeChart;
 
 import Helpers.IOUtils;
 import Helpers.MyCallable;
+import Model.MiaryPodobienstwa;
 import Model.FunkcjeCiagle.FunkcjaCiagla;
 import Model.FunkcjeCiagle.Sygnaly.ImpulsJednostkowy;
 import Model.FunkcjeCiagle.Sygnaly.ProstokatnySymetryczny;
@@ -29,7 +28,10 @@ import Model.FunkcjeCiagle.Sygnaly.Trojkatny;
 import Model.FunkcjeCiagle.Szumy.Gaussowski;
 import Model.FunkcjeCiagle.Szumy.Impulsowy;
 import Model.FunkcjeCiagle.Szumy.RozkladJednostajny;
+import Model.Konwersja.FirstOrderHold;
+import Model.Konwersja.KonwersjaCA;
 import Model.Konwersja.Próbkowanie;
+import Model.Konwersja.ZeroOrderHold;
 import Model.Operacje.Dodawanie;
 import Model.Operacje.Dzielenie;
 import Model.Operacje.Mnozenie;
@@ -46,6 +48,8 @@ public class MainController {
 	private SygnalDyskretny firstSignal;
 	private SygnalDyskretny secondSignal;
 	private SygnalDyskretny resultSignal;
+	
+	private static final int CZEST_PROB_F_CIAG = 1000;
 
 	/**
 	 * Launch the application.
@@ -70,79 +74,90 @@ public class MainController {
 	}
 
 	private void initialize() {
-		window.firstSignalPanel.getBtnGenerate().addActionListener(btnGenSig1Listener);
-		window.secondSignalPanel.getBtnGenerate().addActionListener(btnGenSig2Listener);
-		window.firstSignalPanel.getSignalChooser().addActionListener(firstSigListener);
-		window.secondSignalPanel.getSignalChooser().addActionListener(secondSigListener);
-		window.firstSignalPanel.getBtnLoad().addActionListener(loadFirstSigListener);
-		window.secondSignalPanel.getBtnLoad().addActionListener(loadSecondSigListener);
-		window.resultSignalPanel.getBtnDoOperation().addActionListener(doOperationListener);
-		window.resultSignalPanel.getBtnSaveResult().addActionListener(saveResultSigListener);
+		window.panelPierwszegoSygnalu.getBtnGenerate().addActionListener(btnGenSig1Listener);
+		window.panelDrugiegoSygnalu.getBtnGenerate().addActionListener(btnGenSig2Listener);
+		window.panelPierwszegoSygnalu.getSignalChooser().addActionListener(firstSigListener);
+		window.panelDrugiegoSygnalu.getSignalChooser().addActionListener(secondSigListener);
+		window.panelPierwszegoSygnalu.getBtnLoad().addActionListener(loadFirstSigListener);
+		window.panelDrugiegoSygnalu.getBtnLoad().addActionListener(loadSecondSigListener);
+		window.panelWynikuOperacji.getBtnDoOperation().addActionListener(doOperationListener);
+		window.panelWynikuOperacji.getBtnSaveResult().addActionListener(saveResultSigListener);
 
-		window.firstSignalPanel.subscribeOnChartChange(updateFirstSignalPreview);
-		window.secondSignalPanel.subscribeOnChartChange(updateSecondSignalPreview);
+		window.panelPierwszegoSygnalu.subscribeOnChartChange(updateFirstSignalPreview);
+		window.panelDrugiegoSygnalu.subscribeOnChartChange(updateSecondSignalPreview);
+		
+		window.panelKonwersji.getWyborSygnaluPierwszego().addActionListener(zmianaSygnaluDoKonwersji);
+		window.panelKonwersji.getWyborSygnaluDrugiego().addActionListener(zmianaSygnaluDoKonwersji);
+		window.panelKonwersji.getKonwersja().addActionListener(zmianaMetodyOdtworzeniaListener);
+		window.panelKonwersji.getBtnProbkuj().addActionListener(btnProbkujSygnalListener);
+		window.panelKonwersji.getBtnOdtworz().addActionListener(btnOdtworzSygnalListener);
 
-		window.firstSignalPanel.getSignalChooser().addItem(new Sinus());
-		window.firstSignalPanel.getSignalChooser().addItem(new SinusWyprostJednopol());
-		window.firstSignalPanel.getSignalChooser().addItem(new SinusWyprostDwupol());
-		window.firstSignalPanel.getSignalChooser().addItem(new Prostok¹tny());
-		window.firstSignalPanel.getSignalChooser().addItem(new ProstokatnySymetryczny());
-		window.firstSignalPanel.getSignalChooser().addItem(new Trojkatny());
-		window.firstSignalPanel.getSignalChooser().addItem(new SkokJednostkowy());
-		window.firstSignalPanel.getSignalChooser().addItem(new ImpulsJednostkowy());
+		window.panelPierwszegoSygnalu.getSignalChooser().addItem(new Sinus());
+		window.panelPierwszegoSygnalu.getSignalChooser().addItem(new SinusWyprostJednopol());
+		window.panelPierwszegoSygnalu.getSignalChooser().addItem(new SinusWyprostDwupol());
+		window.panelPierwszegoSygnalu.getSignalChooser().addItem(new Prostok¹tny());
+		window.panelPierwszegoSygnalu.getSignalChooser().addItem(new ProstokatnySymetryczny());
+		window.panelPierwszegoSygnalu.getSignalChooser().addItem(new Trojkatny());
+		window.panelPierwszegoSygnalu.getSignalChooser().addItem(new SkokJednostkowy());
+		window.panelPierwszegoSygnalu.getSignalChooser().addItem(new ImpulsJednostkowy());
 
-		window.firstSignalPanel.getSignalChooser().addItem(new RozkladJednostajny());
-		window.firstSignalPanel.getSignalChooser().addItem(new Gaussowski());
-		window.firstSignalPanel.getSignalChooser().addItem(new Impulsowy());
+		window.panelPierwszegoSygnalu.getSignalChooser().addItem(new RozkladJednostajny());
+		window.panelPierwszegoSygnalu.getSignalChooser().addItem(new Gaussowski());
+		window.panelPierwszegoSygnalu.getSignalChooser().addItem(new Impulsowy());
 
-		window.secondSignalPanel.getSignalChooser().addItem(new Sinus());
-		window.secondSignalPanel.getSignalChooser().addItem(new SinusWyprostJednopol());
-		window.secondSignalPanel.getSignalChooser().addItem(new SinusWyprostDwupol());
-		window.secondSignalPanel.getSignalChooser().addItem(new Prostok¹tny());
-		window.secondSignalPanel.getSignalChooser().addItem(new ProstokatnySymetryczny());
-		window.secondSignalPanel.getSignalChooser().addItem(new Trojkatny());
-		window.secondSignalPanel.getSignalChooser().addItem(new SkokJednostkowy());
-		window.secondSignalPanel.getSignalChooser().addItem(new ImpulsJednostkowy());
+		window.panelDrugiegoSygnalu.getSignalChooser().addItem(new Sinus());
+		window.panelDrugiegoSygnalu.getSignalChooser().addItem(new SinusWyprostJednopol());
+		window.panelDrugiegoSygnalu.getSignalChooser().addItem(new SinusWyprostDwupol());
+		window.panelDrugiegoSygnalu.getSignalChooser().addItem(new Prostok¹tny());
+		window.panelDrugiegoSygnalu.getSignalChooser().addItem(new ProstokatnySymetryczny());
+		window.panelDrugiegoSygnalu.getSignalChooser().addItem(new Trojkatny());
+		window.panelDrugiegoSygnalu.getSignalChooser().addItem(new SkokJednostkowy());
+		window.panelDrugiegoSygnalu.getSignalChooser().addItem(new ImpulsJednostkowy());
 
-		window.secondSignalPanel.getSignalChooser().addItem(new RozkladJednostajny());
-		window.secondSignalPanel.getSignalChooser().addItem(new Gaussowski());
-		window.secondSignalPanel.getSignalChooser().addItem(new Impulsowy());
+		window.panelDrugiegoSygnalu.getSignalChooser().addItem(new RozkladJednostajny());
+		window.panelDrugiegoSygnalu.getSignalChooser().addItem(new Gaussowski());
+		window.panelDrugiegoSygnalu.getSignalChooser().addItem(new Impulsowy());
 
-		window.resultSignalPanel.getOperations().addItem(new Dodawanie());
-		window.resultSignalPanel.getOperations().addItem(new Odejmowanie());
-		window.resultSignalPanel.getOperations().addItem(new Mnozenie());
-		window.resultSignalPanel.getOperations().addItem(new Dzielenie());
+		window.panelWynikuOperacji.getOperations().addItem(new Dodawanie());
+		window.panelWynikuOperacji.getOperations().addItem(new Odejmowanie());
+		window.panelWynikuOperacji.getOperations().addItem(new Mnozenie());
+		window.panelWynikuOperacji.getOperations().addItem(new Dzielenie());
+		
+		window.panelKonwersji.getKonwersja().addItem(new ZeroOrderHold());
+		window.panelKonwersji.getKonwersja().addItem(new FirstOrderHold());
+		
+		
 	}
 
 	private void reloadSignal1Charts() {
-		window.firstSignalPanel.setChart((firstSignal.getChart(null)));
-		window.firstSignalPanel.setHistogram((firstSignal.getHistogram(null)));
+		window.panelPierwszegoSygnalu.setChart((firstSignal.getChart(null)));
+		window.panelPierwszegoSygnalu.setHistogram((firstSignal.getHistogram(null)));
 	}
 
 	private void reloadSignal2Charts() {
-		window.secondSignalPanel.setChart((secondSignal.getChart(null)));
-		window.secondSignalPanel.setHistogram((secondSignal.getHistogram(null)));
+		window.panelDrugiegoSygnalu.setChart((secondSignal.getChart(null)));
+		window.panelDrugiegoSygnalu.setHistogram((secondSignal.getHistogram(null)));
 	}
 
 	private void reloadSignal3Charts() {
-		window.resultSignalPanel.setChart((resultSignal.getChart(null)));
-		window.resultSignalPanel.setHistogram((resultSignal.getHistogram(null)));
+		window.panelWynikuOperacji.setChart((resultSignal.getChart(null)));
+		window.panelWynikuOperacji.setHistogram((resultSignal.getHistogram(null)));
 	}
 
 	private void updateSignal1Params() {
-		window.firstSignalPanel.generatedParamsPanel.setWariancja(firstSignal.wariancja());
-		window.firstSignalPanel.generatedParamsPanel.setWartoscSkuteczna(firstSignal.wartoscSkuteczna());
-		window.firstSignalPanel.generatedParamsPanel.setSrednia(firstSignal.wartoscSrednia());
-		window.firstSignalPanel.generatedParamsPanel.setSredniaBezwzgl(firstSignal.wartoscSredniaBezwzgledna());
-		window.firstSignalPanel.generatedParamsPanel.setMoc(firstSignal.mocSrednia());
+		window.panelPierwszegoSygnalu.generatedParamsPanel.setWariancja(firstSignal.wariancja());
+		window.panelPierwszegoSygnalu.generatedParamsPanel.setWartoscSkuteczna(firstSignal.wartoscSkuteczna());
+		window.panelPierwszegoSygnalu.generatedParamsPanel.setSrednia(firstSignal.wartoscSrednia());
+		window.panelPierwszegoSygnalu.generatedParamsPanel.setSredniaBezwzgl(firstSignal.wartoscSredniaBezwzgledna());
+		window.panelPierwszegoSygnalu.generatedParamsPanel.setMoc(firstSignal.mocSrednia());
 	}
 
 	private void updateSignal2Params() {
-		window.secondSignalPanel.generatedParamsPanel.setWariancja(secondSignal.wariancja());
-		window.secondSignalPanel.generatedParamsPanel.setWartoscSkuteczna(secondSignal.wartoscSkuteczna());
-		window.secondSignalPanel.generatedParamsPanel.setSrednia(secondSignal.wartoscSrednia());
-		window.secondSignalPanel.generatedParamsPanel.setSredniaBezwzgl(secondSignal.wartoscSredniaBezwzgledna());
-		window.secondSignalPanel.generatedParamsPanel.setMoc(secondSignal.mocSrednia());
+		window.panelDrugiegoSygnalu.generatedParamsPanel.setWariancja(secondSignal.wariancja());
+		window.panelDrugiegoSygnalu.generatedParamsPanel.setWartoscSkuteczna(secondSignal.wartoscSkuteczna());
+		window.panelDrugiegoSygnalu.generatedParamsPanel.setSrednia(secondSignal.wartoscSrednia());
+		window.panelDrugiegoSygnalu.generatedParamsPanel.setSredniaBezwzgl(secondSignal.wartoscSredniaBezwzgledna());
+		window.panelDrugiegoSygnalu.generatedParamsPanel.setMoc(secondSignal.mocSrednia());
 	}
 
 	private ActionListener btnGenSig1Listener = new ActionListener() {
@@ -151,7 +166,7 @@ public class MainController {
 		public void actionPerformed(ActionEvent arg0) {
 				ArrayList<Double> params = new ArrayList<Double>();
 				try {
-					for (JTextField field : window.firstSignalPanel.getParamsFields()) {
+					for (JTextField field : window.panelPierwszegoSygnalu.getParamsFields()) {
 						if (field.isVisible())
 							params.add(Double.parseDouble(field.getText()));
 					}
@@ -162,9 +177,10 @@ public class MainController {
 					return;
 				}
 				Double[] parameters = params.toArray(new Double[params.size()]);
-				FunkcjaCiagla funkcja = (FunkcjaCiagla) window.firstSignalPanel.getSignalChooser().getSelectedItem();
+				FunkcjaCiagla funkcja = (FunkcjaCiagla) window.panelPierwszegoSygnalu.getSignalChooser().getSelectedItem();
 				funkcja.setParams(parameters);
-				firstSignal = Próbkowanie.próbkuj(funkcja, Double.parseDouble(window.firstSignalPanel.getChartFrom().getText()), Double.parseDouble(window.firstSignalPanel.getChartStep().getText()), Double.parseDouble(window.firstSignalPanel.getChartTo().getText()));
+				boolean representAsContinuous = true;
+				firstSignal = Próbkowanie.próbkuj(funkcja, Double.parseDouble(window.panelPierwszegoSygnalu.getChartFrom().getText()), CZEST_PROB_F_CIAG, Double.parseDouble(window.panelPierwszegoSygnalu.getChartTo().getText()), representAsContinuous);
 				firstSignal.funkcjaCiagla = funkcja;
 				reloadSignal1Charts();
 				updateSignal1Params();
@@ -178,7 +194,7 @@ public class MainController {
 		public void actionPerformed(ActionEvent arg0) {
 				ArrayList<Double> params = new ArrayList<Double>();
 				try {
-					for (JTextField field : window.secondSignalPanel.getParamsFields()) {
+					for (JTextField field : window.panelDrugiegoSygnalu.getParamsFields()) {
 						if (field.isVisible())
 							params.add(Double.parseDouble(field.getText()));
 					}
@@ -189,9 +205,10 @@ public class MainController {
 					return;
 				}
 				Double[] parameters = params.toArray(new Double[params.size()]);
-				FunkcjaCiagla funkcja = (FunkcjaCiagla) window.secondSignalPanel.getSignalChooser().getSelectedItem();
+				FunkcjaCiagla funkcja = (FunkcjaCiagla) window.panelDrugiegoSygnalu.getSignalChooser().getSelectedItem();
 				funkcja.setParams(parameters);
-				secondSignal = Próbkowanie.próbkuj(funkcja, Double.parseDouble(window.secondSignalPanel.getChartFrom().getText()), Double.parseDouble(window.secondSignalPanel.getChartStep().getText()), Double.parseDouble(window.secondSignalPanel.getChartTo().getText()));
+				boolean representAsContinuous = true;
+				secondSignal = Próbkowanie.próbkuj(funkcja, Double.parseDouble(window.panelDrugiegoSygnalu.getChartFrom().getText()), CZEST_PROB_F_CIAG, Double.parseDouble(window.panelDrugiegoSygnalu.getChartTo().getText()), representAsContinuous);
 				secondSignal.funkcjaCiagla = funkcja;
 				reloadSignal2Charts();
 				updateSignal2Params();
@@ -202,8 +219,8 @@ public class MainController {
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			FunkcjaCiagla sig = (FunkcjaCiagla) window.firstSignalPanel.getSignalChooser().getSelectedItem();
-			window.firstSignalPanel.setParamsNames(sig.getParametersNames());
+			FunkcjaCiagla sig = (FunkcjaCiagla) window.panelPierwszegoSygnalu.getSignalChooser().getSelectedItem();
+			window.panelPierwszegoSygnalu.setParamsNames(sig.getParametersNames());
 		}
 
 	};
@@ -212,8 +229,8 @@ public class MainController {
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			FunkcjaCiagla sig = (FunkcjaCiagla) window.secondSignalPanel.getSignalChooser().getSelectedItem();
-			window.secondSignalPanel.setParamsNames(sig.getParametersNames());
+			FunkcjaCiagla sig = (FunkcjaCiagla) window.panelDrugiegoSygnalu.getSignalChooser().getSelectedItem();
+			window.panelDrugiegoSygnalu.setParamsNames(sig.getParametersNames());
 		}
 
 	};
@@ -279,20 +296,74 @@ public class MainController {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			OperacjaNaSygnalach operation = (OperacjaNaSygnalach) window.resultSignalPanel.getOperations()
+			OperacjaNaSygnalach operation = (OperacjaNaSygnalach) window.panelWynikuOperacji.getOperations()
 					.getSelectedItem();
 			resultSignal = operation.DoOperation(firstSignal, secondSignal);
 			reloadSignal3Charts();
 		}
 
 	};
+	
+	private ActionListener zmianaSygnaluDoKonwersji = new ActionListener() {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			
+			if(window.panelKonwersji.getWyborSygnaluPierwszego().isSelected()){
+				window.panelKonwersji.getPodgladSygnalu().setChart(window.panelPierwszegoSygnalu.getChartPanel().getChart());
+				window.panelKonwersji.setSygnalDoProbkowania((FunkcjaCiagla)window.panelPierwszegoSygnalu.getSignalChooser().getSelectedItem());
+				window.panelKonwersji.repaint();
+			}else if(window.panelKonwersji.getWyborSygnaluDrugiego().isSelected()){
+				window.panelKonwersji.getPodgladSygnalu().setChart(window.panelDrugiegoSygnalu.getChartPanel().getChart());
+				window.panelKonwersji.setSygnalDoProbkowania((FunkcjaCiagla)window.panelDrugiegoSygnalu.getSignalChooser().getSelectedItem());
+				window.panelKonwersji.repaint();
+			}
+		}
+	};
+	
+	private ActionListener zmianaMetodyOdtworzeniaListener = new ActionListener() {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+	};
+	
+	private ActionListener btnProbkujSygnalListener = new ActionListener() {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			boolean showAsContinuous = false;
+			SygnalDyskretny sygnalSprobkowany = Próbkowanie.próbkuj(window.panelKonwersji.getSygnalDoProbkowania(), Double.parseDouble(window.panelKonwersji.getChartFrom().getText()), Integer.parseInt(window.panelKonwersji.getChartStep().getText()), Double.parseDouble(window.panelKonwersji.getChartTo().getText()), showAsContinuous);
+			window.panelKonwersji.setSygnalSprobkowany(sygnalSprobkowany);
+			window.panelKonwersji.setChart(sygnalSprobkowany.getChart(""));
+		}
+	};
+	
+	private ActionListener btnOdtworzSygnalListener = new ActionListener() {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			KonwersjaCA konwersja = (KonwersjaCA)window.panelKonwersji.getKonwersja().getSelectedItem();
+			konwersja.konwertuj(window.panelKonwersji.getSygnalSprobkowany());
+			boolean showAsContinuous = true;
+			SygnalDyskretny odwzorowanieCiaglegoSygOdtworzonego = Próbkowanie.próbkuj(konwersja, Double.parseDouble(window.panelKonwersji.getChartFrom().getText()), CZEST_PROB_F_CIAG, Double.parseDouble(window.panelKonwersji.getChartTo().getText()), showAsContinuous);
+			window.panelKonwersji.setHistogram(odwzorowanieCiaglegoSygOdtworzonego.getChart(""));
+			oblicMiaryPodobienstwa();
+		}
+	};
 
 	private MyCallable<JFreeChart> updateFirstSignalPreview = new MyCallable<JFreeChart>() {
 
 		@Override
 		public void call(JFreeChart chart) {
-			window.resultSignalPanel.getPanelFirstSignalPrev().setChart(chart);
-			window.resultSignalPanel.repaint();
+			window.panelWynikuOperacji.getPanelFirstSignalPrev().setChart(chart);
+			window.panelWynikuOperacji.repaint();
+			if(window.panelKonwersji.getWyborSygnaluPierwszego().isSelected()){
+				window.panelKonwersji.getPodgladSygnalu().setChart(chart);
+				window.panelKonwersji.setSygnalDoProbkowania((FunkcjaCiagla)window.panelPierwszegoSygnalu.getSignalChooser().getSelectedItem());
+			}
 
 		}
 	};
@@ -301,9 +372,28 @@ public class MainController {
 
 		@Override
 		public void call(JFreeChart chart) {
-			window.resultSignalPanel.getPanelSecondSignalPrev().setChart(chart);
-			window.resultSignalPanel.repaint();
+			window.panelWynikuOperacji.getPanelSecondSignalPrev().setChart(chart);
+			window.panelWynikuOperacji.repaint();
+			if(window.panelKonwersji.getWyborSygnaluDrugiego().isSelected()){
+				window.panelKonwersji.getPodgladSygnalu().setChart(chart);
+				window.panelKonwersji.setSygnalDoProbkowania((FunkcjaCiagla)window.panelDrugiegoSygnalu.getSignalChooser().getSelectedItem());
+			}
 		}
 	};
+	
+	private void oblicMiaryPodobienstwa(){
+		double poczatek = Double.parseDouble(window.panelKonwersji.getChartFrom().getText());
+		double koniec = Double.parseDouble(window.panelKonwersji.getChartTo().getText());
+		int czestotliwosc = CZEST_PROB_F_CIAG;
+		SygnalDyskretny sygPierwszy = Próbkowanie.próbkuj(window.panelKonwersji.getSygnalDoProbkowania(), poczatek, czestotliwosc, koniec);
+		SygnalDyskretny sygDrugi = Próbkowanie.próbkuj((FunkcjaCiagla)window.panelKonwersji.getKonwersja().getSelectedItem(), poczatek, czestotliwosc, koniec);
+	
+		window.panelKonwersji.getPanelMiarPodobienstwa().setMSE(MiaryPodobienstwa.mse(sygPierwszy.y, sygDrugi.y));
+		window.panelKonwersji.getPanelMiarPodobienstwa().setSNR(MiaryPodobienstwa.snr(sygPierwszy.y, sygDrugi.y));
+		window.panelKonwersji.getPanelMiarPodobienstwa().setPSNR(MiaryPodobienstwa.psnr(sygPierwszy.y, sygDrugi.y));
+		window.panelKonwersji.getPanelMiarPodobienstwa().setMD(MiaryPodobienstwa.md(sygPierwszy.y, sygDrugi.y));
+		
+		
+	}
 
 }

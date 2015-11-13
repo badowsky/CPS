@@ -20,17 +20,17 @@ public class SinusWyprostDwupol extends FunkcjaCiagla {
 	}
 
 	@Override
-	public double srednia(){
+	public Double srednia(){
 		return 2*amplituda/Math.PI;
 	}
 	
 	@Override
-	public double sredniaBezwzgledna(){
+	public Double sredniaBezwzgledna(){
 		return 2*amplituda/Math.PI;
 	}
 	
 	@Override
-	public double mocSrednia(){
+	public Double mocSrednia(){
 		return amplituda * amplituda / 2;
 	}
 

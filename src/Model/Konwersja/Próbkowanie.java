@@ -5,10 +5,14 @@ import Model.Sygnaly.Dyskretne.SygnalDyskretny;
 
 public class Próbkowanie {
 	
-	public static SygnalDyskretny próbkuj(FunkcjaCiagla sygnal, double poczatek, double czestotliwosc, double koniec){
-		SygnalDyskretny result = new SygnalDyskretny();
+	public static SygnalDyskretny próbkuj(FunkcjaCiagla sygnal, double poczatek, int czestotliwosc, double koniec){
+		return próbkuj(sygnal, poczatek, czestotliwosc, koniec, false);
+	}
+	
+	public static SygnalDyskretny próbkuj(FunkcjaCiagla sygnal, double poczatek, int czestotliwosc, double koniec, boolean showAsContinuous){
+		SygnalDyskretny result = new SygnalDyskretny(showAsContinuous);
 		
-		for (double i = poczatek; i < koniec; i += 1/czestotliwosc) {
+		for (double i = poczatek; i < koniec; i += 1.0/czestotliwosc) {
 			result.x.add(i);
 			result.y.add(sygnal.getValue(i));
 		}

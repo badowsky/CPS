@@ -36,7 +36,7 @@ public class SygnalDyskretny {
 	}
 	
 	public double wartoscSrednia() {
-		if(funkcjaCiagla != null) return funkcjaCiagla.srednia(); 
+		if(funkcjaCiagla != null && funkcjaCiagla.srednia() != null) return funkcjaCiagla.srednia(); 
 		int n1 = 0;
 		int n2 = x.size();
 		double wartoscSrednia = 0.0;
@@ -49,7 +49,7 @@ public class SygnalDyskretny {
 	}
 	
 	public double wartoscSredniaBezwzgledna() {
-		if(funkcjaCiagla != null) return funkcjaCiagla.sredniaBezwzgledna(); 
+		if(funkcjaCiagla != null && funkcjaCiagla.sredniaBezwzgledna() != null) return funkcjaCiagla.sredniaBezwzgledna(); 
 		int n1 = 0;
 		int n2 = x.size();
 		double wartoscSredniaBezwzgledna = 0.0;
@@ -62,12 +62,12 @@ public class SygnalDyskretny {
 	}
 	
 	public double wartoscSkuteczna() {
-		if(funkcjaCiagla != null) return funkcjaCiagla.wartoscSkuteczna(); 
+		if(funkcjaCiagla != null && funkcjaCiagla.wartoscSkuteczna() != null) return funkcjaCiagla.wartoscSkuteczna(); 
 		return Math.sqrt(mocSrednia());	
 	}
 	
 	public double wariancja(){
-		if(funkcjaCiagla != null) return funkcjaCiagla.wariancja();
+		if(funkcjaCiagla != null && funkcjaCiagla.wariancja() != null) return funkcjaCiagla.wariancja();
 		int n1 = 0;
 		int n2 = x.size();
 		double wariancja = 0.0;
@@ -80,7 +80,7 @@ public class SygnalDyskretny {
 	}
 	
 	public double mocSrednia(){
-		if(funkcjaCiagla != null) return funkcjaCiagla.mocSrednia();
+		if(funkcjaCiagla != null && funkcjaCiagla.mocSrednia() != null) return funkcjaCiagla.mocSrednia();
 		int n1 = 0;
 		int n2 = x.size();
 		double mocSrednia = 0.0;

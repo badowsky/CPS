@@ -16,9 +16,10 @@ public class MainWindow {
 	private JPanel panel;
 
 	private JTabbedPane tabbedPane;
-	public SignalPanel firstSignalPanel;
-	public SignalPanel secondSignalPanel;
-	public ResultSignalPanel resultSignalPanel;
+	public PanelSygnalu panelPierwszegoSygnalu;
+	public PanelSygnalu panelDrugiegoSygnalu;
+	public PanelOperacji panelWynikuOperacji;
+	public PanelKonwersji panelKonwersji;
 
 
 
@@ -53,19 +54,23 @@ public class MainWindow {
 		tabbedPane.setBounds(0, 32, 1084, 629);
 		panel.add(tabbedPane);
 
-		firstSignalPanel = new SignalPanel();
-		firstSignalPanel.setLayout(null);
-		tabbedPane.addTab("Pierwszy sygna\u0142", null, firstSignalPanel, null);
+		panelPierwszegoSygnalu = new PanelSygnalu();
+		panelPierwszegoSygnalu.setLayout(null);
+		tabbedPane.addTab("Pierwszy sygna\u0142", null, panelPierwszegoSygnalu, null);
 
-		secondSignalPanel = new SignalPanel();
-		secondSignalPanel.setLayout(null);
-		tabbedPane.addTab("Drugi sygna\u0142", null, secondSignalPanel, null);
+		panelDrugiegoSygnalu = new PanelSygnalu();
+		panelDrugiegoSygnalu.setLayout(null);
+		tabbedPane.addTab("Drugi sygna\u0142", null, panelDrugiegoSygnalu, null);
 
-		resultSignalPanel = new ResultSignalPanel();
-		resultSignalPanel.setLayout(null);
-		tabbedPane.addTab("Operacje", null, resultSignalPanel, null);
+		panelWynikuOperacji = new PanelOperacji();
+		panelWynikuOperacji.setLayout(null);
+		tabbedPane.addTab("Operacje", null, panelWynikuOperacji, null);
+		
+		panelKonwersji = new PanelKonwersji();
+		panelKonwersji.setLayout(null);
+		tabbedPane.add("Konwersja", panelKonwersji);
 
-		resultSignalPanel.setLayout(null);
+		panelWynikuOperacji.setLayout(null);
 
 		
 
