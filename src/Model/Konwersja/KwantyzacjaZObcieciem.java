@@ -5,6 +5,7 @@ import java.util.TreeSet;
 
 import Model.FunkcjeCiagle.FunkcjaCiagla;
 import Model.Sygnaly.Dyskretne.SygnalDyskretny;
+import Model.Konwersja.Próbkowanie;
 
 public class KwantyzacjaZObcieciem extends Kwantyzacja {
 
@@ -12,25 +13,24 @@ public class KwantyzacjaZObcieciem extends Kwantyzacja {
 		super(ileStopni);
 	}
 
-	public SygnalDyskretny kwantyzuj(FunkcjaCiagla sygnalCiagly) {
+	public SygnalDyskretny kwantyzuj(FunkcjaCiagla sygnal, double poczatek, int czestotliwosc, double koniec) {
 		
 		ArrayList <Double> quantizedSignalX = new ArrayList<Double>();
 		ArrayList <Double> quantizedSignalY = new ArrayList<Double>();
 		
-		ArrayList <Double> sampledSignalX = new ArrayList<Double>();
-		ArrayList <Double> sampledSignalY = new ArrayList<Double>();
-			
-		double max = sampledSignalY.get(0);
-		double min = sampledSignalY.get(0);
+		SygnalDyskretny discreteSignal = Próbkowanie.próbkuj(sygnal, poczatek, czestotliwosc, koniec);
 		
-		for (int i=0; i<sampledSignalY.size(); i++) {
+		double max = discreteSignal.x.get(0);
+		double min = discreteSignal.y.get(0);
+		
+		for (int i=0; i<discreteSignal.y.size(); i++) {
 			
-			if (max < sampledSignalY.get(i)) {
-				max = sampledSignalY.get(i);
+			if (max < discreteSignal.y.get(i)) {
+				max = discreteSignal.y.get(i);
 			}
 			
-			if (min > sampledSignalY.get(i)) {
-				min = sampledSignalY.get(i);
+			if (min > discreteSignal.y.get(i)) {
+				min = discreteSignal.y.get(i);
 			}
 		}
 		
@@ -42,10 +42,10 @@ public class KwantyzacjaZObcieciem extends Kwantyzacja {
 			treeSet.add(min + ((sub / (ileStopni)) * i));
 		}
 	
-		for (int i=0; i<sampledSignalY.size(); i++) {
+		for (int i=0; i<discreteSignal.y.size(); i++) {
 			Double tempX, tempY;
-			tempX = sampledSignalX.get(i);
-			tempY = treeSet.floor(sampledSignalY.get(i));
+			tempX = discreteSignal.x.get(i);
+			tempY = treeSet.floor(discreteSignal.y.get(i));
 			quantizedSignalX.add(tempX);
 			quantizedSignalY.add(tempY);
 		}
