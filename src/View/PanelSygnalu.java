@@ -98,13 +98,13 @@ public class PanelSygnalu extends JPanel {
 		chartToName.setBounds(1013, 5, 70, 20);
 		this.add(chartToName);
 		
-		chartFrom = new JTextField("-5");
+		chartFrom = new JTextField("0");
 		chartFrom.setBounds(407, 25, 50, 20);
 		this.add(chartFrom);
 		chartStep = new JTextField("1000");
 		chartStep.setBounds(707, 25, 50, 20);
 		//this.add(chartStep);
-		chartTo = new JTextField("5");
+		chartTo = new JTextField("10");
 		chartTo.setBounds(1019, 25, 50, 20);
 		this.add(chartTo);
 

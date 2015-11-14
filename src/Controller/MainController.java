@@ -190,6 +190,8 @@ public class MainController {
 				FunkcjaCiagla funkcja = (FunkcjaCiagla) window.panelPierwszegoSygnalu.getSignalChooser().getSelectedItem();
 				funkcja.setParams(parameters);
 				boolean representAsContinuous = true;
+				if(funkcja instanceof ImpulsJednostkowy) representAsContinuous = false;
+				
 				firstSignal = Próbkowanie.próbkuj(funkcja, Double.parseDouble(window.panelPierwszegoSygnalu.getChartFrom().getText()), CZEST_PROB_F_CIAG, Double.parseDouble(window.panelPierwszegoSygnalu.getChartTo().getText()), representAsContinuous);
 				firstSignal.funkcjaCiagla = funkcja;
 				reloadSignal1Charts();
@@ -426,6 +428,7 @@ public class MainController {
 			Kwantyzacja kwantyzacja = (Kwantyzacja)window.panelKwantyzacji.getKwantyzacja().getSelectedItem();
 			SygnalDyskretny skwantyzowany = kwantyzacja.kwantyzuj(window.panelKwantyzacji.getSygnalDoKwantyzacji(), Double.parseDouble(window.panelKonwersji.getChartFrom().getText()), CZEST_PROB_F_CIAG, Double.parseDouble(window.panelKonwersji.getChartTo().getText()), Integer.parseInt(window.panelKwantyzacji.getIloscStopniVal().getText()));
 			window.panelKwantyzacji.setSecondChart(skwantyzowany.getChart(""));
+			oblicMiaryPodobienstwaKwantyzacji();
 		}
 	};
 	
@@ -440,6 +443,21 @@ public class MainController {
 		window.panelKonwersji.getPanelMiarPodobienstwa().setSNR(MiaryPodobienstwa.snr(sygPierwszy.y, sygDrugi.y));
 		window.panelKonwersji.getPanelMiarPodobienstwa().setPSNR(MiaryPodobienstwa.psnr(sygPierwszy.y, sygDrugi.y));
 		window.panelKonwersji.getPanelMiarPodobienstwa().setMD(MiaryPodobienstwa.md(sygPierwszy.y, sygDrugi.y));
+		
+		
+	}
+	
+	private void oblicMiaryPodobienstwaKwantyzacji(){
+		double poczatek = Double.parseDouble(window.panelKonwersji.getChartFrom().getText());
+		double koniec = Double.parseDouble(window.panelKonwersji.getChartTo().getText());
+		int czestotliwosc = CZEST_PROB_F_CIAG;
+		SygnalDyskretny sygPierwszy = Próbkowanie.próbkuj(window.panelKwantyzacji.getSygnalDoKwantyzacji(), poczatek, czestotliwosc, koniec);
+		SygnalDyskretny sygDrugi = Próbkowanie.próbkuj((FunkcjaCiagla)window.panelKwantyzacji.getKwantyzacja().getSelectedItem(), poczatek, czestotliwosc, koniec);
+	
+		window.panelKwantyzacji.getPanelMiarPodobienstwa().setMSE(MiaryPodobienstwa.mse(sygPierwszy.y, sygDrugi.y));
+		window.panelKwantyzacji.getPanelMiarPodobienstwa().setSNR(MiaryPodobienstwa.snr(sygPierwszy.y, sygDrugi.y));
+		window.panelKwantyzacji.getPanelMiarPodobienstwa().setPSNR(MiaryPodobienstwa.psnr(sygPierwszy.y, sygDrugi.y));
+		window.panelKwantyzacji.getPanelMiarPodobienstwa().setMD(MiaryPodobienstwa.md(sygPierwszy.y, sygDrugi.y));
 		
 		
 	}

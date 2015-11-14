@@ -54,7 +54,8 @@ public class Trojkatny extends FunkcjaCiagla {
 		this.amplituda = params[0];
 		this.przesuniecie = params[1];
 		this.wspWypelnienia = params[2];
-		this.okres = params[3];		
+		this.okres = params[3];
+		k = 0;
 	}
 
 }
