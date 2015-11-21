@@ -427,6 +427,7 @@ public class MainController {
 		public void actionPerformed(ActionEvent e) {
 			Kwantyzacja kwantyzacja = (Kwantyzacja)window.panelKwantyzacji.getKwantyzacja().getSelectedItem();
 			SygnalDyskretny skwantyzowany = kwantyzacja.kwantyzuj(window.panelKwantyzacji.getSygnalDoKwantyzacji(), Double.parseDouble(window.panelKonwersji.getChartFrom().getText()), CZEST_PROB_F_CIAG, Double.parseDouble(window.panelKonwersji.getChartTo().getText()), Integer.parseInt(window.panelKwantyzacji.getIloscStopniVal().getText()));
+			window.panelKwantyzacji.setSygnalSkwantyzowany(skwantyzowany);
 			window.panelKwantyzacji.setSecondChart(skwantyzowany.getChart(""));
 			oblicMiaryPodobienstwaKwantyzacji();
 		}
@@ -448,11 +449,11 @@ public class MainController {
 	}
 	
 	private void oblicMiaryPodobienstwaKwantyzacji(){
-		double poczatek = Double.parseDouble(window.panelKonwersji.getChartFrom().getText());
-		double koniec = Double.parseDouble(window.panelKonwersji.getChartTo().getText());
+		double poczatek = Double.parseDouble(window.panelKwantyzacji.getChartFrom().getText());
+		double koniec = Double.parseDouble(window.panelKwantyzacji.getChartTo().getText());
 		int czestotliwosc = CZEST_PROB_F_CIAG;
 		SygnalDyskretny sygPierwszy = Próbkowanie.próbkuj(window.panelKwantyzacji.getSygnalDoKwantyzacji(), poczatek, czestotliwosc, koniec);
-		SygnalDyskretny sygDrugi = Próbkowanie.próbkuj((FunkcjaCiagla)window.panelKwantyzacji.getKwantyzacja().getSelectedItem(), poczatek, czestotliwosc, koniec);
+		SygnalDyskretny sygDrugi = window.panelKwantyzacji.getSygnalSkwantyzowany();
 	
 		window.panelKwantyzacji.getPanelMiarPodobienstwa().setMSE(MiaryPodobienstwa.mse(sygPierwszy.y, sygDrugi.y));
 		window.panelKwantyzacji.getPanelMiarPodobienstwa().setSNR(MiaryPodobienstwa.snr(sygPierwszy.y, sygDrugi.y));
