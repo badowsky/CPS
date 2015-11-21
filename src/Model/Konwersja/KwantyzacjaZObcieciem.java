@@ -53,7 +53,7 @@ public class KwantyzacjaZObcieciem extends Kwantyzacja {
 	
 	@Override
 	public String toString() {
-		return "Kwantyzacja z obciêciem";
+		return "Kwantyzacja z obcieciem";
 	}
 	
 }

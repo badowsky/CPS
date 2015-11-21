@@ -55,7 +55,7 @@ public class PanelSygnalu extends JPanel {
 		generationPartPanel = new JPanel();
 		generationPartPanel.setBounds(30, 30, 330, 300);
 		generationPartPanel.setBorder(
-				new TitledBorder(new LineBorder(new Color(105, 105, 105)), "Generator sygna³u",
+				new TitledBorder(new LineBorder(new Color(105, 105, 105)), "Generator sygnalu",
 						TitledBorder.LEFT, TitledBorder.TOP, null, new Color(105, 105, 105)));
 		generationPartPanel.setLayout(null);
 		this.add(generationPartPanel);
@@ -88,13 +88,13 @@ public class PanelSygnalu extends JPanel {
 			Params.add(tmpParamTF);
 		}
 		
-		chartFromName = new JLabel("Podgl¹d od");
+		chartFromName = new JLabel("Podglad od");
 		chartFromName.setBounds(407, 5, 70, 20);
 		this.add(chartFromName);
 		chartStepName = new JLabel("Czêstotliwoœæ próbkowania");
 		chartStepName.setBounds(670, 5, 200, 20);
 		//this.add(chartStepName);
-		chartToName = new JLabel("Podgl¹d do");
+		chartToName = new JLabel("Podglad do");
 		chartToName.setBounds(1013, 5, 70, 20);
 		this.add(chartToName);
 		

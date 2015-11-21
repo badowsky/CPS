@@ -45,13 +45,13 @@ public class PanelKwantyzacji extends JPanel {
 	}
 	
 	private void initialize(){
-		chartFromName = new JLabel("Podgl¹d od");
+		chartFromName = new JLabel("Podglad od");
 		chartFromName.setBounds(407, 5, 70, 20);
 		this.add(chartFromName);
 //		chartStepName = new JLabel("Czêstotliwoœæ próbkowania");
 //		chartStepName.setBounds(670, 5, 200, 20);
 //		this.add(chartStepName);
-		chartToName = new JLabel("Podgl¹d do");
+		chartToName = new JLabel("Podglad do");
 		chartToName.setBounds(1013, 5, 70, 20);
 		this.add(chartToName);
 		
@@ -65,7 +65,7 @@ public class PanelKwantyzacji extends JPanel {
 		chartTo.setBounds(1019, 25, 50, 20);
 		this.add(chartTo);
 		
-		iloscStopniLbl = new JLabel("Iloœæ stopni");
+		iloscStopniLbl = new JLabel("Ilosc stopni");
 		iloscStopniLbl.setBounds(190, 160, 80, 20);
 		this.add(iloscStopniLbl);
 		
@@ -100,10 +100,10 @@ public class PanelKwantyzacji extends JPanel {
 //		podgladSygnalu.setBounds(10, 30, 270, 130);
 //		this.add(podgladSygnalu);
 		
-		wyborSygnaluPierwszego = new JRadioButton("Pierwszy Sygna³");
+		wyborSygnaluPierwszego = new JRadioButton("Pierwszy Sygnal");
 		wyborSygnaluPierwszego.setBounds(190, 80, 110, 20);
 		this.add(wyborSygnaluPierwszego);
-		wyborSygnaluDrugiego = new JRadioButton("Drugi Sygna³");
+		wyborSygnaluDrugiego = new JRadioButton("Drugi Sygnal");
 		wyborSygnaluDrugiego.setBounds(190, 100, 110, 20);
 		this.add(wyborSygnaluDrugiego);
 		grupaWyboruSygnalow = new ButtonGroup();
