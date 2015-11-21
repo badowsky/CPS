@@ -52,7 +52,7 @@ public class KwantyzacjaZZaokragleniem extends Kwantyzacja {
 	
 	@Override
 	public String toString() {
-		return "Kwantyzacja z zaok¹gleniem";
+		return "Kwantyzacja z zaokragleniem";
 	}
 
 }

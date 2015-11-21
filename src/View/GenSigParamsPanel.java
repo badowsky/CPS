@@ -27,15 +27,15 @@ public class GenSigParamsPanel extends JPanel {
 	}
 
 	public void initialize() {
-		sredniaLbl = new JLabel("Wartoœæ œrednia");
+		sredniaLbl = new JLabel("Wartosc srednia");
 		sredniaLbl.setHorizontalAlignment(SwingConstants.RIGHT);
 		sredniaLbl.setBounds(10, 40, 150, 14);
 		
-		sredniaBezwzglLbl = new JLabel("Wartoœæ œrednia bezwzgl");
+		sredniaBezwzglLbl = new JLabel("Wartosc srednia bezwzgl");
 		sredniaBezwzglLbl.setHorizontalAlignment(SwingConstants.RIGHT);
 		sredniaBezwzglLbl.setBounds(10, 70, 150, 14);
 		
-		wartoscSkutecznaLbl = new JLabel("Wartoœæ skuteczna");
+		wartoscSkutecznaLbl = new JLabel("Wartosc skuteczna");
 		wartoscSkutecznaLbl.setHorizontalAlignment(SwingConstants.RIGHT);
 		wartoscSkutecznaLbl.setBounds(10, 100, 150, 14);
 		
@@ -43,7 +43,7 @@ public class GenSigParamsPanel extends JPanel {
 		wariancjaLbl.setHorizontalAlignment(SwingConstants.RIGHT);
 		wariancjaLbl.setBounds(10, 130, 150, 14);
 		
-		mocLbl = new JLabel("Moc œrednia");
+		mocLbl = new JLabel("Moc rednia");
 		mocLbl.setHorizontalAlignment(SwingConstants.RIGHT);
 		mocLbl.setBounds(10, 160, 150, 14);
 		

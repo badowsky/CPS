@@ -19,7 +19,7 @@ import Model.MiaryPodobienstwa;
 import Model.FunkcjeCiagle.FunkcjaCiagla;
 import Model.FunkcjeCiagle.Sygnaly.ImpulsJednostkowy;
 import Model.FunkcjeCiagle.Sygnaly.ProstokatnySymetryczny;
-import Model.FunkcjeCiagle.Sygnaly.Prostok¹tny;
+import Model.FunkcjeCiagle.Sygnaly.Prostokatny;
 import Model.FunkcjeCiagle.Sygnaly.Sinus;
 import Model.FunkcjeCiagle.Sygnaly.SinusWyprostDwupol;
 import Model.FunkcjeCiagle.Sygnaly.SinusWyprostJednopol;
@@ -102,7 +102,7 @@ public class MainController {
 		window.panelPierwszegoSygnalu.getSignalChooser().addItem(new Sinus());
 		window.panelPierwszegoSygnalu.getSignalChooser().addItem(new SinusWyprostJednopol());
 		window.panelPierwszegoSygnalu.getSignalChooser().addItem(new SinusWyprostDwupol());
-		window.panelPierwszegoSygnalu.getSignalChooser().addItem(new Prostok¹tny());
+		window.panelPierwszegoSygnalu.getSignalChooser().addItem(new Prostokatny());
 		window.panelPierwszegoSygnalu.getSignalChooser().addItem(new ProstokatnySymetryczny());
 		window.panelPierwszegoSygnalu.getSignalChooser().addItem(new Trojkatny());
 		window.panelPierwszegoSygnalu.getSignalChooser().addItem(new SkokJednostkowy());
@@ -115,7 +115,7 @@ public class MainController {
 		window.panelDrugiegoSygnalu.getSignalChooser().addItem(new Sinus());
 		window.panelDrugiegoSygnalu.getSignalChooser().addItem(new SinusWyprostJednopol());
 		window.panelDrugiegoSygnalu.getSignalChooser().addItem(new SinusWyprostDwupol());
-		window.panelDrugiegoSygnalu.getSignalChooser().addItem(new Prostok¹tny());
+		window.panelDrugiegoSygnalu.getSignalChooser().addItem(new Prostokatny());
 		window.panelDrugiegoSygnalu.getSignalChooser().addItem(new ProstokatnySymetryczny());
 		window.panelDrugiegoSygnalu.getSignalChooser().addItem(new Trojkatny());
 		window.panelDrugiegoSygnalu.getSignalChooser().addItem(new SkokJednostkowy());
@@ -212,8 +212,8 @@ public class MainController {
 					}
 				} catch (Exception e) {
 					JOptionPane.showMessageDialog(window.frame,
-							"Parametry które zosta³y wprowadzone nie s¹ poprawne. WprowadŸ poprawne liczby.",
-							"B³¹d podczas przetwarzania parametrów...", JOptionPane.ERROR_MESSAGE);
+							"Parametry które zostaly wprowadzone nie sa poprawne. Wprowadz poprawne liczby.",
+							"Blad podczas przetwarzania parametrow...", JOptionPane.ERROR_MESSAGE);
 					return;
 				}
 				Double[] parameters = params.toArray(new Double[params.size()]);

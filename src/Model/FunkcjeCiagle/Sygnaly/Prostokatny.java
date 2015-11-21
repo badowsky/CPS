@@ -2,13 +2,13 @@ package Model.FunkcjeCiagle.Sygnaly;
 
 import Model.FunkcjeCiagle.FunkcjaCiagla;
 
-public class Prostok¹tny extends FunkcjaCiagla {
+public class Prostokatny extends FunkcjaCiagla {
 	
 	double amplituda, przesuniecie, wspWypelnienia, okres;
 	int k;
 	
-	public Prostok¹tny() {
-		super("Prostok¹tny");
+	public Prostokatny() {
+		super("Prostokatny");
 		parametersNames = new String[]{
 				"Amplituda",
 				"Pprzesuniecie",

@@ -42,13 +42,13 @@ public class PanelKonwersji extends JPanel {
 	}
 	
 	private void initialize(){
-		chartFromName = new JLabel("Podgl¹d od");
+		chartFromName = new JLabel("Podglad od");
 		chartFromName.setBounds(407, 5, 70, 20);
 		this.add(chartFromName);
-		chartStepName = new JLabel("Czêstotliwoœæ próbkowania");
+		chartStepName = new JLabel("Czestotliwosc probkowania");
 		chartStepName.setBounds(670, 5, 200, 20);
 		this.add(chartStepName);
-		chartToName = new JLabel("Podgl¹d do");
+		chartToName = new JLabel("Podglad do");
 		chartToName.setBounds(1013, 5, 70, 20);
 		this.add(chartToName);
 		
@@ -89,10 +89,10 @@ public class PanelKonwersji extends JPanel {
 		podgladSygnalu.setBounds(10, 30, 270, 130);
 		this.add(podgladSygnalu);
 		
-		wyborSygnaluPierwszego = new JRadioButton("Pierwszy Sygna³");
+		wyborSygnaluPierwszego = new JRadioButton("Pierwszy Sygnal");
 		wyborSygnaluPierwszego.setBounds(290, 40, 110, 20);
 		this.add(wyborSygnaluPierwszego);
-		wyborSygnaluDrugiego = new JRadioButton("Drugi Sygna³");
+		wyborSygnaluDrugiego = new JRadioButton("Drugi Sygnal");
 		wyborSygnaluDrugiego.setBounds(290, 60, 110, 20);
 		this.add(wyborSygnaluDrugiego);
 		grupaWyboruSygnalow = new ButtonGroup();
