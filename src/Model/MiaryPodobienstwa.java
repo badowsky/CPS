@@ -32,6 +32,11 @@ public class MiaryPodobienstwa {
 		}
 		return 10 * Math.log10(maxVal / mse(oryginalSig, secondSig));
 	}
+	
+	public static Double enob(ArrayList<Double> oryginalSig, ArrayList<Double> secondSig) {
+	
+		return (snr(oryginalSig, secondSig) - 1.76) / 6.02;
+	}
 
 	public static Double md(ArrayList<Double> firstSig, ArrayList<Double> secondSig) {
 		if (firstSig.size() != secondSig.size())
