@@ -40,10 +40,11 @@ import Model.Operacje.Dzielenie;
 import Model.Operacje.Mnozenie;
 import Model.Operacje.Odejmowanie;
 import Model.Operacje.OperacjaNaSygnalach;
+import Model.Operacje.Splot;
 import Model.Sygnaly.Dyskretne.SygnalDyskretny;
 import View.MainWindow;
 
-public class MainController {
+public class GuiController {
 
 	private MainWindow window;
 	private final JFileChooser fc = new JFileChooser();
@@ -60,12 +61,12 @@ public class MainController {
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				new MainController();
+				new GuiController();
 			}
 		});
 	}
 
-	public MainController() {
+	public GuiController() {
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 			window = new MainWindow();
@@ -129,6 +130,7 @@ public class MainController {
 		window.panelWynikuOperacji.getOperations().addItem(new Odejmowanie());
 		window.panelWynikuOperacji.getOperations().addItem(new Mnozenie());
 		window.panelWynikuOperacji.getOperations().addItem(new Dzielenie());
+		window.panelWynikuOperacji.getOperations().addItem(new Splot());
 		
 		window.panelKonwersji.getKonwersja().addItem(new ZeroOrderHold());
 		window.panelKonwersji.getKonwersja().addItem(new FirstOrderHold());
