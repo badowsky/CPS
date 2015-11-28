@@ -446,7 +446,7 @@ public class GuiController {
 		window.panelKonwersji.getPanelMiarPodobienstwa().setSNR(MiaryPodobienstwa.snr(sygPierwszy.y, sygDrugi.y));
 		window.panelKonwersji.getPanelMiarPodobienstwa().setPSNR(MiaryPodobienstwa.psnr(sygPierwszy.y, sygDrugi.y));
 		window.panelKonwersji.getPanelMiarPodobienstwa().setMD(MiaryPodobienstwa.md(sygPierwszy.y, sygDrugi.y));
-		
+		window.panelKonwersji.getPanelMiarPodobienstwa().setENOB(MiaryPodobienstwa.md(sygPierwszy.y, sygDrugi.y));
 		
 	}
 	
@@ -461,7 +461,7 @@ public class GuiController {
 		window.panelKwantyzacji.getPanelMiarPodobienstwa().setSNR(MiaryPodobienstwa.snr(sygPierwszy.y, sygDrugi.y));
 		window.panelKwantyzacji.getPanelMiarPodobienstwa().setPSNR(MiaryPodobienstwa.psnr(sygPierwszy.y, sygDrugi.y));
 		window.panelKwantyzacji.getPanelMiarPodobienstwa().setMD(MiaryPodobienstwa.md(sygPierwszy.y, sygDrugi.y));
-		
+		window.panelKwantyzacji.getPanelMiarPodobienstwa().setENOB(MiaryPodobienstwa.md(sygPierwszy.y, sygDrugi.y));
 		
 	}
 
