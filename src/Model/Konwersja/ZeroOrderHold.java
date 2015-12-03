@@ -14,17 +14,17 @@ public class ZeroOrderHold extends KonwersjaCA {
 
 	@Override
 	public double getValue(double x) {
-		double firstX = sygnal.x.get(0);
-		double firstY = sygnal.y.get(0);
+		double firstX = sygnal.getX(0);
+		double firstY = sygnal.getY(0);
 		if (x < firstX)
 			return firstY;
-		double lastX = sygnal.x.get(sygnal.x.size() - 1);
-		double lastY = sygnal.y.get(sygnal.y.size() - 1);
+		double lastX = sygnal.getX(sygnal.size() - 1);
+		double lastY = sygnal.getY(sygnal.size() - 1);
 		if (x >= lastX)
 			return lastY;
-		for (int i = 0; i < sygnal.x.size(); i++) {
-			if (sygnal.x.get(i) <= x && sygnal.x.get(i + 1) > x) {
-				return sygnal.y.get(i);
+		for (int i = 0; i < sygnal.size(); i++) {
+			if (sygnal.getX(i) <= x && sygnal.getX(i + 1) > x) {
+				return sygnal.getY(i);
 			}
 		}
 		return 0;

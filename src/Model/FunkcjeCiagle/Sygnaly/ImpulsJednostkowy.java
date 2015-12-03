@@ -15,7 +15,7 @@ public class ImpulsJednostkowy extends FunkcjaCiagla {
 	
 	@Override
 	public double getValue(double x) {		
-		if (x == przesuniecie) {
+		if (Math.abs(x - przesuniecie) < 0.0005) {
 			return amplituda;
 		}
 		else {

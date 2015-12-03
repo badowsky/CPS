@@ -1,24 +1,65 @@
 package Model.Operacje;
 
-import Model.Sygnaly.Dyskretne.SygnalDyskretny;
+import org.apache.commons.math3.complex.Complex;
+
+import Model.Sygnaly.Dyskretne.SygnalDyskretnyCmplx;
+import Model.Sygnaly.Dyskretne.SygnalDyskretnyReal;
 
 public class Splot implements OperacjaNaSygnalach{
 
-	public SygnalDyskretny DoOperation(SygnalDyskretny h, SygnalDyskretny x) {
-		SygnalDyskretny splot = new SygnalDyskretny();
+	public SygnalDyskretnyReal DoOperation(SygnalDyskretnyReal h, SygnalDyskretnyReal x) {
+		SygnalDyskretnyReal splot = new SygnalDyskretnyReal();
 		
-		int M = h.x.size();
-		int N = x.x.size();
+		int M = h.size();
+		int N = x.size();
 		double y;
 		for(int n = 0 ; n < M+N ; n++){
 			y = 0;
 			for(int k = 0 ; k < M ; k++){
-				if(n-k >= 0 && n-k < x.y.size()){
-					y += h.y.get(k)*x.y.get(n-k);
+				if(n-k >= 0 && n-k < x.size()){
+					y += h.getY(k)*x.getY(n-k);
 				};
 			}
-			splot.x.add((double)n);
-			splot.y.add(y);
+			splot.addX((double)n);
+			splot.addY(y);
+		}
+		return splot;
+	}
+	
+	public SygnalDyskretnyCmplx DoOperation(SygnalDyskretnyCmplx h, SygnalDyskretnyCmplx x) {
+		SygnalDyskretnyCmplx splot = new SygnalDyskretnyCmplx();
+		
+		int M = h.size();
+		int N = x.size();
+		Complex y;
+		for(int n = 0 ; n < M+N ; n++){
+			y = new Complex(0);
+			for(int k = 0 ; k < M ; k++){
+				if(n-k >= 0 && n-k < x.size()){
+					y.add(h.getComplexY(k).multiply(x.getComplexY(n-k)));
+				};
+			}
+			splot.addX((double)n);
+			splot.addComplexY(y);
+		}
+		return splot;
+	}
+	
+	public SygnalDyskretnyCmplx DoOperation(SygnalDyskretnyCmplx h, SygnalDyskretnyReal x) {
+		SygnalDyskretnyCmplx splot = new SygnalDyskretnyCmplx();
+		
+		int M = h.size();
+		int N = x.size();
+		Complex y;
+		for(int n = 0 ; n < M+N ; n++){
+			y = new Complex(0);
+			for(int k = 0 ; k < M ; k++){
+				if(n-k >= 0 && n-k < x.size()){
+					y.add(h.getComplexY(k).multiply(x.getY(n-k)));
+				};
+			}
+			splot.addX((double)n);
+			splot.addComplexY(y);
 		}
 		return splot;
 	}

@@ -3,7 +3,7 @@ package Model.Konwersja;
 import java.util.TreeSet;
 
 import Model.FunkcjeCiagle.FunkcjaCiagla;
-import Model.Sygnaly.Dyskretne.SygnalDyskretny;
+import Model.Sygnaly.Dyskretne.SygnalDyskretnyReal;
 	
 public class KwantyzacjaZZaokragleniem extends Kwantyzacja {
 
@@ -11,21 +11,21 @@ public class KwantyzacjaZZaokragleniem extends Kwantyzacja {
 		super(ileStopni);
 	}
 
-	public SygnalDyskretny kwantyzuj(FunkcjaCiagla sygnal, double poczatek, int czestotliwosc, double koniec, int ileStopni) {
+	public SygnalDyskretnyReal kwantyzuj(FunkcjaCiagla sygnal, double poczatek, int czestotliwosc, double koniec, int ileStopni) {
 		
-		SygnalDyskretny discreteSignal = Próbkowanie.próbkuj(sygnal, poczatek, czestotliwosc, koniec);
+		SygnalDyskretnyReal discreteSignal = Próbkowanie.próbkuj(sygnal, poczatek, czestotliwosc, koniec);
 		
-		double max = discreteSignal.x.get(0);
-		double min = discreteSignal.y.get(0);
+		double max = discreteSignal.getX(0);
+		double min = discreteSignal.getY(0);
 		
-		for (int i=0; i<discreteSignal.y.size(); i++) {
+		for (int i=0; i<discreteSignal.size(); i++) {
 			
-			if (max < discreteSignal.y.get(i)) {
-				max = discreteSignal.y.get(i);
+			if (max < discreteSignal.getY(i)) {
+				max = discreteSignal.getY(i);
 			}
 			
-			if (min > discreteSignal.y.get(i)) {
-				min = discreteSignal.y.get(i);
+			if (min > discreteSignal.getY(i)) {
+				min = discreteSignal.getY(i);
 			}
 		}
 		
@@ -37,14 +37,14 @@ public class KwantyzacjaZZaokragleniem extends Kwantyzacja {
 			treeSet.add(min + (sub / ileStopni) * i);
 		}
 	
-		SygnalDyskretny discreteSignalReturn = new SygnalDyskretny();
+		SygnalDyskretnyReal discreteSignalReturn = new SygnalDyskretnyReal();
 		
-		for (int i=0; i<discreteSignal.y.size(); i++) {
+		for (int i=0; i<discreteSignal.size(); i++) {
 			Double tempX, tempY;
-			tempX = discreteSignal.x.get(i);
-			tempY = treeSet.floor(discreteSignal.y.get(i));
-			discreteSignalReturn.x.add(tempX/2);
-			discreteSignalReturn.y.add(tempY/2);
+			tempX = discreteSignal.getX(i);
+			tempY = treeSet.floor(discreteSignal.getY(i));
+			discreteSignalReturn.addX(tempX/2);
+			discreteSignalReturn.addY(tempY/2);
 		}
 		
 		return discreteSignalReturn;

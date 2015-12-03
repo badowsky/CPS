@@ -17,7 +17,7 @@ import org.jfree.chart.JFreeChart;
 import Model.FunkcjeCiagle.FunkcjaCiagla;
 import Model.Konwersja.KonwersjaCA;
 import Model.Konwersja.Kwantyzacja;
-import Model.Sygnaly.Dyskretne.SygnalDyskretny;
+import Model.Sygnaly.Dyskretne.SygnalDyskretnyReal;
 
 public class PanelKwantyzacji extends JPanel {
 
@@ -38,7 +38,7 @@ public class PanelKwantyzacji extends JPanel {
 	private PanelMiarPodobienstwa panelMiarPodobienstwa;
 	
 	private FunkcjaCiagla sygnalDoKwantyzowania;
-	private SygnalDyskretny sygnalSkwantyzowany;
+	private SygnalDyskretnyReal sygnalSkwantyzowany;
 	
 	public PanelKwantyzacji(){
 		this.initialize();
@@ -165,7 +165,7 @@ public class PanelKwantyzacji extends JPanel {
 		return sygnalDoKwantyzowania;
 	}
 
-	public SygnalDyskretny getSygnalSkwantyzowany() {
+	public SygnalDyskretnyReal getSygnalSkwantyzowany() {
 		return sygnalSkwantyzowany;
 	}
 
@@ -173,7 +173,7 @@ public class PanelKwantyzacji extends JPanel {
 		this.sygnalDoKwantyzowania = sygnalDoProbkowania;
 	}
 
-	public void setSygnalSkwantyzowany(SygnalDyskretny sygnalSprobkowany) {
+	public void setSygnalSkwantyzowany(SygnalDyskretnyReal sygnalSprobkowany) {
 		this.sygnalSkwantyzowany = sygnalSprobkowany;
 	}
 

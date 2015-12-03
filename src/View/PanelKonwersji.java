@@ -16,7 +16,7 @@ import org.jfree.chart.JFreeChart;
 
 import Model.FunkcjeCiagle.FunkcjaCiagla;
 import Model.Konwersja.KonwersjaCA;
-import Model.Sygnaly.Dyskretne.SygnalDyskretny;
+import Model.Sygnaly.Dyskretne.SygnalDyskretnyReal;
 
 public class PanelKonwersji extends JPanel {
 
@@ -35,7 +35,7 @@ public class PanelKonwersji extends JPanel {
 	private PanelMiarPodobienstwa panelMiarPodobienstwa;
 	
 	private FunkcjaCiagla sygnalDoProbkowania;
-	private SygnalDyskretny sygnalSprobkowany;
+	private SygnalDyskretnyReal sygnalSprobkowany;
 	
 	public PanelKonwersji(){
 		this.initialize();
@@ -154,7 +154,7 @@ public class PanelKonwersji extends JPanel {
 		return sygnalDoProbkowania;
 	}
 
-	public SygnalDyskretny getSygnalSprobkowany() {
+	public SygnalDyskretnyReal getSygnalSprobkowany() {
 		return sygnalSprobkowany;
 	}
 
@@ -162,7 +162,7 @@ public class PanelKonwersji extends JPanel {
 		this.sygnalDoProbkowania = sygnalDoProbkowania;
 	}
 
-	public void setSygnalSprobkowany(SygnalDyskretny sygnalSprobkowany) {
+	public void setSygnalSprobkowany(SygnalDyskretnyReal sygnalSprobkowany) {
 		this.sygnalSprobkowany = sygnalSprobkowany;
 	}
 

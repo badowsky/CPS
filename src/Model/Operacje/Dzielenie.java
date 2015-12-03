@@ -1,16 +1,19 @@
 package Model.Operacje;
 
-import Model.Sygnaly.Dyskretne.SygnalDyskretny;
+import Model.Sygnaly.Dyskretne.SygnalDyskretnyReal;
 
 public class Dzielenie implements OperacjaNaSygnalach {
 
 	@Override
-	public SygnalDyskretny DoOperation(SygnalDyskretny a, SygnalDyskretny b) {
-		SygnalDyskretny result = new SygnalDyskretny();
+	public SygnalDyskretnyReal DoOperation(SygnalDyskretnyReal a, SygnalDyskretnyReal b) {
+		SygnalDyskretnyReal result = new SygnalDyskretnyReal();
 		
-		for(int i=0; i < a.x.size(); i++){
-			result.x.add(a.x.get(i));
-			result.y.add(a.y.get(i) / b.y.get(i));
+		for(int i=0; i < a.size(); i++){
+			
+			if(i<a.size() && i < b.size()){
+				result.addX(a.getX(i));
+				result.addY(a.getY(i) / b.getY(i));
+			}
 		}
 
 		return result;

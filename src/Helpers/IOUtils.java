@@ -9,12 +9,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import Model.Sygnaly.Dyskretne.SygnalDyskretny;
+import Model.Sygnaly.Dyskretne.SygnalDyskretnyReal;
 
 public class IOUtils {
 
-	public static SygnalDyskretny LoadSignal(File file) {
-		SygnalDyskretny signal = new SygnalDyskretny();
+	public static SygnalDyskretnyReal LoadSignal(File file) {
+		SygnalDyskretnyReal signal = null;
 		BufferedReader in = null;
 		ArrayList<Double> x = new ArrayList<Double>();
 		ArrayList<Double> y = new ArrayList<Double>();
@@ -33,8 +33,7 @@ public class IOUtils {
 				y.add(Double.parseDouble(values[1]));
 			}
 
-			signal.x = x;
-			signal.y = y;
+			signal = new SygnalDyskretnyReal(x, y);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -51,13 +50,13 @@ public class IOUtils {
 		return signal;
 	}
 
-	public static void SaveSignal(File file, SygnalDyskretny signal){
+	public static void SaveSignal(File file, SygnalDyskretnyReal signal){
 		BufferedWriter out = null;
 		try {
 			out = new BufferedWriter(new FileWriter(file));
 			String line;
-			Iterator<Double> xIterator = signal.x.iterator();
-			Iterator<Double> yIterator = signal.y.iterator();
+			Iterator<Double> xIterator = signal.iteratorX();
+			Iterator<Double> yIterator = signal.iteratorY();
 			while (xIterator.hasNext() && yIterator.hasNext()) {
 				line = xIterator.next() + "," + yIterator.next();
 				out.write(line);

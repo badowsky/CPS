@@ -20,14 +20,14 @@ public class Prostokatny extends FunkcjaCiagla {
 
 	@Override
 	public double getValue(double x) {
-		
-		if(x >= okres * (k + 1) + przesuniecie) {
+		x+=przesuniecie;
+		if(x >= okres * (k + 1)) {
 			k++;
 		}
-		if( x >= (k * okres + przesuniecie) && x < (wspWypelnienia * okres + k * okres + przesuniecie)) {
+		if( x >= (k * okres) && x < (wspWypelnienia * okres + k * okres)) {
 			return amplituda;
 		} 
-		else if( x >= (wspWypelnienia * okres - k * okres + przesuniecie) && x < (okres + k * okres + przesuniecie)) {
+		else if( x >= (wspWypelnienia * okres - k * okres) && x < (okres + k * okres)) {
 			return 0.0;
 		}else{
 			return 0.0;

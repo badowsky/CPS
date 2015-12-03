@@ -1,9 +1,9 @@
 package Model.Operacje;
 
-import Model.Sygnaly.Dyskretne.SygnalDyskretny;
+import Model.Sygnaly.Dyskretne.SygnalDyskretnyReal;
 
 public interface OperacjaNaSygnalach {
 	
-	public SygnalDyskretny DoOperation(SygnalDyskretny a, SygnalDyskretny b);
+	public SygnalDyskretnyReal DoOperation(SygnalDyskretnyReal a, SygnalDyskretnyReal b);
 
 }
