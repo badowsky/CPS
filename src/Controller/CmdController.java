@@ -44,13 +44,12 @@ public class CmdController {
         SygnalDyskretnyReal wyfiltrowany = splot.DoOperation(filtrSpróbkowany.toReal(), sygnal);
         JPanel aPanel = new JPanel();
         aPanel.setPreferredSize(new Dimension(600, 300));
-        
         SygnalDyskretnyReal modulTransmitancji = Fourier.DFT(filtrSpróbkowany);
 
         JFreeChart sygnalChart = sygnal.getChart("");
         JFreeChart filtrChart = filtrSpróbkowany.toReal().getChart("");
         JFreeChart transmitChart = modulTransmitancji.getChart("");
-        JFreeChart oknoChart = okno.generuj().getChart("");
+        JFreeChart oknoChart = okno.generujPodglad().getChart("");
         JFreeChart wynikChart = wyfiltrowany.getChart("");
         
         ChartPanel sygnalChartPanel = new ChartPanel(sygnalChart);
