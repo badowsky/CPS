@@ -36,11 +36,11 @@ public class Splot implements OperacjaNaSygnalach{
 			y = new Complex(0);
 			for(int k = 0 ; k < M ; k++){
 				if(n-k >= 0 && n-k < x.size()){
-					y.add(h.getComplexY(k).multiply(x.getComplexY(n-k)));
+					y.add(h.getY(k).multiply(x.getY(n-k)));
 				};
 			}
 			splot.addX((double)n);
-			splot.addComplexY(y);
+			splot.addY(y);
 		}
 		return splot;
 	}
@@ -55,11 +55,11 @@ public class Splot implements OperacjaNaSygnalach{
 			y = new Complex(0);
 			for(int k = 0 ; k < M ; k++){
 				if(n-k >= 0 && n-k < x.size()){
-					y.add(h.getComplexY(k).multiply(x.getY(n-k)));
+					y.add(h.getY(k).multiply(x.getY(n-k)));
 				};
 			}
 			splot.addX((double)n);
-			splot.addComplexY(y);
+			splot.addY(y);
 		}
 		return splot;
 	}

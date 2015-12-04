@@ -1,7 +1,5 @@
 package Model.Filtracja.Okna;
 
-import org.apache.commons.math3.complex.Complex;
-
 public class OknoHanninga extends Okno {
 
 	public OknoHanninga(int M) {
@@ -9,8 +7,9 @@ public class OknoHanninga extends Okno {
 	}
 
 	@Override
-	public Complex getValue(Complex n) {
-		return (new Complex(0.5)).subtract(n.multiply(Math.PI*2).divide(M).cos().multiply(0.5));
+	public double getValue(double n) {
+		//return (new Complex(0.5)).subtract(n.multiply(Math.PI*2).divide(M).cos().multiply(0.5));
+		return 0.5 - 0.5 * Math.cos((2 * Math.PI * n)/M);
 	}
 
 }

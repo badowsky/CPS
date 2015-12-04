@@ -1,6 +1,6 @@
 package Model.Filtracja.Okna;
 
-import org.apache.commons.math3.complex.Complex;
+import Model.Sygnaly.Dyskretne.SygnalDyskretnyReal;
 
 public abstract class Okno {
 	
@@ -10,5 +10,14 @@ public abstract class Okno {
 		this.M = M;
 	}
 
-	public abstract Complex getValue(Complex n);
+	public abstract double getValue(double n);
+	
+	public SygnalDyskretnyReal generuj(){
+		SygnalDyskretnyReal syg = new SygnalDyskretnyReal();
+		for(int n = 0; n <= M ; n++){
+			syg.addY(this.getValue(n));
+			syg.addX(n);
+		}
+		return syg;
+	}
 }

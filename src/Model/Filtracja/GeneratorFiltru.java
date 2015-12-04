@@ -4,7 +4,6 @@ import org.apache.commons.math3.complex.Complex;
 
 import Model.Filtracja.Okna.Okno;
 import Model.Sygnaly.Dyskretne.SygnalDyskretnyCmplx;
-import Model.Sygnaly.Dyskretne.SygnalDyskretnyReal;
 
 public class GeneratorFiltru {
 	
@@ -20,18 +19,12 @@ public class GeneratorFiltru {
 		SygnalDyskretnyCmplx syg = new SygnalDyskretnyCmplx();
 		
 		Complex y_tmp;
-		for(Complex n = new Complex(-Math.floor(M/2.0)) ; n.getReal() < N ; n = n.add(1)){
-			y_tmp = filtr.getValue(n);
-			if(okno != null) y_tmp = y_tmp.multiply(okno.getValue(n));
-			syg.addComplexY(y_tmp);
-			syg.addComplexX(n.add(Math.floor(M/2.0)));
+		int n = 0;
+		for(Complex n_shifted = new Complex(-Math.floor(M/2.0)) ; n_shifted.getReal() < N ; n_shifted = n_shifted.add(1)){
+			y_tmp = filtr.getValue(n_shifted).multiply(okno.getValue(n));
+			syg.addY(y_tmp);
+			syg.addX(n++);
 		}
-		
-//		for(Complex n = new Complex(Math.ceil(M/2.0)) ; n.getReal() < N ; n = n.add(1)){
-//			syg.addComplexY(new Complex(0.0));
-//			syg.addComplexX(n.add(Math.floor(M/2.0)));
-//		}
-		
 		return syg;
 	}
 	
