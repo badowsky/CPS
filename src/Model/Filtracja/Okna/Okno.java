@@ -12,7 +12,7 @@ public abstract class Okno {
 
 	public abstract double getValue(double n);
 	
-	public SygnalDyskretnyReal generuj(){
+	public SygnalDyskretnyReal generujPodglad(){
 		SygnalDyskretnyReal syg = new SygnalDyskretnyReal();
 		for(int n = 0; n <= M ; n++){
 			syg.addY(this.getValue(n));
