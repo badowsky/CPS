@@ -1,8 +1,8 @@
-package Model.FunkcjeCiagle.Sygnaly;
+package Model.Sygnaly.Ciagle.Zwykle;
 
-import Model.FunkcjeCiagle.FunkcjaCiagla;
+import Model.Sygnaly.Ciagle.SygnalCiagly;
 
-public class SkokJednostkowy extends FunkcjaCiagla {
+public class SkokJednostkowy extends SygnalCiagly {
 
 	private double amplituda, przesuniecie;
 	

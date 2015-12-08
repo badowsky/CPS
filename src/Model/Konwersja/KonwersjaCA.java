@@ -1,9 +1,9 @@
 package Model.Konwersja;
 
-import Model.FunkcjeCiagle.FunkcjaCiagla;
+import Model.Sygnaly.Ciagle.SygnalCiagly;
 import Model.Sygnaly.Dyskretne.SygnalDyskretnyReal;
 
-public abstract class KonwersjaCA extends FunkcjaCiagla {
+public abstract class KonwersjaCA extends SygnalCiagly {
 	
 	SygnalDyskretnyReal sygnal;
 	

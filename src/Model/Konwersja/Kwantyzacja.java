@@ -1,6 +1,6 @@
 package Model.Konwersja;
 
-import Model.FunkcjeCiagle.FunkcjaCiagla;
+import Model.Sygnaly.Ciagle.SygnalCiagly;
 import Model.Sygnaly.Dyskretne.SygnalDyskretnyReal;
 
 abstract public class Kwantyzacja {
@@ -11,7 +11,7 @@ abstract public class Kwantyzacja {
 		this.ileStopni = ileStopni;
 	}
 
-	public abstract SygnalDyskretnyReal kwantyzuj(FunkcjaCiagla sygnal, double poczatek, int czestotliwosc, double koniec, int ileStopni);
+	public abstract SygnalDyskretnyReal kwantyzuj(SygnalCiagly sygnal, double poczatek, int czestotliwosc, double koniec, int ileStopni);
 	
 	public abstract String toString();
 

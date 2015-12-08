@@ -19,8 +19,8 @@ public class MainWindow {
 	public PanelSygnalu panelPierwszegoSygnalu;
 	public PanelSygnalu panelDrugiegoSygnalu;
 	public PanelOperacji panelWynikuOperacji;
-	public PanelKonwersji panelKonwersji;
-	public PanelKwantyzacji panelKwantyzacji;
+	public ConversionPanel panelKonwersji;
+	public QuantizationPanel panelKwantyzacji;
 
 
 	/**
@@ -66,11 +66,11 @@ public class MainWindow {
 		panelWynikuOperacji.setLayout(null);
 		tabbedPane.addTab("Operacje", null, panelWynikuOperacji, null);
 		
-		panelKwantyzacji = new PanelKwantyzacji();
+		panelKwantyzacji = new QuantizationPanel();
 		panelKwantyzacji.setLayout(null);
 		tabbedPane.add("Kwantyzacja", panelKwantyzacji);
 		
-		panelKonwersji = new PanelKonwersji();
+		panelKonwersji = new ConversionPanel();
 		panelKonwersji.setLayout(null);
 		tabbedPane.add("Konwersja", panelKonwersji);
 		

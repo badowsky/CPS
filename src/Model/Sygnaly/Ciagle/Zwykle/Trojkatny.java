@@ -1,8 +1,8 @@
-package Model.FunkcjeCiagle.Sygnaly;
+package Model.Sygnaly.Ciagle.Zwykle;
 
-import Model.FunkcjeCiagle.FunkcjaCiagla;
+import Model.Sygnaly.Ciagle.SygnalCiagly;
 
-public class Trojkatny extends FunkcjaCiagla {
+public class Trojkatny extends SygnalCiagly {
 
 	double amplituda, przesuniecie, wspWypelnienia, okres;
 	int k;

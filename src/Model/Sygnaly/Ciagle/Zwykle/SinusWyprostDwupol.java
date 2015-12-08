@@ -1,27 +1,27 @@
-package Model.FunkcjeCiagle.Sygnaly;
+package Model.Sygnaly.Ciagle.Zwykle;
 
-import Model.FunkcjeCiagle.FunkcjaCiagla;
+import Model.Sygnaly.Ciagle.SygnalCiagly;
 
-public class Sinus extends FunkcjaCiagla {
-	
+public class SinusWyprostDwupol extends SygnalCiagly {
+
 	double amplituda, przesuniecie, okres;
 	
-	public Sinus(){
-		super("Sinus");
+	public SinusWyprostDwupol(){
+		super("Sinus Wyprostowany Dwupo³ówkowo");		
 		parametersNames = new String[]{
 				"Amplituda",
 				"Pprzesuniecie",
 				"Okres"};
 	}
-
-	@Override
-	public double getValue(double x) {
-		return amplituda * Math.sin(((2 * Math.PI)/okres) * (x - przesuniecie));
-	}
 	
 	@Override
+	public double getValue(double x) {
+		return amplituda * Math.abs(Math.sin((2 * Math.PI / okres) * (x - przesuniecie)));
+	}
+
+	@Override
 	public Double srednia(){
-		return 0.0;
+		return 2*amplituda/Math.PI;
 	}
 	
 	@Override
@@ -40,5 +40,4 @@ public class Sinus extends FunkcjaCiagla {
 		this.przesuniecie = params[1];
 		this.okres = params[2];
 	}
-
 }

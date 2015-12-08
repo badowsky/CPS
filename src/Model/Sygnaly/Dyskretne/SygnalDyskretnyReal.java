@@ -5,7 +5,7 @@ import java.util.Iterator;
 
 import org.jfree.chart.JFreeChart;
 
-import Model.FunkcjeCiagle.FunkcjaCiagla;
+import Model.Sygnaly.Ciagle.SygnalCiagly;
 import View.Graph;
 
 public class SygnalDyskretnyReal implements SygnalDyskretny{
@@ -13,7 +13,7 @@ public class SygnalDyskretnyReal implements SygnalDyskretny{
 	private ArrayList<Double> x;
 	private ArrayList<Double> y;
 	
-	public FunkcjaCiagla funkcjaCiagla;
+	public SygnalCiagly funkcjaCiagla;
 	
 	public static int HISTOGRAM_INTERVAL = 10;
 	private boolean REPRESENT_AS_CONTINUOUS;

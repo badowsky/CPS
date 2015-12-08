@@ -15,19 +15,6 @@ import org.jfree.chart.JFreeChart;
 
 import Helpers.IOUtils;
 import Helpers.MyCallable;
-import Model.MiaryPodobienstwa;
-import Model.FunkcjeCiagle.FunkcjaCiagla;
-import Model.FunkcjeCiagle.Sygnaly.ImpulsJednostkowy;
-import Model.FunkcjeCiagle.Sygnaly.ProstokatnySymetryczny;
-import Model.FunkcjeCiagle.Sygnaly.Prostokatny;
-import Model.FunkcjeCiagle.Sygnaly.Sinus;
-import Model.FunkcjeCiagle.Sygnaly.SinusWyprostDwupol;
-import Model.FunkcjeCiagle.Sygnaly.SinusWyprostJednopol;
-import Model.FunkcjeCiagle.Sygnaly.SkokJednostkowy;
-import Model.FunkcjeCiagle.Sygnaly.Trojkatny;
-import Model.FunkcjeCiagle.Szumy.Gaussowski;
-import Model.FunkcjeCiagle.Szumy.Impulsowy;
-import Model.FunkcjeCiagle.Szumy.RozkladJednostajny;
 import Model.Konwersja.FirstOrderHold;
 import Model.Konwersja.KonwersjaCA;
 import Model.Konwersja.Kwantyzacja;
@@ -41,6 +28,19 @@ import Model.Operacje.Mnozenie;
 import Model.Operacje.Odejmowanie;
 import Model.Operacje.OperacjaNaSygnalach;
 import Model.Operacje.Splot;
+import Model.Sygnaly.MiaryPodobienstwa;
+import Model.Sygnaly.Ciagle.SygnalCiagly;
+import Model.Sygnaly.Ciagle.Szumy.Gaussowski;
+import Model.Sygnaly.Ciagle.Szumy.Impulsowy;
+import Model.Sygnaly.Ciagle.Szumy.RozkladJednostajny;
+import Model.Sygnaly.Ciagle.Zwykle.ImpulsJednostkowy;
+import Model.Sygnaly.Ciagle.Zwykle.Prostokatny;
+import Model.Sygnaly.Ciagle.Zwykle.ProstokatnySymetryczny;
+import Model.Sygnaly.Ciagle.Zwykle.Sinus;
+import Model.Sygnaly.Ciagle.Zwykle.SinusWyprostDwupol;
+import Model.Sygnaly.Ciagle.Zwykle.SinusWyprostJednopol;
+import Model.Sygnaly.Ciagle.Zwykle.SkokJednostkowy;
+import Model.Sygnaly.Ciagle.Zwykle.Trojkatny;
 import Model.Sygnaly.Dyskretne.SygnalDyskretnyReal;
 import View.MainWindow;
 
@@ -86,19 +86,19 @@ public class GuiController {
 		window.panelDrugiegoSygnalu.getBtnLoad().addActionListener(loadSecondSigListener);
 		window.panelWynikuOperacji.getBtnDoOperation().addActionListener(doOperationListener);
 		window.panelWynikuOperacji.getBtnSaveResult().addActionListener(saveResultSigListener);
-		window.panelKwantyzacji.getBtnKwantyzuj().addActionListener(btnKwantyzujListener);
+		window.panelKwantyzacji.getBtnDoQuantization().addActionListener(btnKwantyzujListener);
 
 		window.panelPierwszegoSygnalu.subscribeOnChartChange(updateFirstSignalPreview);
 		window.panelDrugiegoSygnalu.subscribeOnChartChange(updateSecondSignalPreview);
 		
-		window.panelKonwersji.getWyborSygnaluPierwszego().addActionListener(zmianaSygnaluDoKonwersji);
-		window.panelKonwersji.getWyborSygnaluDrugiego().addActionListener(zmianaSygnaluDoKonwersji);
-		window.panelKonwersji.getKonwersja().addActionListener(zmianaMetodyOdtworzeniaListener);
-		window.panelKonwersji.getBtnProbkuj().addActionListener(btnProbkujSygnalListener);
-		window.panelKonwersji.getBtnOdtworz().addActionListener(btnOdtworzSygnalListener);
+		window.panelKonwersji.getFirstSignalChoose().addActionListener(zmianaSygnaluDoKonwersji);
+		window.panelKonwersji.getSecondSignalChoose().addActionListener(zmianaSygnaluDoKonwersji);
+		window.panelKonwersji.getConversion().addActionListener(zmianaMetodyOdtworzeniaListener);
+		window.panelKonwersji.getBtnDoSampling().addActionListener(btnProbkujSygnalListener);
+		window.panelKonwersji.getBtnReCreate().addActionListener(btnOdtworzSygnalListener);
 		
-		window.panelKwantyzacji.getWyborSygnaluPierwszego().addActionListener(zmianaSygnaluDoKwantyzacji);
-		window.panelKwantyzacji.getWyborSygnaluDrugiego().addActionListener(zmianaSygnaluDoKwantyzacji);
+		window.panelKwantyzacji.getFirstSignalChoose().addActionListener(zmianaSygnaluDoKwantyzacji);
+		window.panelKwantyzacji.getSecondSignalChoose().addActionListener(zmianaSygnaluDoKwantyzacji);
 
 		window.panelPierwszegoSygnalu.getSignalChooser().addItem(new Sinus());
 		window.panelPierwszegoSygnalu.getSignalChooser().addItem(new SinusWyprostJednopol());
@@ -132,11 +132,11 @@ public class GuiController {
 		window.panelWynikuOperacji.getOperations().addItem(new Dzielenie());
 		window.panelWynikuOperacji.getOperations().addItem(new Splot());
 		
-		window.panelKonwersji.getKonwersja().addItem(new ZeroOrderHold());
-		window.panelKonwersji.getKonwersja().addItem(new FirstOrderHold());
+		window.panelKonwersji.getConversion().addItem(new ZeroOrderHold());
+		window.panelKonwersji.getConversion().addItem(new FirstOrderHold());
 		
-		window.panelKwantyzacji.getKwantyzacja().addItem(new KwantyzacjaZObcieciem(10));
-		window.panelKwantyzacji.getKwantyzacja().addItem(new KwantyzacjaZZaokragleniem(10));
+		window.panelKwantyzacji.getQuantization().addItem(new KwantyzacjaZObcieciem(10));
+		window.panelKwantyzacji.getQuantization().addItem(new KwantyzacjaZZaokragleniem(10));
 		
 		
 	}
@@ -157,19 +157,19 @@ public class GuiController {
 	}
 
 	private void updateSignal1Params() {
-		window.panelPierwszegoSygnalu.generatedParamsPanel.setWariancja(firstSignal.wariancja());
-		window.panelPierwszegoSygnalu.generatedParamsPanel.setWartoscSkuteczna(firstSignal.wartoscSkuteczna());
-		window.panelPierwszegoSygnalu.generatedParamsPanel.setSrednia(firstSignal.wartoscSrednia());
-		window.panelPierwszegoSygnalu.generatedParamsPanel.setSredniaBezwzgl(firstSignal.wartoscSredniaBezwzgledna());
-		window.panelPierwszegoSygnalu.generatedParamsPanel.setMoc(firstSignal.mocSrednia());
+		window.panelPierwszegoSygnalu.generatedParamsPanel.setVariance(firstSignal.wariancja());
+		window.panelPierwszegoSygnalu.generatedParamsPanel.setEffectiveValue(firstSignal.wartoscSkuteczna());
+		window.panelPierwszegoSygnalu.generatedParamsPanel.setAvg(firstSignal.wartoscSrednia());
+		window.panelPierwszegoSygnalu.generatedParamsPanel.setAbsoluteAvg(firstSignal.wartoscSredniaBezwzgledna());
+		window.panelPierwszegoSygnalu.generatedParamsPanel.setPower(firstSignal.mocSrednia());
 	}
 
 	private void updateSignal2Params() {
-		window.panelDrugiegoSygnalu.generatedParamsPanel.setWariancja(secondSignal.wariancja());
-		window.panelDrugiegoSygnalu.generatedParamsPanel.setWartoscSkuteczna(secondSignal.wartoscSkuteczna());
-		window.panelDrugiegoSygnalu.generatedParamsPanel.setSrednia(secondSignal.wartoscSrednia());
-		window.panelDrugiegoSygnalu.generatedParamsPanel.setSredniaBezwzgl(secondSignal.wartoscSredniaBezwzgledna());
-		window.panelDrugiegoSygnalu.generatedParamsPanel.setMoc(secondSignal.mocSrednia());
+		window.panelDrugiegoSygnalu.generatedParamsPanel.setVariance(secondSignal.wariancja());
+		window.panelDrugiegoSygnalu.generatedParamsPanel.setEffectiveValue(secondSignal.wartoscSkuteczna());
+		window.panelDrugiegoSygnalu.generatedParamsPanel.setAvg(secondSignal.wartoscSrednia());
+		window.panelDrugiegoSygnalu.generatedParamsPanel.setAbsoluteAvg(secondSignal.wartoscSredniaBezwzgledna());
+		window.panelDrugiegoSygnalu.generatedParamsPanel.setPower(secondSignal.mocSrednia());
 	}
 
 	private ActionListener btnGenSig1Listener = new ActionListener() {
@@ -189,7 +189,7 @@ public class GuiController {
 					return;
 				}
 				Double[] parameters = params.toArray(new Double[params.size()]);
-				FunkcjaCiagla funkcja = (FunkcjaCiagla) window.panelPierwszegoSygnalu.getSignalChooser().getSelectedItem();
+				SygnalCiagly funkcja = (SygnalCiagly) window.panelPierwszegoSygnalu.getSignalChooser().getSelectedItem();
 				funkcja.setParams(parameters);
 				boolean representAsContinuous = true;
 				if(funkcja instanceof ImpulsJednostkowy) representAsContinuous = false;
@@ -219,7 +219,7 @@ public class GuiController {
 					return;
 				}
 				Double[] parameters = params.toArray(new Double[params.size()]);
-				FunkcjaCiagla funkcja = (FunkcjaCiagla) window.panelDrugiegoSygnalu.getSignalChooser().getSelectedItem();
+				SygnalCiagly funkcja = (SygnalCiagly) window.panelDrugiegoSygnalu.getSignalChooser().getSelectedItem();
 				funkcja.setParams(parameters);
 				boolean representAsContinuous = true;
 				secondSignal = Próbkowanie.próbkuj(funkcja, Double.parseDouble(window.panelDrugiegoSygnalu.getChartFrom().getText()), CZEST_PROB_F_CIAG, Double.parseDouble(window.panelDrugiegoSygnalu.getChartTo().getText()), representAsContinuous);
@@ -233,7 +233,7 @@ public class GuiController {
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			FunkcjaCiagla sig = (FunkcjaCiagla) window.panelPierwszegoSygnalu.getSignalChooser().getSelectedItem();
+			SygnalCiagly sig = (SygnalCiagly) window.panelPierwszegoSygnalu.getSignalChooser().getSelectedItem();
 			window.panelPierwszegoSygnalu.setParamsNames(sig.getParametersNames());
 		}
 
@@ -243,7 +243,7 @@ public class GuiController {
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			FunkcjaCiagla sig = (FunkcjaCiagla) window.panelDrugiegoSygnalu.getSignalChooser().getSelectedItem();
+			SygnalCiagly sig = (SygnalCiagly) window.panelDrugiegoSygnalu.getSignalChooser().getSelectedItem();
 			window.panelDrugiegoSygnalu.setParamsNames(sig.getParametersNames());
 		}
 
@@ -323,13 +323,13 @@ public class GuiController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			
-			if(window.panelKonwersji.getWyborSygnaluPierwszego().isSelected()){
-				window.panelKonwersji.getPodgladSygnalu().setChart(window.panelPierwszegoSygnalu.getChartPanel().getChart());
-				window.panelKonwersji.setSygnalDoProbkowania((FunkcjaCiagla)window.panelPierwszegoSygnalu.getSignalChooser().getSelectedItem());
+			if(window.panelKonwersji.getFirstSignalChoose().isSelected()){
+				window.panelKonwersji.getSignalPreview().setChart(window.panelPierwszegoSygnalu.getChartPanel().getChart());
+				window.panelKonwersji.setSignalForSampling((SygnalCiagly)window.panelPierwszegoSygnalu.getSignalChooser().getSelectedItem());
 				window.panelKonwersji.repaint();
-			}else if(window.panelKonwersji.getWyborSygnaluDrugiego().isSelected()){
-				window.panelKonwersji.getPodgladSygnalu().setChart(window.panelDrugiegoSygnalu.getChartPanel().getChart());
-				window.panelKonwersji.setSygnalDoProbkowania((FunkcjaCiagla)window.panelDrugiegoSygnalu.getSignalChooser().getSelectedItem());
+			}else if(window.panelKonwersji.getSecondSignalChoose().isSelected()){
+				window.panelKonwersji.getSignalPreview().setChart(window.panelDrugiegoSygnalu.getChartPanel().getChart());
+				window.panelKonwersji.setSignalForSampling((SygnalCiagly)window.panelDrugiegoSygnalu.getSignalChooser().getSelectedItem());
 				window.panelKonwersji.repaint();
 			}
 		}
@@ -340,13 +340,13 @@ public class GuiController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			
-			if(window.panelKwantyzacji.getWyborSygnaluPierwszego().isSelected()){
+			if(window.panelKwantyzacji.getFirstSignalChoose().isSelected()){
 				window.panelKwantyzacji.setChart(window.panelPierwszegoSygnalu.getChartPanel().getChart());
-				window.panelKwantyzacji.setSygnalDoKwantyzacji((FunkcjaCiagla)window.panelPierwszegoSygnalu.getSignalChooser().getSelectedItem());
+				window.panelKwantyzacji.setSignalForQuantization((SygnalCiagly)window.panelPierwszegoSygnalu.getSignalChooser().getSelectedItem());
 				window.panelKwantyzacji.repaint();
-			}else if(window.panelKwantyzacji.getWyborSygnaluDrugiego().isSelected()){
+			}else if(window.panelKwantyzacji.getSecondSignalChoose().isSelected()){
 				window.panelKwantyzacji.setChart(window.panelDrugiegoSygnalu.getChartPanel().getChart());
-				window.panelKwantyzacji.setSygnalDoKwantyzacji((FunkcjaCiagla)window.panelDrugiegoSygnalu.getSignalChooser().getSelectedItem());
+				window.panelKwantyzacji.setSignalForQuantization((SygnalCiagly)window.panelDrugiegoSygnalu.getSignalChooser().getSelectedItem());
 				window.panelKwantyzacji.repaint();
 			}
 		}
@@ -366,8 +366,8 @@ public class GuiController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			boolean showAsContinuous = false;
-			SygnalDyskretnyReal sygnalSprobkowany = Próbkowanie.próbkuj(window.panelKonwersji.getSygnalDoProbkowania(), Double.parseDouble(window.panelKonwersji.getChartFrom().getText()), Integer.parseInt(window.panelKonwersji.getChartStep().getText()), Double.parseDouble(window.panelKonwersji.getChartTo().getText()), showAsContinuous);
-			window.panelKonwersji.setSygnalSprobkowany(sygnalSprobkowany);
+			SygnalDyskretnyReal sygnalSprobkowany = Próbkowanie.próbkuj(window.panelKonwersji.getSignalForSampling(), Double.parseDouble(window.panelKonwersji.getChartFrom().getText()), Integer.parseInt(window.panelKonwersji.getChartStep().getText()), Double.parseDouble(window.panelKonwersji.getChartTo().getText()), showAsContinuous);
+			window.panelKonwersji.setSignalSampled(sygnalSprobkowany);
 			window.panelKonwersji.setChart(sygnalSprobkowany.getChart(""));
 		}
 	};
@@ -376,8 +376,8 @@ public class GuiController {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			KonwersjaCA konwersja = (KonwersjaCA)window.panelKonwersji.getKonwersja().getSelectedItem();
-			konwersja.konwertuj(window.panelKonwersji.getSygnalSprobkowany());
+			KonwersjaCA konwersja = (KonwersjaCA)window.panelKonwersji.getConversion().getSelectedItem();
+			konwersja.konwertuj(window.panelKonwersji.getSignalSampled());
 			boolean showAsContinuous = true;
 			SygnalDyskretnyReal odwzorowanieCiaglegoSygOdtworzonego = Próbkowanie.próbkuj(konwersja, Double.parseDouble(window.panelKonwersji.getChartFrom().getText()), CZEST_PROB_F_CIAG, Double.parseDouble(window.panelKonwersji.getChartTo().getText()), showAsContinuous);
 			window.panelKonwersji.setHistogram(odwzorowanieCiaglegoSygOdtworzonego.getChart(""));
@@ -392,14 +392,14 @@ public class GuiController {
 			window.panelWynikuOperacji.getPanelFirstSignalPrev().setChart(chart);
 			window.panelWynikuOperacji.repaint();
 			
-			if(window.panelKonwersji.getWyborSygnaluPierwszego().isSelected()){
-				window.panelKonwersji.getPodgladSygnalu().setChart(chart);
-				window.panelKonwersji.setSygnalDoProbkowania((FunkcjaCiagla)window.panelPierwszegoSygnalu.getSignalChooser().getSelectedItem());
+			if(window.panelKonwersji.getFirstSignalChoose().isSelected()){
+				window.panelKonwersji.getSignalPreview().setChart(chart);
+				window.panelKonwersji.setSignalForSampling((SygnalCiagly)window.panelPierwszegoSygnalu.getSignalChooser().getSelectedItem());
 			}
 			
-			if(window.panelKwantyzacji.getWyborSygnaluPierwszego().isSelected()){
+			if(window.panelKwantyzacji.getFirstSignalChoose().isSelected()){
 				window.panelKwantyzacji.setChart(window.panelPierwszegoSygnalu.getChartPanel().getChart());
-				window.panelKwantyzacji.setSygnalDoKwantyzacji((FunkcjaCiagla)window.panelPierwszegoSygnalu.getSignalChooser().getSelectedItem());
+				window.panelKwantyzacji.setSignalForQuantization((SygnalCiagly)window.panelPierwszegoSygnalu.getSignalChooser().getSelectedItem());
 			}
 
 		}
@@ -411,14 +411,14 @@ public class GuiController {
 		public void call(JFreeChart chart) {
 			window.panelWynikuOperacji.getPanelSecondSignalPrev().setChart(chart);
 			window.panelWynikuOperacji.repaint();
-			if(window.panelKonwersji.getWyborSygnaluDrugiego().isSelected()){
-				window.panelKonwersji.getPodgladSygnalu().setChart(chart);
-				window.panelKonwersji.setSygnalDoProbkowania((FunkcjaCiagla)window.panelDrugiegoSygnalu.getSignalChooser().getSelectedItem());
+			if(window.panelKonwersji.getSecondSignalChoose().isSelected()){
+				window.panelKonwersji.getSignalPreview().setChart(chart);
+				window.panelKonwersji.setSignalForSampling((SygnalCiagly)window.panelDrugiegoSygnalu.getSignalChooser().getSelectedItem());
 			}
 			
-			if(window.panelKwantyzacji.getWyborSygnaluDrugiego().isSelected()){
+			if(window.panelKwantyzacji.getSecondSignalChoose().isSelected()){
 				window.panelKwantyzacji.setChart(window.panelDrugiegoSygnalu.getChartPanel().getChart());
-				window.panelKwantyzacji.setSygnalDoKwantyzacji((FunkcjaCiagla)window.panelDrugiegoSygnalu.getSignalChooser().getSelectedItem());
+				window.panelKwantyzacji.setSignalForQuantization((SygnalCiagly)window.panelDrugiegoSygnalu.getSignalChooser().getSelectedItem());
 			}
 		}
 	};
@@ -427,9 +427,9 @@ public class GuiController {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			Kwantyzacja kwantyzacja = (Kwantyzacja)window.panelKwantyzacji.getKwantyzacja().getSelectedItem();
-			SygnalDyskretnyReal skwantyzowany = kwantyzacja.kwantyzuj(window.panelKwantyzacji.getSygnalDoKwantyzacji(), Double.parseDouble(window.panelKonwersji.getChartFrom().getText()), CZEST_PROB_F_CIAG, Double.parseDouble(window.panelKonwersji.getChartTo().getText()), Integer.parseInt(window.panelKwantyzacji.getIloscStopniVal().getText()));
-			window.panelKwantyzacji.setSygnalSkwantyzowany(skwantyzowany);
+			Kwantyzacja kwantyzacja = (Kwantyzacja)window.panelKwantyzacji.getQuantization().getSelectedItem();
+			SygnalDyskretnyReal skwantyzowany = kwantyzacja.kwantyzuj(window.panelKwantyzacji.getSignalForQuantization(), Double.parseDouble(window.panelKonwersji.getChartFrom().getText()), CZEST_PROB_F_CIAG, Double.parseDouble(window.panelKonwersji.getChartTo().getText()), Integer.parseInt(window.panelKwantyzacji.getNumberOfLevelsVal().getText()));
+			window.panelKwantyzacji.setSignalAfterQuantization(skwantyzowany);
 			window.panelKwantyzacji.setSecondChart(skwantyzowany.getChart(""));
 			oblicMiaryPodobienstwaKwantyzacji();
 		}
@@ -439,14 +439,14 @@ public class GuiController {
 		double poczatek = Double.parseDouble(window.panelKonwersji.getChartFrom().getText());
 		double koniec = Double.parseDouble(window.panelKonwersji.getChartTo().getText());
 		int czestotliwosc = CZEST_PROB_F_CIAG;
-		SygnalDyskretnyReal sygPierwszy = Próbkowanie.próbkuj(window.panelKonwersji.getSygnalDoProbkowania(), poczatek, czestotliwosc, koniec);
-		SygnalDyskretnyReal sygDrugi = Próbkowanie.próbkuj((FunkcjaCiagla)window.panelKonwersji.getKonwersja().getSelectedItem(), poczatek, czestotliwosc, koniec);
+		SygnalDyskretnyReal sygPierwszy = Próbkowanie.próbkuj(window.panelKonwersji.getSignalForSampling(), poczatek, czestotliwosc, koniec);
+		SygnalDyskretnyReal sygDrugi = Próbkowanie.próbkuj((SygnalCiagly)window.panelKonwersji.getConversion().getSelectedItem(), poczatek, czestotliwosc, koniec);
 	
-		window.panelKonwersji.getPanelMiarPodobienstwa().setMSE(MiaryPodobienstwa.mse(sygPierwszy, sygDrugi));
-		window.panelKonwersji.getPanelMiarPodobienstwa().setSNR(MiaryPodobienstwa.snr(sygPierwszy, sygDrugi));
-		window.panelKonwersji.getPanelMiarPodobienstwa().setPSNR(MiaryPodobienstwa.psnr(sygPierwszy, sygDrugi));
-		window.panelKonwersji.getPanelMiarPodobienstwa().setMD(MiaryPodobienstwa.md(sygPierwszy, sygDrugi));
-		window.panelKonwersji.getPanelMiarPodobienstwa().setENOB(MiaryPodobienstwa.md(sygPierwszy, sygDrugi));
+		window.panelKonwersji.getSignalComparsionPanel().setMSE(MiaryPodobienstwa.mse(sygPierwszy, sygDrugi));
+		window.panelKonwersji.getSignalComparsionPanel().setSNR(MiaryPodobienstwa.snr(sygPierwszy, sygDrugi));
+		window.panelKonwersji.getSignalComparsionPanel().setPSNR(MiaryPodobienstwa.psnr(sygPierwszy, sygDrugi));
+		window.panelKonwersji.getSignalComparsionPanel().setMD(MiaryPodobienstwa.md(sygPierwszy, sygDrugi));
+		window.panelKonwersji.getSignalComparsionPanel().setENOB(MiaryPodobienstwa.md(sygPierwszy, sygDrugi));
 		
 	}
 	
@@ -454,14 +454,14 @@ public class GuiController {
 		double poczatek = Double.parseDouble(window.panelKwantyzacji.getChartFrom().getText());
 		double koniec = Double.parseDouble(window.panelKwantyzacji.getChartTo().getText());
 		int czestotliwosc = CZEST_PROB_F_CIAG;
-		SygnalDyskretnyReal sygPierwszy = Próbkowanie.próbkuj(window.panelKwantyzacji.getSygnalDoKwantyzacji(), poczatek, czestotliwosc, koniec);
-		SygnalDyskretnyReal sygDrugi = window.panelKwantyzacji.getSygnalSkwantyzowany();
+		SygnalDyskretnyReal sygPierwszy = Próbkowanie.próbkuj(window.panelKwantyzacji.getSignalForQuantization(), poczatek, czestotliwosc, koniec);
+		SygnalDyskretnyReal sygDrugi = window.panelKwantyzacji.getSignalAfterQuantization();
 	
-		window.panelKwantyzacji.getPanelMiarPodobienstwa().setMSE(MiaryPodobienstwa.mse(sygPierwszy, sygDrugi));
-		window.panelKwantyzacji.getPanelMiarPodobienstwa().setSNR(MiaryPodobienstwa.snr(sygPierwszy, sygDrugi));
-		window.panelKwantyzacji.getPanelMiarPodobienstwa().setPSNR(MiaryPodobienstwa.psnr(sygPierwszy, sygDrugi));
-		window.panelKwantyzacji.getPanelMiarPodobienstwa().setMD(MiaryPodobienstwa.md(sygPierwszy, sygDrugi));
-		window.panelKwantyzacji.getPanelMiarPodobienstwa().setENOB(MiaryPodobienstwa.md(sygPierwszy, sygDrugi));
+		window.panelKwantyzacji.getSignalsComparsionPanel().setMSE(MiaryPodobienstwa.mse(sygPierwszy, sygDrugi));
+		window.panelKwantyzacji.getSignalsComparsionPanel().setSNR(MiaryPodobienstwa.snr(sygPierwszy, sygDrugi));
+		window.panelKwantyzacji.getSignalsComparsionPanel().setPSNR(MiaryPodobienstwa.psnr(sygPierwszy, sygDrugi));
+		window.panelKwantyzacji.getSignalsComparsionPanel().setMD(MiaryPodobienstwa.md(sygPierwszy, sygDrugi));
+		window.panelKwantyzacji.getSignalsComparsionPanel().setENOB(MiaryPodobienstwa.md(sygPierwszy, sygDrugi));
 		
 	}
 

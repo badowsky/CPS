@@ -1,8 +1,8 @@
-package Model.FunkcjeCiagle.Szumy;
+package Model.Sygnaly.Ciagle.Szumy;
 
-import Model.FunkcjeCiagle.FunkcjaCiagla;
+import Model.Sygnaly.Ciagle.SygnalCiagly;
 
-public class Impulsowy extends FunkcjaCiagla {
+public class Impulsowy extends SygnalCiagly {
 	
 	double amplituda, p;
 	

@@ -17,12 +17,12 @@ import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 
 import Helpers.MyCallable;
-import Model.FunkcjeCiagle.FunkcjaCiagla;
+import Model.Sygnaly.Ciagle.SygnalCiagly;
 
 public class PanelSygnalu extends JPanel {
 
 	private JPanel generationPartPanel;
-	private JComboBox<FunkcjaCiagla> signalChooser;
+	private JComboBox<SygnalCiagly> signalChooser;
 	private JButton btnGenerate;
 	private JButton btnLoad;
 
@@ -36,7 +36,7 @@ public class PanelSygnalu extends JPanel {
 	private ChartPanel chartPanel;
 	private ChartPanel histogramPanel;
 
-	public GenSigParamsPanel generatedParamsPanel;
+	public SignalParamsPanel generatedParamsPanel;
 	
 	private MyCallable<JFreeChart> onChartChange;
 
@@ -60,7 +60,7 @@ public class PanelSygnalu extends JPanel {
 		generationPartPanel.setLayout(null);
 		this.add(generationPartPanel);
 		
-		signalChooser = new JComboBox<FunkcjaCiagla>();
+		signalChooser = new JComboBox<SygnalCiagly>();
 		signalChooser.setBounds(70, 30, 200, 20);
 		generationPartPanel.add(signalChooser);
 
@@ -122,7 +122,7 @@ public class PanelSygnalu extends JPanel {
 		histogramPanel.setBounds(407, 332, 662, 258);
 		this.add(histogramPanel);
 
-		generatedParamsPanel = new GenSigParamsPanel();
+		generatedParamsPanel = new SignalParamsPanel();
 		generatedParamsPanel.setBounds(30, 360, 330, 200);
 		this.add(generatedParamsPanel);
 		
@@ -163,7 +163,7 @@ public class PanelSygnalu extends JPanel {
 		histogramPanelParent.repaint();
 	}
 
-	public JComboBox<FunkcjaCiagla> getSignalChooser() {
+	public JComboBox<SygnalCiagly> getSignalChooser() {
 		return signalChooser;
 	}
 

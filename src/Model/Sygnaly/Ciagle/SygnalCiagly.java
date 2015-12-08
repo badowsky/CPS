@@ -1,11 +1,11 @@
-package Model.FunkcjeCiagle;
+package Model.Sygnaly.Ciagle;
 
-public abstract class FunkcjaCiagla {
+public abstract class SygnalCiagly {
 
 	protected String name;
 	public String[] parametersNames;
 	
-	protected FunkcjaCiagla(String name){
+	protected SygnalCiagly(String name){
 		this.name = name;
 	}
 	

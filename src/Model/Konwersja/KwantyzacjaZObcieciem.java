@@ -2,7 +2,7 @@ package Model.Konwersja;
 
 import java.util.TreeSet;
 
-import Model.FunkcjeCiagle.FunkcjaCiagla;
+import Model.Sygnaly.Ciagle.SygnalCiagly;
 import Model.Sygnaly.Dyskretne.SygnalDyskretnyReal;
 import Model.Konwersja.Próbkowanie;
 
@@ -12,7 +12,7 @@ public class KwantyzacjaZObcieciem extends Kwantyzacja {
 		super(ileStopni);
 	}
 
-	public SygnalDyskretnyReal kwantyzuj(FunkcjaCiagla sygnal, double poczatek, int czestotliwosc, double koniec, int ileStopni) {
+	public SygnalDyskretnyReal kwantyzuj(SygnalCiagly sygnal, double poczatek, int czestotliwosc, double koniec, int ileStopni) {
 		
 		SygnalDyskretnyReal discreteSignal = Próbkowanie.próbkuj(sygnal, poczatek, czestotliwosc, koniec);
 		

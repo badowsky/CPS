@@ -1,10 +1,10 @@
-package Model.FunkcjeCiagle.Szumy;
+package Model.Sygnaly.Ciagle.Szumy;
 
 import java.util.Random;
 
-import Model.FunkcjeCiagle.FunkcjaCiagla;
+import Model.Sygnaly.Ciagle.SygnalCiagly;
 
-public class Gaussowski extends FunkcjaCiagla {
+public class Gaussowski extends SygnalCiagly {
 
 	Random rnd = new Random();
 	
