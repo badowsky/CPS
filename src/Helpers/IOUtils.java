@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import Model.Sygnaly.Dyskretne.SygnalDyskretnyReal;
+import Model.Signals.Discrete.SygnalDyskretnyReal;
 
 public class IOUtils {
 

@@ -13,15 +13,13 @@ import Model.Filtracja.FiltrDolnoprzepustowy;
 import Model.Filtracja.Fourier;
 import Model.Filtracja.GeneratorFiltru;
 import Model.Filtracja.Okna.Okno;
-import Model.Filtracja.Okna.OknoHamminga;
 import Model.Filtracja.Okna.OknoHanninga;
-import Model.Filtracja.Okna.OknoProstokatne;
 import Model.Konwersja.Próbkowanie;
-import Model.Operacje.Splot;
-import Model.Sygnaly.Ciagle.SygnalCiagly;
-import Model.Sygnaly.Ciagle.Zwykle.Sinus;
-import Model.Sygnaly.Dyskretne.SygnalDyskretnyCmplx;
-import Model.Sygnaly.Dyskretne.SygnalDyskretnyReal;
+import Model.Operations.Splot;
+import Model.Signals.Continuous.ContinuousSignal;
+import Model.Signals.Continuous.Normal.Sinus;
+import Model.Signals.Discrete.SygnalDyskretnyCmplx;
+import Model.Signals.Discrete.SygnalDyskretnyReal;
 
 public class CmdController {
 	
@@ -31,7 +29,7 @@ public class CmdController {
 
 	public static void main(String[] args) {
 		
-		SygnalCiagly fun = new Sinus();
+		ContinuousSignal fun = new Sinus();
 		fun.setParams(new Double[]{10.0, 0.0, 10.0});
 		
 		Filtr filtr = new FiltrDolnoprzepustowy(K);

@@ -2,8 +2,8 @@ package Model.Filtracja;
 
 import org.apache.commons.math3.complex.Complex;
 
-import Model.Sygnaly.Dyskretne.SygnalDyskretnyCmplx;
-import Model.Sygnaly.Dyskretne.SygnalDyskretnyReal;
+import Model.Signals.Discrete.SygnalDyskretnyCmplx;
+import Model.Signals.Discrete.SygnalDyskretnyReal;
 
 public class Fourier {
 

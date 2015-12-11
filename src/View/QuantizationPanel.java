@@ -15,8 +15,8 @@ import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 
 import Model.Konwersja.Kwantyzacja;
-import Model.Sygnaly.Ciagle.SygnalCiagly;
-import Model.Sygnaly.Dyskretne.SygnalDyskretnyReal;
+import Model.Signals.Continuous.ContinuousSignal;
+import Model.Signals.Discrete.SygnalDyskretnyReal;
 
 public class QuantizationPanel extends JPanel {
 
@@ -31,9 +31,9 @@ public class QuantizationPanel extends JPanel {
 	private ButtonGroup signalChooseGroup;
 	private JButton btnSaveResult;
 	private JComboBox<Kwantyzacja> quantization;
-	private PanelMiarPodobienstwa signalsComparsionPanel;
+	private ComparsionMeasuresPanel signalsComparsionPanel;
 	
-	private SygnalCiagly signalForQuantization;
+	private ContinuousSignal signalForQuantization;
 	private SygnalDyskretnyReal signalAfterQuantization;
 	
 	public QuantizationPanel(){
@@ -95,7 +95,7 @@ public class QuantizationPanel extends JPanel {
 		firstSignalChoose.setSelected(true);
 		
 		
-		signalsComparsionPanel = new PanelMiarPodobienstwa();
+		signalsComparsionPanel = new ComparsionMeasuresPanel();
 		signalsComparsionPanel.setBounds(30, 360, 330, 200);
 		this.add(signalsComparsionPanel);
 
@@ -136,7 +136,7 @@ public class QuantizationPanel extends JPanel {
 		return signalChooseGroup;
 	}
 
-	public SygnalCiagly getSignalForQuantization() {
+	public ContinuousSignal getSignalForQuantization() {
 		return signalForQuantization;
 	}
 
@@ -144,7 +144,7 @@ public class QuantizationPanel extends JPanel {
 		return signalAfterQuantization;
 	}
 
-	public void setSignalForQuantization(SygnalCiagly signal) {
+	public void setSignalForQuantization(ContinuousSignal signal) {
 		this.signalForQuantization = signal;
 	}
 
@@ -164,7 +164,7 @@ public class QuantizationPanel extends JPanel {
 		return chartTo;
 	}
 
-	public PanelMiarPodobienstwa getSignalsComparsionPanel() {
+	public ComparsionMeasuresPanel getSignalsComparsionPanel() {
 		return signalsComparsionPanel;
 	}
 

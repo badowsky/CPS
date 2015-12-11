@@ -15,8 +15,8 @@ import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 
 import Model.Konwersja.KonwersjaCA;
-import Model.Sygnaly.Ciagle.SygnalCiagly;
-import Model.Sygnaly.Dyskretne.SygnalDyskretnyReal;
+import Model.Signals.Continuous.ContinuousSignal;
+import Model.Signals.Discrete.SygnalDyskretnyReal;
 
 public class ConversionPanel extends JPanel {
 
@@ -31,9 +31,9 @@ public class ConversionPanel extends JPanel {
 	private ButtonGroup signalChooseGroup;
 	private JButton btnSaveResult;
 	private JComboBox<KonwersjaCA> conversion;
-	private PanelMiarPodobienstwa signalsComparsionPanel;
+	private ComparsionMeasuresPanel signalsComparsionPanel;
 	
-	private SygnalCiagly signalForSampling;
+	private ContinuousSignal signalForSampling;
 	private SygnalDyskretnyReal signalSampled;
 	
 	public ConversionPanel(){
@@ -100,7 +100,7 @@ public class ConversionPanel extends JPanel {
 		firstSignalChoose.setSelected(true);
 		
 		
-		signalsComparsionPanel = new PanelMiarPodobienstwa();
+		signalsComparsionPanel = new ComparsionMeasuresPanel();
 		signalsComparsionPanel.setBounds(30, 360, 330, 200);
 		this.add(signalsComparsionPanel);
 
@@ -149,7 +149,7 @@ public class ConversionPanel extends JPanel {
 		return signalChooseGroup;
 	}
 
-	public SygnalCiagly getSignalForSampling() {
+	public ContinuousSignal getSignalForSampling() {
 		return signalForSampling;
 	}
 
@@ -157,7 +157,7 @@ public class ConversionPanel extends JPanel {
 		return signalSampled;
 	}
 
-	public void setSignalForSampling(SygnalCiagly signal) {
+	public void setSignalForSampling(ContinuousSignal signal) {
 		this.signalForSampling = signal;
 	}
 
@@ -181,7 +181,7 @@ public class ConversionPanel extends JPanel {
 		return chartTo;
 	}
 
-	public PanelMiarPodobienstwa getSignalComparsionPanel() {
+	public ComparsionMeasuresPanel getSignalComparsionPanel() {
 		return signalsComparsionPanel;
 	}
 }

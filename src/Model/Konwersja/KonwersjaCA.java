@@ -1,9 +1,9 @@
 package Model.Konwersja;
 
-import Model.Sygnaly.Ciagle.SygnalCiagly;
-import Model.Sygnaly.Dyskretne.SygnalDyskretnyReal;
+import Model.Signals.Continuous.ContinuousSignal;
+import Model.Signals.Discrete.SygnalDyskretnyReal;
 
-public abstract class KonwersjaCA extends SygnalCiagly {
+public abstract class KonwersjaCA extends ContinuousSignal {
 	
 	SygnalDyskretnyReal sygnal;
 	
