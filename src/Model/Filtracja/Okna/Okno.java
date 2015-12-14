@@ -1,6 +1,6 @@
 package Model.Filtracja.Okna;
 
-import Model.Sygnaly.Dyskretne.SygnalDyskretnyReal;
+import Model.Signals.Discrete.SygnalDyskretnyReal;
 
 public abstract class Okno {
 	

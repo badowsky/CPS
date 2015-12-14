@@ -3,12 +3,8 @@ package View;
 import java.awt.GridLayout;
 
 import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
 
 public class MainWindow {
 
@@ -16,11 +12,11 @@ public class MainWindow {
 	private JPanel panel;
 
 	private JTabbedPane tabbedPane;
-	public PanelSygnalu panelPierwszegoSygnalu;
-	public PanelSygnalu panelDrugiegoSygnalu;
-	public PanelOperacji panelWynikuOperacji;
-	public PanelKonwersji panelKonwersji;
-	public PanelKwantyzacji panelKwantyzacji;
+	public SignalPanel firstSignalPanel;
+	public SignalPanel secondSignalPanel;
+	public OperationsPanel operationsPanel;
+	public ConversionPanel conversionPanel;
+	public QuantizationPanel quantizationPanel;
 
 
 	/**
@@ -43,39 +39,39 @@ public class MainWindow {
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 
-		JMenuBar menuBar = new JMenuBar();
-		menuBar.setBounds(0, 0, 1084, 21);
+//		JMenuBar menuBar = new JMenuBar();
+//		menuBar.setBounds(0, 0, 1084, 21);
 //		panel.add(menuBar);
 
-		JMenu mnFile = new JMenu("File");
-		menuBar.add(mnFile);
+//		JMenu mnFile = new JMenu("File");
+//		menuBar.add(mnFile);
 
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(0, 32, 1084, 629);
 		panel.add(tabbedPane);
 
-		panelPierwszegoSygnalu = new PanelSygnalu();
-		panelPierwszegoSygnalu.setLayout(null);
-		tabbedPane.addTab("Pierwszy sygna\u0142", null, panelPierwszegoSygnalu, null);
+		firstSignalPanel = new SignalPanel();
+		firstSignalPanel.setLayout(null);
+		tabbedPane.addTab("Pierwszy sygna\u0142", null, firstSignalPanel, null);
 
-		panelDrugiegoSygnalu = new PanelSygnalu();
-		panelDrugiegoSygnalu.setLayout(null);
-		tabbedPane.addTab("Drugi sygna\u0142", null, panelDrugiegoSygnalu, null);
+		secondSignalPanel = new SignalPanel();
+		secondSignalPanel.setLayout(null);
+		tabbedPane.addTab("Drugi sygna\u0142", null, secondSignalPanel, null);
 
-		panelWynikuOperacji = new PanelOperacji();
-		panelWynikuOperacji.setLayout(null);
-		tabbedPane.addTab("Operacje", null, panelWynikuOperacji, null);
+		operationsPanel = new OperationsPanel();
+		operationsPanel.setLayout(null);
+		tabbedPane.addTab("Operacje", null, operationsPanel, null);
 		
-		panelKwantyzacji = new PanelKwantyzacji();
-		panelKwantyzacji.setLayout(null);
-		tabbedPane.add("Kwantyzacja", panelKwantyzacji);
+		quantizationPanel = new QuantizationPanel();
+		quantizationPanel.setLayout(null);
+		tabbedPane.add("Kwantyzacja", quantizationPanel);
 		
-		panelKonwersji = new PanelKonwersji();
-		panelKonwersji.setLayout(null);
-		tabbedPane.add("Konwersja", panelKonwersji);
+		conversionPanel = new ConversionPanel();
+		conversionPanel.setLayout(null);
+		tabbedPane.add("Konwersja", conversionPanel);
 		
 
-		panelWynikuOperacji.setLayout(null);
+		operationsPanel.setLayout(null);
 
 		
 

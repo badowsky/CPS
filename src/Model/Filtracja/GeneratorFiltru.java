@@ -3,7 +3,7 @@ package Model.Filtracja;
 import org.apache.commons.math3.complex.Complex;
 
 import Model.Filtracja.Okna.Okno;
-import Model.Sygnaly.Dyskretne.SygnalDyskretnyCmplx;
+import Model.Signals.Discrete.SygnalDyskretnyCmplx;
 
 public class GeneratorFiltru {
 	

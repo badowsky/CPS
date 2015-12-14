@@ -2,30 +2,21 @@ package Controller;
 
 import java.awt.Dimension;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
-
-import org.apache.commons.math3.complex.Complex;
-import org.apache.commons.math3.transform.DftNormalization;
-import org.apache.commons.math3.transform.FastFourierTransformer;
-import org.apache.commons.math3.transform.TransformType;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
 
 import Helpers.Utils;
 import Model.Filtracja.Filtr;
 import Model.Filtracja.FiltrDolnoprzepustowy;
-import Model.Filtracja.Fourier;
 import Model.Filtracja.GeneratorFiltru;
 import Model.Filtracja.Okna.Okno;
 import Model.Filtracja.Okna.OknoHamminga;
-import Model.FunkcjeCiagle.FunkcjaCiagla;
-import Model.FunkcjeCiagle.Sygnaly.Sinus;
 import Model.Konwersja.Próbkowanie;
 import Model.Operacje.Korelacja;
-import Model.Operacje.Splot;
-import Model.Sygnaly.Dyskretne.SygnalDyskretnyCmplx;
-import Model.Sygnaly.Dyskretne.SygnalDyskretnyReal;
+import Model.Operations.Splot;
+import Model.Signals.Continuous.ContinuousSignal;
+import Model.Signals.Continuous.Normal.Sinus;
+import Model.Signals.Discrete.SygnalDyskretnyCmplx;
+import Model.Signals.Discrete.SygnalDyskretnyReal;
 import View.Graph;
 import View.SimpleFrameChartCreator;
 
@@ -37,8 +28,8 @@ public class CmdController {
 
 	public static void main(String[] args) {
 		
-		FunkcjaCiagla fun = new Sinus();
-		FunkcjaCiagla fun2 = new Sinus();
+		ContinuousSignal fun = new Sinus();
+		ContinuousSignal fun2 = new Sinus();
 		fun.setParams(new Double[]{10.0, 4.0, 9.0});
 		fun2.setParams(new Double[]{10.0, 0.0, 50.0});
 		SygnalDyskretnyReal sygnal = Próbkowanie.próbkuj(fun, 0, 10, N, true);
