@@ -117,7 +117,7 @@ public class ConversionPanel extends JPanel {
 		convertedChartPanel.getParent().repaint();
 	}
 
-	public JComboBox<KonwersjaCA> getConversion() {
+	public JComboBox<KonwersjaCA> getConversionType() {
 		return conversion;
 	}
 

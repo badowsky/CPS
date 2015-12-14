@@ -48,7 +48,7 @@ public class OperationsController {
 	
 	public void notifyFirstSignalChanged(SygnalDyskretnyReal firstSignal, ContinuousSignal firstSignalContinuous){
 		this.firstSignal = firstSignal;
-		this.panel.getFirstSignalPrevPanel().setChart(secondSignal.getChart(null));
+		this.panel.getFirstSignalPrevPanel().setChart(firstSignal.getChart(null));
 		this.panel.getFirstSignalPrevPanel().repaint();
 	}
 	
