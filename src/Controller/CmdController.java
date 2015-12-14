@@ -4,6 +4,11 @@ import java.awt.Dimension;
 
 import javax.swing.JPanel;
 
+import org.apache.commons.math3.complex.Complex;
+import org.apache.commons.math3.transform.DftNormalization;
+import org.apache.commons.math3.transform.FastFourierTransformer;
+import org.apache.commons.math3.transform.TransformType;
+
 import Helpers.Utils;
 import Model.Filtracja.Filtr;
 import Model.Filtracja.FiltrDolnoprzepustowy;
@@ -11,7 +16,7 @@ import Model.Filtracja.GeneratorFiltru;
 import Model.Filtracja.Okna.Okno;
 import Model.Filtracja.Okna.OknoHamminga;
 import Model.Konwersja.Próbkowanie;
-import Model.Operacje.Korelacja;
+import Model.Operations.Correlation;
 import Model.Operations.Splot;
 import Model.Signals.Continuous.ContinuousSignal;
 import Model.Signals.Continuous.Normal.Sinus;
@@ -43,7 +48,7 @@ public class CmdController {
 		
         Splot splot = new Splot();
         SygnalDyskretnyReal wyfiltrowany = splot.DoOperation(filtrSpróbkowany.toReal(), sygnal);
-        Korelacja korelacja = new Korelacja();
+        Correlation korelacja = new Correlation();
         SygnalDyskretnyReal sygKorelacji = korelacja.DoOperation(sygnal, sygnal2);
         SygnalDyskretnyReal sygSplotu = splot.DoOperation(sygnal, sygnal2);
         JPanel aPanel = new JPanel();

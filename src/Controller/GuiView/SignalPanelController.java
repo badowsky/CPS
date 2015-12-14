@@ -10,9 +10,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import Helpers.IOUtils;
-import Helpers.MyCallable;
 import Helpers.MyCallable2;
-import Model.Konwersja.PrÃ³bkowanie;
+import Model.Konwersja.Próbkowanie;
 import Model.Signals.Continuous.ContinuousSignal;
 import Model.Signals.Continuous.Noise.Gaussian;
 import Model.Signals.Continuous.Noise.Impulsowy;
@@ -109,7 +108,7 @@ public class SignalPanelController {
 				boolean representAsContinuous = true;
 				if(funkcja instanceof ImpulsJednostkowy) representAsContinuous = false;
 				
-				SygnalDyskretnyReal newSignal = PrÃ³bkowanie.prÃ³bkuj(funkcja, Double.parseDouble(panel.getChartFrom().getText()), CZEST_PROB_F_CIAG, Double.parseDouble(panel.getChartTo().getText()), representAsContinuous);
+				SygnalDyskretnyReal newSignal = Próbkowanie.próbkuj(funkcja, Double.parseDouble(panel.getChartFrom().getText()), CZEST_PROB_F_CIAG, Double.parseDouble(panel.getChartTo().getText()), representAsContinuous);
 				newSignal.funkcjaCiagla = funkcja;
 				setSignal(newSignal);
 

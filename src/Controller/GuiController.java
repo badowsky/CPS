@@ -35,14 +35,6 @@ public class GuiController {
 	}
 
 	public GuiController() {
-		window = new MainWindow();
-		firstSignalController = new SignalPanelController(window.firstSignalPanel);
-		secondSignalController = new SignalPanelController(window.secondSignalPanel);
-		operationsController = new OperationsController(window.operationsPanel);
-		conversionController = new ConversionController(window.conversionPanel);
-		quantizationController = new QuantizationController(window.quantizationPanel);
-		this.initialize();
-		
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (Exception e) {
@@ -50,6 +42,13 @@ public class GuiController {
 			System.out.println("Something went wrong with setting look and feel...");
 		}
 		
+		window = new MainWindow();
+		firstSignalController = new SignalPanelController(window.firstSignalPanel);
+		secondSignalController = new SignalPanelController(window.secondSignalPanel);
+		operationsController = new OperationsController(window.operationsPanel);
+		conversionController = new ConversionController(window.conversionPanel);
+		quantizationController = new QuantizationController(window.quantizationPanel);
+		this.initialize();
 		window.frame.setVisible(true);
 	}
 
