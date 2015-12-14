@@ -22,6 +22,7 @@ public class Fourier {
 			wynik.addX(k);
 		}
 		
+		
 		return wynik;
 	}
 }

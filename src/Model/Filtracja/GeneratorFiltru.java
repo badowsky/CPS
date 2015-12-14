@@ -16,16 +16,15 @@ public class GeneratorFiltru {
 	}
 	
 	public SygnalDyskretnyCmplx generuj(int K, int M, int N){
-		SygnalDyskretnyCmplx syg = new SygnalDyskretnyCmplx();
-		
-		Complex y_tmp;
-		int n = 0;
-		for(Complex n_shifted = new Complex(-Math.floor(M/2.0)) ; n_shifted.getReal() < N ; n_shifted = n_shifted.add(1)){
-			y_tmp = filtr.getValue(n_shifted).multiply(okno.getValue(n));
-			syg.addY(y_tmp);
-			syg.addX(n++);
+		Complex[] y = new Complex[N];
+		double[] x = new double[N];
+		Complex n_shifted = new Complex(-Math.floor(M/2.0));
+		for(int n = 0 ; n < N ; n++){
+			y[n] = filtr.getValue(n_shifted).multiply(okno.getValue(n));
+			x[n] = n;
+			n_shifted = n_shifted.add(1);
 		}
-		return syg;
+		return new SygnalDyskretnyCmplx(y, x);
 	}
 	
 	

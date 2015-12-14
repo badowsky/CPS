@@ -2,6 +2,7 @@ package View;
 
 import java.util.ArrayList;
 
+import org.apache.commons.math3.complex.Complex;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
@@ -10,6 +11,19 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
 public class Graph {
+	
+	public static JFreeChart drawGraph(String title, Complex[] y_table, Boolean connectedPoint){
+		ArrayList<Double> x = new ArrayList<Double>();
+		ArrayList<Double> y = new ArrayList<Double>();
+		
+		for(int i = 0 ; i < y_table.length ; i++){
+			y.add(y_table[i].getReal());
+			x.add((double)i);
+		}
+		
+		
+		return drawGraph(title, x, y, connectedPoint);
+	}
 	
 	public static JFreeChart drawGraph(String title, ArrayList<Double> x, ArrayList<Double> y, Boolean connectedPoint) {
 		

@@ -6,41 +6,38 @@ import org.apache.commons.math3.complex.Complex;
 
 public class SygnalDyskretnyCmplx {
 
-	private ArrayList<Double> x;
-	private ArrayList<Complex> y;
+	private Complex[] y;
+	private double[] x;
 	
-	public SygnalDyskretnyCmplx(){
-		this.x = new ArrayList<Double>();
-		this.y = new ArrayList<Complex>();
+	public SygnalDyskretnyCmplx(Complex[] y, double[] x){
+		this.x = x;
+		this.y = y;
 	}
 	
 	public SygnalDyskretnyReal toReal(){
 		SygnalDyskretnyReal sig = new SygnalDyskretnyReal();
 		
-		for(int n = 0; n < x.size() ; n++){
-			sig.addY(y.get(n).getReal());
-			sig.addX(x.get(n));
+		for(int n = 0; n < y.length ; n++){
+			sig.addY(y[n].getReal());
+			sig.addX(x[n]);
 		}
-		return sig;	
+		return sig;
 	}
 	
 	public double getX(int index){
-		return this.x.get(index);
+		return this.x[index];
 	}
 	
 	public Complex getY(int index){
-		return this.y.get(index);
-	}
-	
-	public void addX(double x) {
-		this.x.add(x);
-	}
-	public void addY(Complex y) {
-		this.y.add(y);
+		return this.y[index];
 	}
 	
 	public int size() {
-		return this.x.size();
+		return this.y.length;
+	}
+
+	public Complex[] getY() {
+		return y;
 	}
 
 }
