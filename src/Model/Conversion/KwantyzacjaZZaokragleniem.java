@@ -1,19 +1,19 @@
-package Model.Konwersja;
+package Model.Conversion;
 
 import java.util.TreeSet;
 
 import Model.Signals.Continuous.ContinuousSignal;
-import Model.Signals.Discrete.SygnalDyskretnyReal;
+import Model.Signals.Discrete.DiscreteSignalReal;
 	
-public class KwantyzacjaZZaokragleniem extends Kwantyzacja {
+public class KwantyzacjaZZaokragleniem extends Quantization {
 
 	public KwantyzacjaZZaokragleniem(int ileStopni) {
 		super(ileStopni);
 	}
 
-	public SygnalDyskretnyReal kwantyzuj(ContinuousSignal sygnal, double poczatek, int czestotliwosc, double koniec, int ileStopni) {
+	public DiscreteSignalReal kwantyzuj(ContinuousSignal sygnal, double poczatek, int czestotliwosc, double koniec, int ileStopni) {
 		
-		SygnalDyskretnyReal discreteSignal = Próbkowanie.próbkuj(sygnal, poczatek, czestotliwosc, koniec);
+		DiscreteSignalReal discreteSignal = Sampling.sample(sygnal, poczatek, czestotliwosc, koniec);
 		
 		double max = discreteSignal.getX(0);
 		double min = discreteSignal.getY(0);
@@ -37,7 +37,7 @@ public class KwantyzacjaZZaokragleniem extends Kwantyzacja {
 			treeSet.add(min + (sub / ileStopni) * i);
 		}
 	
-		SygnalDyskretnyReal discreteSignalReturn = new SygnalDyskretnyReal();
+		DiscreteSignalReal discreteSignalReturn = new DiscreteSignalReal();
 		
 		for (int i=0; i<discreteSignal.size(); i++) {
 			Double tempX, tempY;

@@ -1,9 +1,9 @@
 package Model.Operations;
 
-import Model.Signals.Discrete.SygnalDyskretnyReal;
+import Model.Signals.Discrete.DiscreteSignalReal;
 
 public interface OperationOnSignals {
 	
-	public SygnalDyskretnyReal DoOperation(SygnalDyskretnyReal a, SygnalDyskretnyReal b);
+	public DiscreteSignalReal DoOperation(DiscreteSignalReal a, DiscreteSignalReal b);
 
 }

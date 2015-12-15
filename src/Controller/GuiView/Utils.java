@@ -1,15 +1,15 @@
 package Controller.GuiView;
 
-import Model.Signals.MiaryPodobienstwa;
-import Model.Signals.Discrete.SygnalDyskretnyReal;
+import Model.Signals.ComparsionMeasures;
+import Model.Signals.Discrete.DiscreteSignalReal;
 import View.ComparsionMeasuresPanel;
 
 public class Utils {
-	public static void calculateComparsionMeasures(SygnalDyskretnyReal sygPierwszy, SygnalDyskretnyReal sygDrugi, ComparsionMeasuresPanel panel){
-		panel.setMSE(MiaryPodobienstwa.mse(sygPierwszy, sygDrugi));
-		panel.setSNR(MiaryPodobienstwa.snr(sygPierwszy, sygDrugi));
-		panel.setPSNR(MiaryPodobienstwa.psnr(sygPierwszy, sygDrugi));
-		panel.setMD(MiaryPodobienstwa.md(sygPierwszy, sygDrugi));
-		panel.setENOB(MiaryPodobienstwa.md(sygPierwszy, sygDrugi));
+	public static void calculateComparsionMeasures(DiscreteSignalReal sygPierwszy, DiscreteSignalReal sygDrugi, ComparsionMeasuresPanel panel){
+		panel.setMSE(ComparsionMeasures.mse(sygPierwszy, sygDrugi));
+		panel.setSNR(ComparsionMeasures.snr(sygPierwszy, sygDrugi));
+		panel.setPSNR(ComparsionMeasures.psnr(sygPierwszy, sygDrugi));
+		panel.setMD(ComparsionMeasures.md(sygPierwszy, sygDrugi));
+		panel.setENOB(ComparsionMeasures.md(sygPierwszy, sygDrugi));
 	}
 }

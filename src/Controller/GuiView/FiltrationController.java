@@ -1,17 +1,135 @@
 package Controller.GuiView;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JComboBox;
+
+import org.apache.commons.math3.complex.Complex;
+import org.apache.commons.math3.transform.DftNormalization;
+import org.apache.commons.math3.transform.FastFourierTransformer;
+import org.apache.commons.math3.transform.TransformType;
+
+import Helpers.Utils;
+import Model.Filtration.Filter;
+import Model.Filtration.Filter.FilterBuilder;
+import Model.Filtration.FiltrDolnoprzepustowy;
+import Model.Filtration.FiltrGornoprzepustowy;
+import Model.Filtration.FiltrSrodkowoprzepustowy;
+import Model.Filtration.GeneratorFiltru;
+import Model.Filtration.Windows.BlackmansWidnow;
+import Model.Filtration.Windows.HammingsWindow;
+import Model.Filtration.Windows.HanningsWindow;
+import Model.Filtration.Windows.RectangleWindow;
+import Model.Filtration.Windows.Window;
+import Model.Filtration.Windows.Window.WindowBuilder;
+import Model.Operations.Splot;
+import Model.Signals.Discrete.DiscreteSignalComplex;
+import Model.Signals.Discrete.DiscreteSignalReal;
 import View.FiltrationPanel;
+import View.Graph;
 
 public class FiltrationController {
 	
 	private FiltrationPanel panel;
+	private int K, M, N;
+	private Filter filter;
+	private Window window;
+	private FastFourierTransformer fft;
+	private DiscreteSignalReal signalToFiltration;
 	
 	public FiltrationController(FiltrationPanel panel){
 		this.panel = panel;
+		this.filter = null;
+		this.window = null;
+		this.signalToFiltration = null;
+		fft = new FastFourierTransformer(DftNormalization.STANDARD);
+		initialize();
 	}
 	
 	public void initialize(){
+		this.panel.getFilterTypeChoose().addItem(new FiltrDolnoprzepustowy.Builder());
+		this.panel.getFilterTypeChoose().addItem(new FiltrGornoprzepustowy.Builder());
+		this.panel.getFilterTypeChoose().addItem(new FiltrSrodkowoprzepustowy.Builder());
+		
+		this.panel.getWindowTypeChoose().addItem(new RectangleWindow.Builder());
+		this.panel.getWindowTypeChoose().addItem(new HammingsWindow.Builder());
+		this.panel.getWindowTypeChoose().addItem(new HanningsWindow.Builder());
+		this.panel.getWindowTypeChoose().addItem(new BlackmansWidnow.Builder());
+		
+		parseNumberFelds();
+		this.panel.getWindowTypeChoose().addActionListener(windowTypeChangedListener);
+		windowTypeChangedListener.actionPerformed(new ActionEvent(this.panel.getWindowTypeChoose(), ActionEvent.ACTION_PERFORMED, "Refresh"));
+		this.panel.getFilterTypeChoose().addActionListener(filterTypeChangedListener);
+		filterTypeChangedListener.actionPerformed(new ActionEvent(this.panel.getFilterTypeChoose(), ActionEvent.ACTION_PERFORMED, "Refresh"));
 		
 	}
+	
+	public void notifySignalAfterOperationsChanged(DiscreteSignalReal signal){
+		signalToFiltration = signal;
+		refreshResultChart();
+	}
+	
+	private void refreshCharts(){
+		parseNumberFelds();
+		refreshFilterCharts();
+		refreshWindowChart();
+		refreshResultChart();
+	}
+
+	private void refreshFilterCharts() {
+		if(filter != null && window != null){
+			GeneratorFiltru gen = new GeneratorFiltru(filter, window);
+			DiscreteSignalComplex filterSampled = gen.generuj(K, M, N);
+			panel.setFilterChart(filterSampled.toReal().getChart(null));
+	        Complex[] transformed = fft.transform(filterSampled.getY(), TransformType.FORWARD);
+	        panel.setFilterTransmitationChart(Graph.drawGraph("", Utils.abs(transformed), true));
+		}
+	}
+
+	private void refreshWindowChart() {
+		if(window != null){
+			panel.setWindowChart(window.generujPodglad().getChart(""));
+		}
+	}
+	
+	private void refreshResultChart(){
+		if(signalToFiltration != null){
+			Splot splot = new Splot();
+			GeneratorFiltru gen = new GeneratorFiltru(filter, window);
+			DiscreteSignalComplex sampledFilter = gen.generuj(K, M, N);
+			DiscreteSignalReal filtered = splot.DoOperation(sampledFilter.toReal(), signalToFiltration);
+			panel.setResultChart(filtered.getChart(null));
+		}
+	}
+	
+	private void parseNumberFelds(){
+		this.K = Integer.parseInt(this.panel.getFieldK().getText());
+		this.M = Integer.parseInt(this.panel.getFieldM().getText());
+		this.N = Integer.parseInt(this.panel.getFieldN().getText());
+	}
+	
+	private ActionListener filterTypeChangedListener = new ActionListener() {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			FilterBuilder builder = ((FilterBuilder)((JComboBox<FilterBuilder>)e.getSource()).getSelectedItem());
+			filter = builder.setK(K).build();
+			System.out.println("Everything ok - created: " + filter.toString());
+			refreshCharts();
+			
+		}
+	};
+	
+	private ActionListener windowTypeChangedListener = new ActionListener() {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			WindowBuilder builder = ((WindowBuilder)((JComboBox<WindowBuilder>)e.getSource()).getSelectedItem());
+			window = builder.setM(M).build();
+			System.out.println("Everything ok - created: " + window.toString());
+			refreshCharts();
+		}
+	};
 
 }

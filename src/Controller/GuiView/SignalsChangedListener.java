@@ -1,12 +1,12 @@
 package Controller.GuiView;
 
 import Model.Signals.Continuous.ContinuousSignal;
-import Model.Signals.Discrete.SygnalDyskretnyReal;
+import Model.Signals.Discrete.DiscreteSignalReal;
 
 public abstract class SignalsChangedListener {
 	
 	
-	public abstract void notifyFirstSignalChanged(SygnalDyskretnyReal firstSignal, ContinuousSignal firstSignalContinuous);
+	public abstract void notifyFirstSignalChanged(DiscreteSignalReal firstSignal, ContinuousSignal firstSignalContinuous);
 	
-	public abstract void notifySecondSignalChanged(SygnalDyskretnyReal secondSignal, ContinuousSignal secondSignalContinuous);
+	public abstract void notifySecondSignalChanged(DiscreteSignalReal secondSignal, ContinuousSignal secondSignalContinuous);
 }

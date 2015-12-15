@@ -14,9 +14,9 @@ import javax.swing.border.LineBorder;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 
-import Model.Konwersja.Kwantyzacja;
+import Model.Conversion.Quantization;
 import Model.Signals.Continuous.ContinuousSignal;
-import Model.Signals.Discrete.SygnalDyskretnyReal;
+import Model.Signals.Discrete.DiscreteSignalReal;
 
 public class QuantizationPanel extends JPanel {
 
@@ -30,11 +30,11 @@ public class QuantizationPanel extends JPanel {
 	private JRadioButton firstSignalChoose, secondSignalChoose;
 	private ButtonGroup signalChooseGroup;
 	private JButton btnSaveResult;
-	private JComboBox<Kwantyzacja> quantization;
+	private JComboBox<Quantization> quantization;
 	private ComparsionMeasuresPanel signalsComparsionPanel;
 	
 	private ContinuousSignal signalForQuantization;
-	private SygnalDyskretnyReal signalAfterQuantization;
+	private DiscreteSignalReal signalAfterQuantization;
 	
 	public QuantizationPanel(){
 		this.initialize();
@@ -75,7 +75,7 @@ public class QuantizationPanel extends JPanel {
 		signalAfterQuantizationChartPanel.setBounds(407, 332, 662, 258);
 		this.add(signalAfterQuantizationChartPanel);
 		
-		quantization = new JComboBox<Kwantyzacja>();
+		quantization = new JComboBox<Quantization>();
 		quantization.setBounds(150, 200, 170, 20);
 		this.add(quantization);
 		
@@ -112,7 +112,7 @@ public class QuantizationPanel extends JPanel {
 		signalAfterQuantizationChartPanel.getParent().repaint();
 	}
 
-	public JComboBox<Kwantyzacja> getQuantization() {
+	public JComboBox<Quantization> getQuantization() {
 		return quantization;
 	}
 	
@@ -140,7 +140,7 @@ public class QuantizationPanel extends JPanel {
 		return signalForQuantization;
 	}
 
-	public SygnalDyskretnyReal getSignalAfterQuantization() {
+	public DiscreteSignalReal getSignalAfterQuantization() {
 		return signalAfterQuantization;
 	}
 
@@ -148,7 +148,7 @@ public class QuantizationPanel extends JPanel {
 		this.signalForQuantization = signal;
 	}
 
-	public void setSignalAfterQuantization(SygnalDyskretnyReal signal) {
+	public void setSignalAfterQuantization(DiscreteSignalReal signal) {
 		this.signalAfterQuantization = signal;
 	}
 

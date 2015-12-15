@@ -2,17 +2,17 @@ package Model.Signals;
 
 import java.util.ArrayList;
 
-import Model.Signals.Discrete.SygnalDyskretny;
+import Model.Signals.Discrete.DiscreteSignal;
 
-public class MiaryPodobienstwa {
+public class ComparsionMeasures {
 
-	public static Double mse(SygnalDyskretny firstSig, SygnalDyskretny secondSig) {
+	public static Double mse(DiscreteSignal firstSig, DiscreteSignal secondSig) {
 		if (firstSig.size() != secondSig.size())
 			return null;
 		return squareError(firstSig, secondSig) / (firstSig.size());
 	}
 
-	public static Double snr(SygnalDyskretny oryginalSig, SygnalDyskretny secondSig) {
+	public static Double snr(DiscreteSignal oryginalSig, DiscreteSignal secondSig) {
 		if (oryginalSig.size() != secondSig.size())
 			return null;
 		double sqrSum = 0;
@@ -23,7 +23,7 @@ public class MiaryPodobienstwa {
 		return 10 * Math.log10(sqrSum / squareError(oryginalSig, secondSig));
 	}
 
-	public static Double psnr(SygnalDyskretny oryginalSig, SygnalDyskretny secondSig) {
+	public static Double psnr(DiscreteSignal oryginalSig, DiscreteSignal secondSig) {
 		if (oryginalSig.size() != secondSig.size())
 			return null;
 		double maxVal = oryginalSig.getY(0);
@@ -35,12 +35,12 @@ public class MiaryPodobienstwa {
 		return 10 * Math.log10(maxVal / mse(oryginalSig, secondSig));
 	}
 	
-	public static Double enob(SygnalDyskretny oryginalSig, SygnalDyskretny secondSig) {
+	public static Double enob(DiscreteSignal oryginalSig, DiscreteSignal secondSig) {
 	
 		return (snr(oryginalSig, secondSig) - 1.76) / 6.02;
 	}
 
-	public static Double md(SygnalDyskretny firstSig, SygnalDyskretny secondSig) {
+	public static Double md(DiscreteSignal firstSig, DiscreteSignal secondSig) {
 		if (firstSig.size() != secondSig.size())
 			return null;
 		double maxDiff = 0;
@@ -54,7 +54,7 @@ public class MiaryPodobienstwa {
 		return maxDiff;
 	}
 
-	static Double squareError(SygnalDyskretny firstSig, SygnalDyskretny secondSig) {
+	static Double squareError(DiscreteSignal firstSig, DiscreteSignal secondSig) {
 		if (firstSig.size() != secondSig.size())
 			return null;
 		double sum = 0;

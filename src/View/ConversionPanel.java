@@ -14,9 +14,9 @@ import javax.swing.border.LineBorder;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 
-import Model.Konwersja.KonwersjaCA;
+import Model.Conversion.ConversionCA;
 import Model.Signals.Continuous.ContinuousSignal;
-import Model.Signals.Discrete.SygnalDyskretnyReal;
+import Model.Signals.Discrete.DiscreteSignalReal;
 
 public class ConversionPanel extends JPanel {
 
@@ -30,11 +30,11 @@ public class ConversionPanel extends JPanel {
 	private JRadioButton firstSignalChoose, secondSignalChoose;
 	private ButtonGroup signalChooseGroup;
 	private JButton btnSaveResult;
-	private JComboBox<KonwersjaCA> conversion;
+	private JComboBox<ConversionCA> conversion;
 	private ComparsionMeasuresPanel signalsComparsionPanel;
 	
 	private ContinuousSignal signalForSampling;
-	private SygnalDyskretnyReal signalSampled;
+	private DiscreteSignalReal signalSampled;
 	
 	public ConversionPanel(){
 		this.initialize();
@@ -75,7 +75,7 @@ public class ConversionPanel extends JPanel {
 		btnDoSampling.setBounds(293, 110, 100, 40);
 		this.add(btnDoSampling);
 		
-		conversion = new JComboBox<KonwersjaCA>();
+		conversion = new JComboBox<ConversionCA>();
 		conversion.setBounds(150, 200, 170, 20);
 		this.add(conversion);
 		
@@ -117,7 +117,7 @@ public class ConversionPanel extends JPanel {
 		convertedChartPanel.getParent().repaint();
 	}
 
-	public JComboBox<KonwersjaCA> getConversionType() {
+	public JComboBox<ConversionCA> getConversionType() {
 		return conversion;
 	}
 
@@ -153,7 +153,7 @@ public class ConversionPanel extends JPanel {
 		return signalForSampling;
 	}
 
-	public SygnalDyskretnyReal getSignalSampled() {
+	public DiscreteSignalReal getSignalSampled() {
 		return signalSampled;
 	}
 
@@ -161,7 +161,7 @@ public class ConversionPanel extends JPanel {
 		this.signalForSampling = signal;
 	}
 
-	public void setSignalSampled(SygnalDyskretnyReal signal) {
+	public void setSignalSampled(DiscreteSignalReal signal) {
 		this.signalSampled = signal;
 	}
 

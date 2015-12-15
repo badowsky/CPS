@@ -1,12 +1,12 @@
 package Model.Operations;
 
-import Model.Signals.Discrete.SygnalDyskretnyReal;
+import Model.Signals.Discrete.DiscreteSignalReal;
 
 public class Subtraction implements OperationOnSignals {
 
 	@Override
-	public SygnalDyskretnyReal DoOperation(SygnalDyskretnyReal a, SygnalDyskretnyReal b) {
-		SygnalDyskretnyReal result = new SygnalDyskretnyReal();
+	public DiscreteSignalReal DoOperation(DiscreteSignalReal a, DiscreteSignalReal b) {
+		DiscreteSignalReal result = new DiscreteSignalReal();
 
 		for (int i = 0; i < a.size(); i++) {
 			result.addX(a.getX(i));

@@ -1,14 +1,14 @@
-package Model.Filtracja;
+package Model.Filtration;
 
 import org.apache.commons.math3.complex.Complex;
 
-import Model.Signals.Discrete.SygnalDyskretnyCmplx;
-import Model.Signals.Discrete.SygnalDyskretnyReal;
+import Model.Signals.Discrete.DiscreteSignalComplex;
+import Model.Signals.Discrete.DiscreteSignalReal;
 
 public class Fourier {
 
-	public static SygnalDyskretnyReal DFT(SygnalDyskretnyCmplx s){
-		SygnalDyskretnyReal wynik = new SygnalDyskretnyReal();
+	public static DiscreteSignalReal DFT(DiscreteSignalComplex s){
+		DiscreteSignalReal wynik = new DiscreteSignalReal();
 		int n = s.size();
 		for (int k = 0; k < n; k++) {  // For each output element
 			double sumreal = 0;

@@ -10,20 +10,20 @@ import org.apache.commons.math3.transform.FastFourierTransformer;
 import org.apache.commons.math3.transform.TransformType;
 
 import Helpers.Utils;
-import Model.Filtracja.Filtr;
-import Model.Filtracja.FiltrDolnoprzepustowy;
-import Model.Filtracja.FiltrGornoprzepustowy;
-import Model.Filtracja.FiltrSrodkowoprzepustowy;
-import Model.Filtracja.GeneratorFiltru;
-import Model.Filtracja.Okna.Okno;
-import Model.Filtracja.Okna.OknoHamminga;
-import Model.Konwersja.Próbkowanie;
+import Model.Conversion.Sampling;
+import Model.Filtration.Filter;
+import Model.Filtration.FiltrDolnoprzepustowy;
+import Model.Filtration.FiltrGornoprzepustowy;
+import Model.Filtration.FiltrSrodkowoprzepustowy;
+import Model.Filtration.GeneratorFiltru;
+import Model.Filtration.Windows.HammingsWindow;
+import Model.Filtration.Windows.Window;
 import Model.Operations.Correlation;
 import Model.Operations.Splot;
 import Model.Signals.Continuous.ContinuousSignal;
 import Model.Signals.Continuous.Normal.Sinus;
-import Model.Signals.Discrete.SygnalDyskretnyCmplx;
-import Model.Signals.Discrete.SygnalDyskretnyReal;
+import Model.Signals.Discrete.DiscreteSignalComplex;
+import Model.Signals.Discrete.DiscreteSignalReal;
 import View.Graph;
 import View.SimpleFrameChartCreator;
 
@@ -39,20 +39,20 @@ public class CmdController {
 		ContinuousSignal fun2 = new Sinus();
 		fun.setParams(new Double[]{10.0, 0.0, 10.0});
 		fun2.setParams(new Double[]{10.0, 0.0, 10.0});
-		SygnalDyskretnyReal sygnal = Próbkowanie.próbkuj(fun, 0, 100, 10, true);
-		SygnalDyskretnyReal sygnal2 = Próbkowanie.próbkuj(fun2, 0, 100, 10, true);
+		DiscreteSignalReal sygnal = Sampling.sample(fun, 0, 100, 10, true);
+		DiscreteSignalReal sygnal2 = Sampling.sample(fun2, 0, 100, 10, true);
 		
-		Filtr filtr = new FiltrDolnoprzepustowy(K);
-		Okno okno = new OknoHamminga(M);
+		Filter filtr = new FiltrDolnoprzepustowy(K);
+		Window okno = new HammingsWindow(M);
 		GeneratorFiltru gen = new GeneratorFiltru(filtr, okno);
-		SygnalDyskretnyCmplx filtrSpróbkowany = gen.generuj(K, M, N);
+		DiscreteSignalComplex filtrSpróbkowany = gen.generuj(K, M, N);
 		
 		
         Splot splot = new Splot();        
         Correlation korelacja = new Correlation();
-        SygnalDyskretnyReal sygKorelacji = korelacja.DoOperation(sygnal, sygnal2);
-        SygnalDyskretnyReal sygSplotu = splot.DoOperation(sygnal, sygnal2);
-        SygnalDyskretnyReal wyfiltrowany = splot.DoOperation(filtrSpróbkowany.toReal(), sygSplotu);
+        DiscreteSignalReal sygKorelacji = korelacja.DoOperation(sygnal, sygnal2);
+        DiscreteSignalReal sygSplotu = splot.DoOperation(sygnal, sygnal2);
+        DiscreteSignalReal wyfiltrowany = splot.DoOperation(filtrSpróbkowany.toReal(), sygSplotu);
         JPanel aPanel = new JPanel();
         aPanel.setPreferredSize(new Dimension(600, 300));
         FastFourierTransformer fft = new FastFourierTransformer(DftNormalization.STANDARD);

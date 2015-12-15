@@ -1,11 +1,11 @@
 package Model.Operations;
 
-import Model.Signals.Discrete.SygnalDyskretnyReal;
+import Model.Signals.Discrete.DiscreteSignalReal;
 
 public class Splot implements OperationOnSignals{
 
-	public SygnalDyskretnyReal DoOperation(SygnalDyskretnyReal h, SygnalDyskretnyReal x) {
-		SygnalDyskretnyReal splot = new SygnalDyskretnyReal();
+	public DiscreteSignalReal DoOperation(DiscreteSignalReal h, DiscreteSignalReal x) {
+		DiscreteSignalReal splot = new DiscreteSignalReal();
 		
 		int M = h.size();
 		int N = x.size();

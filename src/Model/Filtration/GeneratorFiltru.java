@@ -1,21 +1,21 @@
-package Model.Filtracja;
+package Model.Filtration;
 
 import org.apache.commons.math3.complex.Complex;
 
-import Model.Filtracja.Okna.Okno;
-import Model.Signals.Discrete.SygnalDyskretnyCmplx;
+import Model.Filtration.Windows.Window;
+import Model.Signals.Discrete.DiscreteSignalComplex;
 
 public class GeneratorFiltru {
 	
-	private Filtr filtr;
-	private Okno okno;
+	private Filter filtr;
+	private Window okno;
 	
-	public GeneratorFiltru(Filtr filtr, Okno okno){
+	public GeneratorFiltru(Filter filtr, Window okno){
 		this.filtr = filtr;
 		this.okno = okno;
 	}
 	
-	public SygnalDyskretnyCmplx generuj(int K, int M, int N){
+	public DiscreteSignalComplex generuj(int K, int M, int N){
 		Complex[] y = new Complex[N];
 		double[] x = new double[N];
 		Complex n_shifted = new Complex(-Math.floor(M/2.0));
@@ -24,7 +24,7 @@ public class GeneratorFiltru {
 			x[n] = n;
 			n_shifted = n_shifted.add(1);
 		}
-		return new SygnalDyskretnyCmplx(y, x);
+		return new DiscreteSignalComplex(y, x);
 	}
 	
 	

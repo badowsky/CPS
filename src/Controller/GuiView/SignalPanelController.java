@@ -11,7 +11,7 @@ import javax.swing.JTextField;
 
 import Helpers.IOUtils;
 import Helpers.MyCallable2;
-import Model.Konwersja.Próbkowanie;
+import Model.Conversion.Sampling;
 import Model.Signals.Continuous.ContinuousSignal;
 import Model.Signals.Continuous.Noise.Gaussian;
 import Model.Signals.Continuous.Noise.Impulsowy;
@@ -24,20 +24,20 @@ import Model.Signals.Continuous.Normal.SinusWyprostDwupol;
 import Model.Signals.Continuous.Normal.SinusWyprostJednopol;
 import Model.Signals.Continuous.Normal.SkokJednostkowy;
 import Model.Signals.Continuous.Normal.Trojkatny;
-import Model.Signals.Discrete.SygnalDyskretnyReal;
+import Model.Signals.Discrete.DiscreteSignalReal;
 import View.SignalPanel;
 
 public class SignalPanelController {
 	
 	private SignalPanel panel;
-	private SygnalDyskretnyReal signal;
+	private DiscreteSignalReal signal;
 	int CZEST_PROB_F_CIAG = 1000;
-	private ArrayList<MyCallable2<SygnalDyskretnyReal, ContinuousSignal>> subscribersOnChange;
+	private ArrayList<MyCallable2<DiscreteSignalReal, ContinuousSignal>> subscribersOnChange;
 	private final JFileChooser fc;
 	
 	public SignalPanelController(SignalPanel panel){
 		this.panel = panel;
-		subscribersOnChange = new ArrayList<MyCallable2<SygnalDyskretnyReal, ContinuousSignal>>();
+		subscribersOnChange = new ArrayList<MyCallable2<DiscreteSignalReal, ContinuousSignal>>();
 		fc = new JFileChooser();
 		initialize();
 	}
@@ -61,14 +61,14 @@ public class SignalPanelController {
 		this.panel.getBtnGenerate().addActionListener(btnGenSigListener);
 	}
 	
-	public void subscribeOnChartChange(MyCallable2<SygnalDyskretnyReal, ContinuousSignal> callable){
+	public void subscribeOnChartChange(MyCallable2<DiscreteSignalReal, ContinuousSignal> callable){
 		subscribersOnChange.add(callable);
 	}
 	
 	private void signalChanged(){
 		reloadSignalCharts();
 		updateSignalParameters();
-		for(MyCallable2<SygnalDyskretnyReal, ContinuousSignal> callable : subscribersOnChange){
+		for(MyCallable2<DiscreteSignalReal, ContinuousSignal> callable : subscribersOnChange){
 			callable.call(getSignal(), (ContinuousSignal)this.panel.getSignalChooser().getSelectedItem());
 		}
 	}
@@ -108,7 +108,7 @@ public class SignalPanelController {
 				boolean representAsContinuous = true;
 				if(funkcja instanceof ImpulsJednostkowy) representAsContinuous = false;
 				
-				SygnalDyskretnyReal newSignal = Próbkowanie.próbkuj(funkcja, Double.parseDouble(panel.getChartFrom().getText()), CZEST_PROB_F_CIAG, Double.parseDouble(panel.getChartTo().getText()), representAsContinuous);
+				DiscreteSignalReal newSignal = Sampling.sample(funkcja, Double.parseDouble(panel.getChartFrom().getText()), CZEST_PROB_F_CIAG, Double.parseDouble(panel.getChartTo().getText()), representAsContinuous);
 				newSignal.funkcjaCiagla = funkcja;
 				setSignal(newSignal);
 
@@ -136,11 +136,11 @@ public class SignalPanelController {
 		}
 	};
 
-	public SygnalDyskretnyReal getSignal() {
+	public DiscreteSignalReal getSignal() {
 		return signal;
 	}
 
-	public void setSignal(SygnalDyskretnyReal signal) {
+	public void setSignal(DiscreteSignalReal signal) {
 		this.signal = signal;
 		signalChanged();
 	}

@@ -1,6 +1,6 @@
-package Model.Konwersja;
+package Model.Conversion;
 
-public class ZeroOrderHold extends KonwersjaCA {
+public class ZeroOrderHold extends ConversionCA {
 
 	public ZeroOrderHold() {
 		super("Zero order hold");

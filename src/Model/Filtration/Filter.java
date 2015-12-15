@@ -1,12 +1,12 @@
-package Model.Filtracja;
+package Model.Filtration;
 
 import org.apache.commons.math3.complex.Complex;
 
-public class Filtr {
+public class Filter {
 
 	private int K;
 	
-	public Filtr(int K) {
+	public Filter(int K) {
 		this.K = K;
 	}
 	
@@ -16,5 +16,14 @@ public class Filtr {
 		}else{
 			return n.multiply(2*Math.PI).divide(K).sin().divide(n.multiply(Math.PI));
 		}
+	}
+	
+	public static abstract class FilterBuilder {
+		int K;
+		public FilterBuilder setK(int K){
+			this.K = K;
+			return this;
+		}
+		public abstract Filter build();
 	}
 }

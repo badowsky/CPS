@@ -2,7 +2,7 @@ package Model.Signals.Discrete;
 
 import java.util.Iterator;
 
-public interface SygnalDyskretny {
+public interface DiscreteSignal {
 
 	double getX(int index);
 	double getY(int index);

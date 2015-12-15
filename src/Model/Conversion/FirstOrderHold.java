@@ -1,6 +1,6 @@
-package Model.Konwersja;
+package Model.Conversion;
 
-public class FirstOrderHold extends KonwersjaCA {
+public class FirstOrderHold extends ConversionCA {
 
 	public FirstOrderHold() {
 		super("First Order Hold");

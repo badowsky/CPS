@@ -4,18 +4,18 @@ import java.util.ArrayList;
 
 import org.apache.commons.math3.complex.Complex;
 
-public class SygnalDyskretnyCmplx {
+public class DiscreteSignalComplex {
 
 	private Complex[] y;
 	private double[] x;
 	
-	public SygnalDyskretnyCmplx(Complex[] y, double[] x){
+	public DiscreteSignalComplex(Complex[] y, double[] x){
 		this.x = x;
 		this.y = y;
 	}
 	
-	public SygnalDyskretnyReal toReal(){
-		SygnalDyskretnyReal sig = new SygnalDyskretnyReal();
+	public DiscreteSignalReal toReal(){
+		DiscreteSignalReal sig = new DiscreteSignalReal();
 		
 		for(int n = 0; n < y.length ; n++){
 			sig.addY(y[n].getReal());

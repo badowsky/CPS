@@ -8,7 +8,7 @@ import org.jfree.chart.JFreeChart;
 import Model.Signals.Continuous.ContinuousSignal;
 import View.Graph;
 
-public class SygnalDyskretnyReal implements SygnalDyskretny{
+public class DiscreteSignalReal implements DiscreteSignal{
 	
 	private ArrayList<Double> x;
 	private ArrayList<Double> y;
@@ -18,19 +18,19 @@ public class SygnalDyskretnyReal implements SygnalDyskretny{
 	public static int HISTOGRAM_INTERVAL = 10;
 	private boolean REPRESENT_AS_CONTINUOUS;
 	
-	public SygnalDyskretnyReal(boolean continuous){
+	public DiscreteSignalReal(boolean continuous){
 		this(continuous, new ArrayList<Double>(), new ArrayList<Double>());
 	}
 	
-	public SygnalDyskretnyReal(){
+	public DiscreteSignalReal(){
 		this(true, new ArrayList<Double>(), new ArrayList<Double>());
 	}
 	
-	public SygnalDyskretnyReal(ArrayList<Double> x, ArrayList<Double> y){
+	public DiscreteSignalReal(ArrayList<Double> x, ArrayList<Double> y){
 		this(true, x, y);
 	}
 	
-	public SygnalDyskretnyReal(boolean continuous, ArrayList<Double> x, ArrayList<Double> y){
+	public DiscreteSignalReal(boolean continuous, ArrayList<Double> x, ArrayList<Double> y){
 		this.REPRESENT_AS_CONTINUOUS = continuous;
 		this.y = y;
 		this.x = x;

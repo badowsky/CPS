@@ -9,12 +9,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import Model.Signals.Discrete.SygnalDyskretnyReal;
+import Model.Signals.Discrete.DiscreteSignalReal;
 
 public class IOUtils {
 
-	public static SygnalDyskretnyReal LoadSignal(File file) {
-		SygnalDyskretnyReal signal = null;
+	public static DiscreteSignalReal LoadSignal(File file) {
+		DiscreteSignalReal signal = null;
 		BufferedReader in = null;
 		ArrayList<Double> x = new ArrayList<Double>();
 		ArrayList<Double> y = new ArrayList<Double>();
@@ -33,7 +33,7 @@ public class IOUtils {
 				y.add(Double.parseDouble(values[1]));
 			}
 
-			signal = new SygnalDyskretnyReal(x, y);
+			signal = new DiscreteSignalReal(x, y);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -50,7 +50,7 @@ public class IOUtils {
 		return signal;
 	}
 
-	public static void SaveSignal(File file, SygnalDyskretnyReal signal){
+	public static void SaveSignal(File file, DiscreteSignalReal signal){
 		BufferedWriter out = null;
 		try {
 			out = new BufferedWriter(new FileWriter(file));
