@@ -17,6 +17,7 @@ public class MainWindow {
 	public OperationsPanel operationsPanel;
 	public ConversionPanel conversionPanel;
 	public QuantizationPanel quantizationPanel;
+	public FiltrationPanel filtrationPanel;
 
 
 	/**
@@ -70,8 +71,9 @@ public class MainWindow {
 		conversionPanel.setLayout(null);
 		tabbedPane.add("Konwersja", conversionPanel);
 		
-
-		operationsPanel.setLayout(null);
+		filtrationPanel = new FiltrationPanel();
+		filtrationPanel.setLayout(null);
+		tabbedPane.add("Filtracja", filtrationPanel);
 
 		
 

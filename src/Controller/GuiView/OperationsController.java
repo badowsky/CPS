@@ -8,6 +8,7 @@ import javax.swing.JFileChooser;
 
 import Helpers.IOUtils;
 import Model.Operations.Addition;
+import Model.Operations.Correlation;
 import Model.Operations.Division;
 import Model.Operations.Multiplication;
 import Model.Operations.OperationOnSignals;
@@ -39,6 +40,7 @@ public class OperationsController {
 		this.panel.getOperations().addItem(new Multiplication());
 		this.panel.getOperations().addItem(new Division());
 		this.panel.getOperations().addItem(new Splot());
+		this.panel.getOperations().addItem(new Correlation());
 	}
 	
 	private void reloadResultSignalCharts() {

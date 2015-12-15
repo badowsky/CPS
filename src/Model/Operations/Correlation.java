@@ -18,7 +18,7 @@ public class Correlation implements OperationOnSignals{
 					y += h.getY(k)*x.getY(k+n);
 				};
 			}
-			splot.addX((double)n);
+			splot.addX((double)n-roznica);
 			splot.addY(y);
 		}
 		return splot;
@@ -64,7 +64,7 @@ public class Correlation implements OperationOnSignals{
 
 	@Override
 	public String toString() {
-		return "Splot";
+		return "Korelacja";
 	}
 	
 	
