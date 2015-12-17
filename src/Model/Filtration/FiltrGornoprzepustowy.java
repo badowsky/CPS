@@ -2,8 +2,6 @@ package Model.Filtration;
 
 import org.apache.commons.math3.complex.Complex;
 
-import Model.Filtration.Filter.FilterBuilder;
-
 public class FiltrGornoprzepustowy extends Filter {
 
 	public FiltrGornoprzepustowy(int K) {

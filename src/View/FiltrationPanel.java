@@ -5,7 +5,9 @@ import java.awt.Color;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSpinner;
 import javax.swing.JTextField;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.border.LineBorder;
 
 import org.jfree.chart.ChartPanel;
@@ -21,7 +23,7 @@ public class FiltrationPanel extends JPanel {
 	private ChartPanel resultChart;
 
 	private JLabel lblK, lblM, lblN;
-	private JTextField fieldK, fieldM, fieldN;
+	private JSpinner fieldK, fieldM, fieldN;
 	
 	private JComboBox<FilterBuilder> filterType;
 	private JComboBox<WindowBuilder> windowType;
@@ -35,24 +37,36 @@ public class FiltrationPanel extends JPanel {
 		lblK.setBounds(50, 20, 20, 20);
 		this.add(lblK);
 		
-		fieldK = new JTextField("8");
-		fieldK.setBounds(60, 20, 30, 20);
+		         
+		fieldK = new JSpinner (new SpinnerNumberModel(
+				8, //initial value
+	            0, //min
+	            100, //max
+	            1));//step
+		fieldK.setBounds(60, 20, 50, 20);
 		this.add(fieldK);
 		
 		lblM = new JLabel("M");
-		lblM.setBounds(100, 20, 20, 20);
+		lblM.setBounds(120, 20, 20, 20);
 		this.add(lblM);
 		
-		fieldM = new JTextField("63");
-		fieldM.setBounds(110, 20, 30, 20);
+		fieldM = new JSpinner (new SpinnerNumberModel(
+				63, //initial value
+	            0, //min
+	            10000, //max
+	            1));//step);
+		fieldM.setBounds(130, 20, 50, 20);
 		this.add(fieldM);
 		
 		lblN = new JLabel("N");
-		lblN.setBounds(150, 20, 20, 20);
+		lblN.setBounds(190, 20, 20, 20);
 		this.add(lblN);
 		
-		fieldN = new JTextField("128");
-		fieldN.setBounds(160, 20, 30, 20);
+		fieldN = new JSpinner (new PowerOfTwoSpinner(
+				128, //initial value
+	            0, //min
+	            100000)); //max
+		fieldN.setBounds(200, 20, 50, 20);
 		this.add(fieldN);
 		
 		filterChart = new ChartPanel(null);
@@ -104,15 +118,15 @@ public class FiltrationPanel extends JPanel {
 		return filterType;
 	}
 
-	public JTextField getFieldK() {
+	public JSpinner getFieldK() {
 		return fieldK;
 	}
 
-	public JTextField getFieldM() {
+	public JSpinner getFieldM() {
 		return fieldM;
 	}
 
-	public JTextField getFieldN() {
+	public JSpinner getFieldN() {
 		return fieldN;
 	}
 

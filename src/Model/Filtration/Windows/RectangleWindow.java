@@ -1,7 +1,5 @@
 package Model.Filtration.Windows;
 
-import Model.Filtration.Windows.Window.WindowBuilder;
-
 public class RectangleWindow extends Window {
 
 	public RectangleWindow(int M) {

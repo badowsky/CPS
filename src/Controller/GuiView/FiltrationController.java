@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JComboBox;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import org.apache.commons.math3.complex.Complex;
 import org.apache.commons.math3.transform.DftNormalization;
@@ -34,7 +36,9 @@ public class FiltrationController {
 	private FiltrationPanel panel;
 	private int K, M, N;
 	private Filter filter;
+	private FilterBuilder filterBuilder;
 	private Window window;
+	private WindowBuilder windowBuilder;
 	private FastFourierTransformer fft;
 	private DiscreteSignalReal signalToFiltration;
 	
@@ -63,6 +67,10 @@ public class FiltrationController {
 		this.panel.getFilterTypeChoose().addActionListener(filterTypeChangedListener);
 		filterTypeChangedListener.actionPerformed(new ActionEvent(this.panel.getFilterTypeChoose(), ActionEvent.ACTION_PERFORMED, "Refresh"));
 		
+		
+		this.panel.getFieldK().addChangeListener(parametersChangedListener);
+		this.panel.getFieldM().addChangeListener(parametersChangedListener);
+		this.panel.getFieldN().addChangeListener(parametersChangedListener);
 	}
 	
 	public void notifySignalAfterOperationsChanged(DiscreteSignalReal signal){
@@ -79,6 +87,7 @@ public class FiltrationController {
 
 	private void refreshFilterCharts() {
 		if(filter != null && window != null){
+			filter = filterBuilder.setK(K).build();
 			GeneratorFiltru gen = new GeneratorFiltru(filter, window);
 			DiscreteSignalComplex filterSampled = gen.generuj(K, M, N);
 			panel.setFilterChart(filterSampled.toReal().getChart(null));
@@ -88,7 +97,8 @@ public class FiltrationController {
 	}
 
 	private void refreshWindowChart() {
-		if(window != null){
+		if(windowBuilder != null){
+			window = windowBuilder.setM(M).build();
 			panel.setWindowChart(window.generujPodglad().getChart(""));
 		}
 	}
@@ -104,17 +114,17 @@ public class FiltrationController {
 	}
 	
 	private void parseNumberFelds(){
-		this.K = Integer.parseInt(this.panel.getFieldK().getText());
-		this.M = Integer.parseInt(this.panel.getFieldM().getText());
-		this.N = Integer.parseInt(this.panel.getFieldN().getText());
+		this.K = (Integer)this.panel.getFieldK().getValue();
+		this.M = (Integer)this.panel.getFieldM().getValue();
+		this.N = (Integer)this.panel.getFieldN().getValue();
 	}
 	
 	private ActionListener filterTypeChangedListener = new ActionListener() {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			FilterBuilder builder = ((FilterBuilder)((JComboBox<FilterBuilder>)e.getSource()).getSelectedItem());
-			filter = builder.setK(K).build();
+			filterBuilder = ((FilterBuilder)((JComboBox<FilterBuilder>)e.getSource()).getSelectedItem());
+			filter = filterBuilder.setK(K).build();
 			System.out.println("Everything ok - created: " + filter.toString());
 			refreshCharts();
 			
@@ -125,11 +135,21 @@ public class FiltrationController {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			WindowBuilder builder = ((WindowBuilder)((JComboBox<WindowBuilder>)e.getSource()).getSelectedItem());
-			window = builder.setM(M).build();
+			windowBuilder = ((WindowBuilder)((JComboBox<WindowBuilder>)e.getSource()).getSelectedItem());
+			window = windowBuilder.setM(M).build();
 			System.out.println("Everything ok - created: " + window.toString());
 			refreshCharts();
 		}
+	};
+	
+	private ChangeListener parametersChangedListener = new ChangeListener() {
+
+		@Override
+		public void stateChanged(ChangeEvent arg0) {
+			refreshCharts();
+		}
+
+
 	};
 
 }
