@@ -1,28 +1,70 @@
 package Model.Operations;
 
+import java.util.List;
+
+import Controller.GuiView.SignalPanelController;
 import Model.Signals.Discrete.DiscreteSignalReal;
 
 public class Correlation implements OperationOnSignals{
 
 	public DiscreteSignalReal DoOperation(DiscreteSignalReal h, DiscreteSignalReal x) {
-		DiscreteSignalReal splot = new DiscreteSignalReal();
+		DiscreteSignalReal correlation = new DiscreteSignalReal();
+		
+		//System.out.println("Korelacja - start");
 		
 		int M = h.size();
 		int N = x.size();
+		System.out.println("M = " + M + "\nN = " + N);
 		double y;
-		int roznica = -(Math.min(M, N)-1);
-		for(int n = roznica; n < N ; n++){
+		
+		int hIndex, xIndex;
+		int i = 0;
+		for(int n = -(Math.min(M, N)-1); i < M+N-1; n++){
+			//System.out.print("\nRhx(" + n + ") = ");
 			y = 0;
 			for(int k = 0 ; k < M ; k++){
-				if (k+n > 0 && k+n < N){
-					y += h.getY(k)*x.getY(k+n);
+				hIndex = k;
+				xIndex = k-n;
+				if (xIndex >= 0 && xIndex < N && hIndex >= 0 && hIndex < M){
+					y += h.getY(hIndex)*x.getY(xIndex);
+					//System.out.print("h(" + hIndex + ") * x(" + xIndex +") + ");
 				};
 			}
-			splot.addX((double)n-roznica);
-			splot.addY(y);
+			correlation.addY(y);
+			correlation.addX(i++);
 		}
-		return splot;
+		testCzujnik(correlation);
+		return correlation;
 	}
+	
+	public void testCzujnik(DiscreteSignalReal correlation){
+		int startRightHalf = (int) Math.floor((correlation.size()/2.0));
+		
+		List<Double> rightHalf = correlation.getRawValues().subList(startRightHalf, correlation.size());
+		
+		int samplesDistance = 0;
+		Double maxVal = rightHalf.get(0);
+		
+		Double currentVal;
+		for(int i = 0; i < rightHalf.size(); i++){
+			currentVal = rightHalf.get(i);
+			if(maxVal < currentVal) {
+				maxVal = currentVal;
+				samplesDistance = i;
+			}
+		}
+		System.out.println("Ca³kowity rozmiar = " + correlation.size());
+		System.out.println("Pierwszy index prawej po³owy = " + startRightHalf);
+		System.out.println("Odleg³oœc próbek = " + samplesDistance);
+		System.out.println("Maksymalna wartosc = " + maxVal);
+		double shift = (double)samplesDistance/SignalPanelController.CZEST_PROB_F_CIAG;
+		System.out.println("Przesuniecie = " + shift);
+		double distanceInKm= shift*300000;
+		System.out.println("Odleg³oœc jak¹ pokona³ sygna³ [km] = " + distanceInKm);
+		System.out.println("Odleg³oœc od przeszkody [km] = " + distanceInKm/2);
+		
+	}
+	
 	
 //	public SygnalDyskretnyCmplx DoOperation(SygnalDyskretnyCmplx h, SygnalDyskretnyCmplx x) {
 //		SygnalDyskretnyCmplx splot = new SygnalDyskretnyCmplx();

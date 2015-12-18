@@ -2,6 +2,7 @@ package Controller.GuiView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 
 import javax.swing.JComboBox;
 import javax.swing.event.ChangeEvent;
@@ -90,16 +91,16 @@ public class FiltrationController {
 			filter = filterBuilder.setK(K).build();
 			GeneratorFiltru gen = new GeneratorFiltru(filter, window);
 			DiscreteSignalComplex filterSampled = gen.generuj(K, M, N);
-			panel.setFilterChart(filterSampled.toReal().getChart(null));
+			panel.setFilterChart(filterSampled.toReal().getChart("Odpowiedü impulsowa"));
 	        Complex[] transformed = fft.transform(filterSampled.getY(), TransformType.FORWARD);
-	        panel.setFilterTransmitationChart(Graph.drawGraph("", Utils.abs(transformed), true));
+	        panel.setFilterTransmitationChart(Graph.drawGraph("Transmitancja", Arrays.copyOf(Utils.abs(transformed), N/2), true));
 		}
 	}
 
 	private void refreshWindowChart() {
 		if(windowBuilder != null){
 			window = windowBuilder.setM(M).build();
-			panel.setWindowChart(window.generujPodglad().getChart(""));
+			panel.setWindowChart(window.generujPodglad().getChart("Okno"));
 		}
 	}
 	
@@ -109,7 +110,7 @@ public class FiltrationController {
 			GeneratorFiltru gen = new GeneratorFiltru(filter, window);
 			DiscreteSignalComplex sampledFilter = gen.generuj(K, M, N);
 			DiscreteSignalReal filtered = splot.DoOperation(sampledFilter.toReal(), signalToFiltration);
-			panel.setResultChart(filtered.getChart(null));
+			panel.setResultChart(filtered.getChart("Wynik filtracji"));
 		}
 	}
 	

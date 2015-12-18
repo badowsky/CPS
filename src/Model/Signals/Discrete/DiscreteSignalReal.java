@@ -2,6 +2,7 @@ package Model.Signals.Discrete;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import org.jfree.chart.JFreeChart;
 
@@ -10,8 +11,8 @@ import View.Graph;
 
 public class DiscreteSignalReal implements DiscreteSignal{
 	
-	private ArrayList<Double> x;
-	private ArrayList<Double> y;
+	private List<Double> x;
+	private List<Double> y;
 	
 	public ContinuousSignal funkcjaCiagla;
 	
@@ -34,6 +35,15 @@ public class DiscreteSignalReal implements DiscreteSignal{
 		this.REPRESENT_AS_CONTINUOUS = continuous;
 		this.y = y;
 		this.x = x;
+	}
+	
+	public DiscreteSignalReal sublist(int from, int to){
+		DiscreteSignalReal copy = new DiscreteSignalReal();
+		copy.x = this.x.subList(from, to);
+		copy.y = this.y.subList(from, to);
+		copy.funkcjaCiagla = this.funkcjaCiagla;
+		
+		return copy;		
 	}
 	
 	public JFreeChart getChart(String title){
@@ -110,10 +120,14 @@ public class DiscreteSignalReal implements DiscreteSignal{
 	public double getY(int index) {
 		return this.y.get(index);
 	}
+	
+	public List<Double> getRawValues(){
+		return this.y;
+	}
 
 	@Override
 	public int size() {
-		return this.x.size();
+		return this.y.size();
 	}
 
 	@Override
@@ -135,4 +149,6 @@ public class DiscreteSignalReal implements DiscreteSignal{
 	public Iterator<Double> iteratorY() {
 		return this.y.iterator();
 	}
+	
+	
 }

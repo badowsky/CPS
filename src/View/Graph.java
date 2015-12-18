@@ -1,6 +1,7 @@
 package View;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.math3.complex.Complex;
 import org.jfree.chart.ChartFactory;
@@ -25,7 +26,7 @@ public class Graph {
 		return drawGraph(title, x, y, connectedPoint);
 	}
 	
-	public static JFreeChart drawGraph(String title, ArrayList<Double> x, ArrayList<Double> y, Boolean connectedPoint) {
+	public static JFreeChart drawGraph(String title, List<Double> x, List<Double> y, Boolean connectedPoint) {
 		
 		XYSeries series = new XYSeries("Signal");
 		
@@ -42,8 +43,8 @@ public class Graph {
 		if (connectedPoint) {
 			chart = ChartFactory.createXYLineChart(
 				title, // Title
-				"t[s]", // x-axis Label
-				"A", // y-axis Label
+				"", // x-axis Label
+				"", // y-axis Label
 				dataset, // Dataset
 				PlotOrientation.VERTICAL, // Plot Orientation
 				false, // Show Legend
@@ -54,8 +55,8 @@ public class Graph {
 		else {
 			chart = ChartFactory.createScatterPlot(
 					title, // Title
-					"t[s]", // x-axis Label
-					"A", // y-axis Label
+					"", // x-axis Label
+					"", // y-axis Label
 					dataset, // Dataset
 					PlotOrientation.VERTICAL, // Plot Orientation
 					false, // Show Legend
@@ -78,7 +79,7 @@ public class Graph {
 //		}
 	}
 	
-	public static JFreeChart drawHistogram(String title, ArrayList<Double> x, ArrayList<Double> y, int interval) {
+	public static JFreeChart drawHistogram(String title, List<Double> x, List<Double> y, int interval) {
 		HistogramDataset dataset = new HistogramDataset();
 	    double[] wartosci = new double[x.size()];
 	    

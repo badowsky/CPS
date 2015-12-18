@@ -31,7 +31,7 @@ public class SignalPanelController {
 	
 	private SignalPanel panel;
 	private DiscreteSignalReal signal;
-	int CZEST_PROB_F_CIAG = 1000;
+	public static int CZEST_PROB_F_CIAG = 1000;
 	private ArrayList<MyCallable2<DiscreteSignalReal, ContinuousSignal>> subscribersOnChange;
 	private final JFileChooser fc;
 	

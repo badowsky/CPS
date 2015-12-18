@@ -16,7 +16,7 @@ public class Sinus extends ContinuousSignal {
 
 	@Override
 	public double getValue(double x) {
-		return amplituda * Math.sin(((2 * Math.PI)/okres) * (x - przesuniecie));
+		return amplituda * Math.sin(((2 * Math.PI)/okres) * (x + przesuniecie));
 	}
 	
 	@Override
