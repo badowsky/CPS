@@ -14,7 +14,7 @@ public class Correlation implements OperationOnSignals{
 		
 		int M = h.size();
 		int N = x.size();
-		System.out.println("M = " + M + "\nN = " + N);
+		//System.out.println("M = " + M + "\nN = " + N);
 		double y;
 		
 		int hIndex, xIndex;

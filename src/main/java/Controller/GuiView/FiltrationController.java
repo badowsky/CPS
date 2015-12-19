@@ -19,6 +19,7 @@ import Model.Filtration.Filter.FilterBuilder;
 import Model.Filtration.FiltrDolnoprzepustowy;
 import Model.Filtration.FiltrGornoprzepustowy;
 import Model.Filtration.FiltrSrodkowoprzepustowy;
+import Model.Filtration.Fourier;
 import Model.Filtration.GeneratorFiltru;
 import Model.Filtration.Windows.BlackmansWidnow;
 import Model.Filtration.Windows.HammingsWindow;
@@ -92,7 +93,8 @@ public class FiltrationController {
 			GeneratorFiltru gen = new GeneratorFiltru(filter, window);
 			DiscreteSignalComplex filterSampled = gen.generuj(K, M, N);
 			panel.setFilterChart(filterSampled.toReal().getChart("Odpowiedü impulsowa"));
-	        Complex[] transformed = fft.transform(filterSampled.getY(), TransformType.FORWARD);
+	        //Complex[] transformed = fft.transform(filterSampled.getY(), TransformType.FORWARD);
+	        Complex[] transformed = Fourier.DFT(filterSampled.getY());
 	        panel.setFilterTransmitationChart(Graph.drawGraph("Transmitancja", Arrays.copyOf(Utils.abs(transformed), N/2), true));
 		}
 	}

@@ -16,7 +16,7 @@ public class SinusWyprostDwupol extends ContinuousSignal {
 	
 	@Override
 	public double getValue(double x) {
-		return amplituda * Math.abs(Math.sin((2 * Math.PI / okres) * (x - przesuniecie)));
+		return amplituda * Math.abs(Math.sin((2 * Math.PI / okres) * (x + przesuniecie)));
 	}
 
 	@Override

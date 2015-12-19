@@ -41,7 +41,7 @@ public class FiltrationPanel extends JPanel {
 		fieldK = new JSpinner (new SpinnerNumberModel(
 				8, //initial value
 	            0, //min
-	            100, //max
+	            10000, //max
 	            1));//step
 		fieldK.setBounds(60, 20, 50, 20);
 		this.add(fieldK);

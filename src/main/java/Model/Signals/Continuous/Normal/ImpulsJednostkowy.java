@@ -15,7 +15,7 @@ public class ImpulsJednostkowy extends ContinuousSignal {
 	
 	@Override
 	public double getValue(double x) {		
-		if (Math.abs(x - przesuniecie) < 0.0005) {
+		if (Math.abs(x + przesuniecie) < 0.0005) {
 			return amplituda;
 		}
 		else {
