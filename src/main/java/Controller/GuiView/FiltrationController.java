@@ -95,7 +95,7 @@ public class FiltrationController {
 			panel.setFilterChart(filterSampled.toReal().getChart("Odpowiedü impulsowa"));
 	        //Complex[] transformed = fft.transform(filterSampled.getY(), TransformType.FORWARD);
 	        Complex[] transformed = Fourier.DFT(filterSampled.getY());
-	        panel.setFilterTransmitationChart(Graph.drawComplexGraphW1("Transmitancja", Arrays.copyOf(Utils.abs(transformed), N/2)));
+	        panel.setFilterTransmitationChart(Graph.drawComplexGraphRealPart("Transmitancja", Arrays.copyOf(Utils.abs(transformed), N/2), true));
 		}
 	}
 

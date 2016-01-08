@@ -3,11 +3,10 @@
 	<classpathentry kind="src" path="src/main/java"/>
 	<classpathentry kind="src" path="src/test/java"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
-	<classpathentry exported="true" kind="lib" path="C:/Users/Bador/Downloads/commons-math3-3.5-bin/commons-math3-3.5/commons-math3-3.5.jar"/>
-	<classpathentry exported="true" kind="lib" path="C:/Users/Bador/Downloads/lib/jfreechart-1.0.19.jar"/>
-	<classpathentry exported="true" kind="lib" path="C:/Users/Bador/Downloads/lib/jcommon-1.0.23.jar"/>
+	<classpathentry kind="lib" path="C:/Users/BadowskiM.G02/Downloads/commons-math3-3.6-bin/commons-math3-3.6/commons-math3-3.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/BadowskiM.G02/Downloads/jfreechart-1.0.19/jfreechart-1.0.19/lib/jfreechart-1.0.19.jar"/>
+	<classpathentry kind="lib" path="C:/Users/BadowskiM.G02/Downloads/jfreechart-1.0.19/jfreechart-1.0.19/lib/jcommon-1.0.23.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/DwtDemo"/>
-	<classpathentry kind="lib" path="C:/Users/Bador/Downloads/DwtSrc/DwtDemo/jel-2.0.1/lib/jel.jar"/>
+	<classpathentry kind="lib" path="C:/Users/BadowskiM.G02/Downloads/jel.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.commons.math3.complex.Complex;
 import org.jfree.chart.JFreeChart;
 
 import Model.Signals.Continuous.ContinuousSignal;
@@ -119,6 +120,14 @@ public class DiscreteSignalReal implements DiscreteSignal{
 		}
 		
 		return result;
+	}
+	
+	public Complex[] toComplex(){
+		Complex[] x = new Complex[this.size()];
+		for(int i = 0 ; i < this.size() ; i++){
+			x[i] = new Complex(this.y.get(i));
+		}
+		return x;
 	}
 
 	@Override
