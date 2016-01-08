@@ -31,6 +31,5 @@ public class SplotTest {
 		assertEquals(result.getY(3), 52, 0);
 		assertEquals(result.getY(4), 45, 0);
 		assertEquals(result.getY(5), 28, 0);
-		
 	}
 }

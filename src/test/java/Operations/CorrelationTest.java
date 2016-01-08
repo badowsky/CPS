@@ -25,15 +25,11 @@ public class CorrelationTest {
 		Correlation correlation = new Correlation();
 		DiscreteSignalReal result = correlation.DoOperation(h, x);
 
-		
 		assertEquals(result.getY(0), 7, 0);
 		assertEquals(result.getY(1), 20, 0);
 		assertEquals(result.getY(2), 38, 0);
 		assertEquals(result.getY(3), 56, 0);
 		assertEquals(result.getY(4), 39, 0);
 		assertEquals(result.getY(5), 20, 0);
-		
 	}
-	
-	
 }

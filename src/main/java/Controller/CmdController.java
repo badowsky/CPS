@@ -1,72 +1,64 @@
 package Controller;
 
-import java.awt.Dimension;
-
-import javax.swing.JPanel;
-
 import org.apache.commons.math3.complex.Complex;
 import org.apache.commons.math3.transform.DftNormalization;
 import org.apache.commons.math3.transform.FastFourierTransformer;
 import org.apache.commons.math3.transform.TransformType;
 
-import Helpers.Utils;
 import Model.Conversion.Sampling;
-import Model.Filtration.Filter;
-import Model.Filtration.FiltrDolnoprzepustowy;
-import Model.Filtration.FiltrGornoprzepustowy;
-import Model.Filtration.FiltrSrodkowoprzepustowy;
-import Model.Filtration.GeneratorFiltru;
-import Model.Filtration.Windows.HammingsWindow;
-import Model.Filtration.Windows.Window;
-import Model.Operations.Correlation;
-import Model.Operations.Splot;
-import Model.Signals.Continuous.ContinuousSignal;
-import Model.Signals.Continuous.Normal.Sinus;
-import Model.Signals.Discrete.DiscreteSignalComplex;
+import Model.Filtration.Fourier;
+import Model.Signals.Continuous.Normal.S3;
 import Model.Signals.Discrete.DiscreteSignalReal;
+import Transformation.DWT;
+import Transformation.Wavelet;
+import Transformation.DWT.Direction;
 import View.Graph;
-import View.SimpleFrameChartCreator;
+import View.Graph.GraphType;
 
 public class CmdController {
 	
-	private static int K = 8;
-	private static int M = 63;
-	private static int N = 128;
-
 	public static void main(String[] args) {
+		S3 s = new S3();
+		DiscreteSignalReal signal = Sampling.sample(s, 0, 16, 64);
+		Graph.printSignal(null, signal);
+		Complex[] x = new Complex[signal.size()];
+		for(int i = 0 ; i < signal.size() ; i++){
+			x[i] = new Complex(signal.getY(i));
+		}
 		
-		ContinuousSignal fun = new Sinus();
-		ContinuousSignal fun2 = new Sinus();
-		fun.setParams(new Double[]{10.0, 0.0, 10.0});
-		fun2.setParams(new Double[]{10.0, 0.0, 10.0});
-		DiscreteSignalReal sygnal = Sampling.sample(fun, 0, 100, 10, true);
-		DiscreteSignalReal sygnal2 = Sampling.sample(fun2, 0, 100, 10, true);
-		
-		Filter filtr = new FiltrDolnoprzepustowy(K);
-		Window okno = new HammingsWindow(M);
-		GeneratorFiltru gen = new GeneratorFiltru(filtr, okno);
-		DiscreteSignalComplex filtrSpróbkowany = gen.generuj(K, M, N);
-		
-		
-        Splot splot = new Splot();        
-        Correlation korelacja = new Correlation();
-        DiscreteSignalReal sygKorelacji = korelacja.DoOperation(sygnal, sygnal2);
-        DiscreteSignalReal sygSplotu = splot.DoOperation(sygnal, sygnal2);
-        DiscreteSignalReal wyfiltrowany = splot.DoOperation(filtrSpróbkowany.toReal(), sygSplotu);
-        JPanel aPanel = new JPanel();
-        aPanel.setPreferredSize(new Dimension(600, 300));
-        FastFourierTransformer fft = new FastFourierTransformer(DftNormalization.STANDARD);
-        Complex[] transformed = fft.transform(filtrSpróbkowany.getY(), TransformType.FORWARD);
-
-        SimpleFrameChartCreator.create(sygnal.getChart(""), "Sygnal");
-        SimpleFrameChartCreator.create(sygnal2.getChart(""), "Sygnal 2");
-        SimpleFrameChartCreator.create(filtrSpróbkowany.toReal().getChart(""), "Filtr");
-        //SimpleFrameChartCreator.create(okno.generujPodglad().getChart(""), "Okno");
-        SimpleFrameChartCreator.create(wyfiltrowany.getChart(""), "Wynik");
-        SimpleFrameChartCreator.create(sygKorelacji.getChart(""), "Korelacja");
-        SimpleFrameChartCreator.create(sygSplotu.getChart(""), "Splot");
-
+		FastFourierTransformer fft = new FastFourierTransformer(DftNormalization.STANDARD);
+        Complex[] apacheFftTransformed = fft.transform(x, TransformType.FORWARD);
         
-        SimpleFrameChartCreator.create(Graph.drawGraph("", Utils.abs(transformed), true), "Modu³ transmitancji");
+		System.out.println("Transforming signal of " + signal.size() + " samples:");
+        
+		long startTime = System.currentTimeMillis();
+        Complex[] myDftTransformed = Fourier.DFT(x);
+        long stopTime = System.currentTimeMillis();
+        long elapsedTime = stopTime - startTime;
+        System.out.println("DFT execution time: " + elapsedTime + " ms");
+        
+        startTime = System.currentTimeMillis();
+        Complex[] myFftTransformed = Fourier.FFT(x);
+        stopTime = System.currentTimeMillis();
+        elapsedTime = stopTime - startTime;
+        System.out.println("FFT execution time: " + elapsedTime + " ms");
+        
+        Graph.printComplex("My DFT W1", myDftTransformed, GraphType.W1);
+        Graph.printComplex("My DFT W2", myDftTransformed, GraphType.W2);
+        
+        Graph.printComplex("My FFT W1", myFftTransformed, GraphType.W1);
+        Graph.printComplex("My FFT W2", myFftTransformed, GraphType.W2);
+
+//        Graph.printComplex("Apache FFT W1", apacheFftTransformed, GraphType.W1);
+//        Graph.printComplex("Apache FFT W2", apacheFftTransformed, GraphType.W2);
+        
+        
+        try {
+			Graph.printSignal("Falki", DWT.transform(signal.toPrimitive(), Wavelet.Daubechies, 8, 10, Direction.forward), true);
+		} catch (Exception e) {
+			System.out.println("Something went wrong");
+			e.printStackTrace();
+		}
+		
 	}
 }

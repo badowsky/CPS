@@ -110,10 +110,24 @@ public class DiscreteSignalReal implements DiscreteSignal{
 		
 		return mocSrednia * (1.0 / (n2 - n1 + 1));
 	}
+	
+	public double[] toPrimitive(){
+		double[] result = new double[this.y.size()];
+		
+		for(int i = 0 ; i < this.y.size() ; i++){
+			result[i] = this.y.get(i);
+		}
+		
+		return result;
+	}
 
 	@Override
 	public double getX(int index) {
 		return this.x.get(index);
+	}
+	
+	public List<Double> getRawArgs(){
+		return this.x;
 	}
 
 	@Override
