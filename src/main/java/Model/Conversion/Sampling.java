@@ -12,7 +12,7 @@ public class Sampling {
 	public static DiscreteSignalReal sample(ContinuousSignal sygnal, double poczatek, int czestotliwosc, double koniec, boolean showAsContinuous){
 		DiscreteSignalReal result = new DiscreteSignalReal(showAsContinuous);
 		
-		for (double i = poczatek; i < koniec; i += 1.0/czestotliwosc) {
+		for (double i = poczatek + 1.0/czestotliwosc; i <= koniec; i += 1.0/czestotliwosc) {
 			result.addX(i);
 			result.addY(sygnal.getValue(i));
 		}

@@ -95,7 +95,7 @@ public class Graph {
 		dataset.addSeries(seriesReal);
 		JFreeChart chart = null;
 		if (connected) {
-			chart = ChartFactory.createXYLineChart("CzÄ™Å›Ä‡ rzeczywista", // Title
+			chart = ChartFactory.createXYLineChart("Czêœc rzeczywista", // Title
 					"Numer próbki", // x-axis Label
 					"Wartoœc rzeczywista", // y-axis Label
 					dataset, // Dataset
@@ -105,7 +105,7 @@ public class Graph {
 					false // Configure chart to generate URLs?
 			);
 		} else {
-			chart = ChartFactory.createScatterPlot("CzÄ™Å›Ä‡ rzeczywista", // Title
+			chart = ChartFactory.createScatterPlot("Czêœc rzeczywista", // Title
 					"Numer próbki", // x-axis Label
 					"Wartoœæ rzeczywista", // y-axis Label
 					dataset, // Dataset
@@ -131,7 +131,7 @@ public class Graph {
 
 		JFreeChart chart = null;
 		if (connected) {
-			chart = ChartFactory.createXYLineChart("CzÄ™Å›Ä‡ urojona", // Title
+			chart = ChartFactory.createXYLineChart("Czêœc urojona", // Title
 					"Numer próbki", // x-axis Label
 					"Wartoœæ urojona", // y-axis Label
 					dataset, // Dataset
@@ -141,7 +141,7 @@ public class Graph {
 					false // Configure chart to generate URLs?
 			);
 		} else {
-			chart = ChartFactory.createScatterPlot("CzÄ™Å›Ä‡ urojona", // Title
+			chart = ChartFactory.createScatterPlot("Czêœc urojona", // Title
 					"Numer próbki", // x-axis Label
 					"Wartoœæ urojona", // y-axis Label
 					dataset, // Dataset
@@ -206,7 +206,7 @@ public class Graph {
 
 		JFreeChart chart = null;
 		if (connected) {
-			chart = ChartFactory.createXYLineChart("ModuÅ‚", // Title
+			chart = ChartFactory.createXYLineChart("Modu³", // Title
 					"Numer próbki", // x-axis Label
 					"Wartoœæ modu³u", // y-axis Label
 					dataset, // Dataset
@@ -216,7 +216,7 @@ public class Graph {
 					false // Configure chart to generate URLs?
 			);
 		} else {
-			chart = ChartFactory.createScatterPlot("ModuÅ‚", // Title
+			chart = ChartFactory.createScatterPlot("Modu³", // Title
 					"Numer próbki", // x-axis Label
 					"Wartoœæ modu³u", // y-axis Label
 					dataset, // Dataset
@@ -316,7 +316,7 @@ public class Graph {
 		dataset.addSeries(seriesReal);
 		JFreeChart chart = null;
 		if (connected) {
-			chart = ChartFactory.createXYLineChart("CzÄ™Å›Ä‡ rzeczywista", // Title
+			chart = ChartFactory.createXYLineChart("Czêœc rzeczywista", // Title
 					"Numer próbki", // x-axis Label
 					"Wartoœæ rzeczywista", // y-axis Label
 					dataset, // Dataset
@@ -326,7 +326,7 @@ public class Graph {
 					false // Configure chart to generate URLs?
 			);
 		} else {
-			chart = ChartFactory.createScatterPlot("CzÄ™Å›Ä‡ rzeczywista", // Title
+			chart = ChartFactory.createScatterPlot("Czêœc rzeczywista", // Title
 					"Numer próbki", // x-axis Label
 					"Wartoœæ rzeczywista", // y-axis Label
 					dataset, // Dataset
