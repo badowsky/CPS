@@ -1,12 +1,14 @@
 package Controller;
 
 import org.apache.commons.math3.complex.Complex;
+import org.apache.commons.math3.transform.DftNormalization;
+import org.apache.commons.math3.transform.FastFourierTransformer;
+import org.apache.commons.math3.transform.TransformType;
 
 import Model.Conversion.Sampling;
 import Model.Filtration.Fourier;
 import Model.Signals.Continuous.ContinuousSignal;
 import Model.Signals.Continuous.Normal.S1;
-import Model.Signals.Continuous.Normal.S2;
 import Model.Signals.Discrete.DiscreteSignalReal;
 import Transformation.DWT;
 import Transformation.DWT.Direction;
@@ -19,12 +21,12 @@ public class CmdController {
 	public static void main(String[] args) {
 		
 		// ************** PARAMETRY ***************
-		ContinuousSignal continuousSignal = new S2();
+		ContinuousSignal continuousSignal = new S1();
 		int signalLength = 1024;
 		Wavelet waveletType = Wavelet.Daubechies;
-		int order = 6;
-		int L = (int) (Math.log(signalLength)/Math.log(2)); // which power of 2 is signalLength
-		
+		int order = 8;
+		//int L = (int) (Math.log(signalLength)/Math.log(2)); // which power of 2 is signalLength
+		int L = 6;
 		
 		boolean transformationConnected = true;
 		// ********** PARAMETRY - Koniec **********
@@ -33,8 +35,8 @@ public class CmdController {
 		Graph.printSignal("Sygnał oryginalny", "Numer próbki", "Wartość", signal.toPrimitive(), true);
 		Complex[] x = signal.toComplex();
 		
-//		FastFourierTransformer fft = new FastFourierTransformer(DftNormalization.STANDARD);
-//        Complex[] apacheFftTransformed = fft.transform(x, TransformType.FORWARD);
+		FastFourierTransformer fft = new FastFourierTransformer(DftNormalization.STANDARD);
+        Complex[] apacheFftTransformed = fft.transform(x, TransformType.FORWARD);
         
 		System.out.println("Transformacja sygnału długości " + signal.size() + " próbek:");
         
@@ -56,8 +58,8 @@ public class CmdController {
         Graph.printComplex("FFT W1", myFftTransformed, GraphType.W1, transformationConnected);
         Graph.printComplex("FFT W2", myFftTransformed, GraphType.W2, transformationConnected);
 
-//        Graph.printComplex("Apache FFT W1", apacheFftTransformed, GraphType.W1);
-//        Graph.printComplex("Apache FFT W2", apacheFftTransformed, GraphType.W2);
+        Graph.printComplex("Apache FFT W1", apacheFftTransformed, GraphType.W1, transformationConnected);
+        Graph.printComplex("Apache FFT W2", apacheFftTransformed, GraphType.W2, transformationConnected);
         
         
         try {

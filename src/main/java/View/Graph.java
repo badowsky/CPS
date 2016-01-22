@@ -96,8 +96,8 @@ public class Graph {
 		JFreeChart chart = null;
 		if (connected) {
 			chart = ChartFactory.createXYLineChart("Cz臋艣膰 rzeczywista", // Title
-					"Numer pr贸bki", // x-axis Label
-					"Warto艣膰 rzeczywista", // y-axis Label
+					"Numer pr骲ki", // x-axis Label
+					"Warto渃 rzeczywista", // y-axis Label
 					dataset, // Dataset
 					PlotOrientation.VERTICAL, // Plot Orientation
 					dataset.getSeriesCount() > 1, // Show Legend
@@ -106,8 +106,8 @@ public class Graph {
 			);
 		} else {
 			chart = ChartFactory.createScatterPlot("Cz臋艣膰 rzeczywista", // Title
-					"Numer pr贸bki", // x-axis Label
-					"Warto艣膰 rzeczywista", // y-axis Label
+					"Numer pr骲ki", // x-axis Label
+					"Warto滄 rzeczywista", // y-axis Label
 					dataset, // Dataset
 					PlotOrientation.VERTICAL, // Plot Orientation
 					dataset.getSeriesCount() > 1, // Show Legend
@@ -132,8 +132,8 @@ public class Graph {
 		JFreeChart chart = null;
 		if (connected) {
 			chart = ChartFactory.createXYLineChart("Cz臋艣膰 urojona", // Title
-					"Numer pr贸bki", // x-axis Label
-					"Warto艣膰 urojona", // y-axis Label
+					"Numer pr骲ki", // x-axis Label
+					"Warto滄 urojona", // y-axis Label
 					dataset, // Dataset
 					PlotOrientation.VERTICAL, // Plot Orientation
 					dataset.getSeriesCount() > 1, // Show Legend
@@ -142,8 +142,8 @@ public class Graph {
 			);
 		} else {
 			chart = ChartFactory.createScatterPlot("Cz臋艣膰 urojona", // Title
-					"Numer pr贸bki", // x-axis Label
-					"Warto艣膰 urojona", // y-axis Label
+					"Numer pr骲ki", // x-axis Label
+					"Warto滄 urojona", // y-axis Label
 					dataset, // Dataset
 					PlotOrientation.VERTICAL, // Plot Orientation
 					dataset.getSeriesCount() > 1, // Show Legend
@@ -171,8 +171,8 @@ public class Graph {
 		JFreeChart chart = null;
 		if (connected) {
 			chart = ChartFactory.createXYLineChart(title, // Title
-					"Numer pr贸bki", // x-axis Label
-					"Warto艣膰", // y-axis Label
+					"Numer pr骲ki", // x-axis Label
+					"Warto滄", // y-axis Label
 					dataset, // Dataset
 					PlotOrientation.VERTICAL, // Plot Orientation
 					dataset.getSeriesCount() > 1, // Show Legend
@@ -181,8 +181,8 @@ public class Graph {
 			);
 		} else {
 			chart = ChartFactory.createScatterPlot(title, // Title
-					"Numer pr贸bki", // x-axis Label
-					"Warto艣膰", // y-axis Label
+					"Numer pr骲ki", // x-axis Label
+					"Warto滄", // y-axis Label
 					dataset, // Dataset
 					PlotOrientation.VERTICAL, // Plot Orientation
 					dataset.getSeriesCount() > 1, // Show Legend
@@ -207,8 +207,8 @@ public class Graph {
 		JFreeChart chart = null;
 		if (connected) {
 			chart = ChartFactory.createXYLineChart("Modu艂", // Title
-					"Numer pr贸bki", // x-axis Label
-					"Warto艣膰 modu艂u", // y-axis Label
+					"Numer pr骲ki", // x-axis Label
+					"Warto滄 modu硊", // y-axis Label
 					dataset, // Dataset
 					PlotOrientation.VERTICAL, // Plot Orientation
 					dataset.getSeriesCount() > 1, // Show Legend
@@ -217,8 +217,8 @@ public class Graph {
 			);
 		} else {
 			chart = ChartFactory.createScatterPlot("Modu艂", // Title
-					"Numer pr贸bki", // x-axis Label
-					"Warto艣膰 modu艂u", // y-axis Label
+					"Numer pr骲ki", // x-axis Label
+					"Warto滄 modu硊", // y-axis Label
 					dataset, // Dataset
 					PlotOrientation.VERTICAL, // Plot Orientation
 					dataset.getSeriesCount() > 1, // Show Legend
@@ -243,8 +243,8 @@ public class Graph {
 		JFreeChart chart = null;
 		if (connected) {
 			chart = ChartFactory.createXYLineChart("Argument", // Title
-					"Numer pr贸bki", // x-axis Label
-					"Warto艣膰 argumentu", // y-axis Label
+					"Numer pr骲ki", // x-axis Label
+					"Warto滄 argumentu", // y-axis Label
 					dataset, // Dataset
 					PlotOrientation.VERTICAL, // Plot Orientation
 					dataset.getSeriesCount() > 1, // Show Legend
@@ -253,8 +253,8 @@ public class Graph {
 			);
 		} else {
 			chart = ChartFactory.createScatterPlot("Argument", // Title
-					"Numer pr贸bki", // x-axis Label
-					"Warto艣膰 argumentu", // y-axis Label
+					"Numer pr骲ki", // x-axis Label
+					"Warto滄 argumentu", // y-axis Label
 					dataset, // Dataset
 					PlotOrientation.VERTICAL, // Plot Orientation
 					dataset.getSeriesCount() > 1, // Show Legend
@@ -282,7 +282,7 @@ public class Graph {
 		JFreeChart chart = null;
 		if (connected) {
 			chart = ChartFactory.createXYLineChart(title, // Title
-					"Numer pr贸bki", // x-axis Label
+					"Numer pr骲ki", // x-axis Label
 					"", // y-axis Label
 					dataset, // Dataset
 					PlotOrientation.VERTICAL, // Plot Orientation
@@ -292,7 +292,7 @@ public class Graph {
 			);
 		} else {
 			chart = ChartFactory.createScatterPlot(title, // Title
-					"Numer pr贸bki", // x-axis Label
+					"Numer pr骲ki", // x-axis Label
 					"", // y-axis Label
 					dataset, // Dataset
 					PlotOrientation.VERTICAL, // Plot Orientation
@@ -317,8 +317,8 @@ public class Graph {
 		JFreeChart chart = null;
 		if (connected) {
 			chart = ChartFactory.createXYLineChart("Cz臋艣膰 rzeczywista", // Title
-					"Numer pr贸bki", // x-axis Label
-					"Warto艣膰 rzeczywista", // y-axis Label
+					"Numer pr骲ki", // x-axis Label
+					"Warto滄 rzeczywista", // y-axis Label
 					dataset, // Dataset
 					PlotOrientation.VERTICAL, // Plot Orientation
 					dataset.getSeriesCount() > 1, // Show Legend
@@ -327,8 +327,8 @@ public class Graph {
 			);
 		} else {
 			chart = ChartFactory.createScatterPlot("Cz臋艣膰 rzeczywista", // Title
-					"Numer pr贸bki", // x-axis Label
-					"Warto艣膰 rzeczywista", // y-axis Label
+					"Numer pr骲ki", // x-axis Label
+					"Warto滄 rzeczywista", // y-axis Label
 					dataset, // Dataset
 					PlotOrientation.VERTICAL, // Plot Orientation
 					dataset.getSeriesCount() > 1, // Show Legend

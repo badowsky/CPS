@@ -125,7 +125,7 @@ public class DiscreteSignalReal implements DiscreteSignal{
 	public Complex[] toComplex(){
 		Complex[] x = new Complex[this.size()];
 		for(int i = 0 ; i < this.size() ; i++){
-			x[i] = new Complex(this.y.get(i));
+			x[i] = new Complex(this.y.get(i), 0);
 		}
 		return x;
 	}
